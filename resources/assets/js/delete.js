@@ -5,6 +5,7 @@
  */
 $(document).ready(function(){$("#dataTable").DataTable()});
 
+console.log("yeah");
 
 /*!
  * Start Bootstrap - SB Admin v4.0.0-beta (https://startbootstrap.com/template-overviews/sb-admin)
