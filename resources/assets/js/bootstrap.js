@@ -9,8 +9,12 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-
-    require('bootstrap-sass');
+    require('popper.js');
+    require('bootstrap');
+    require('jquery.easing');
+    require('chartjs');
+    require( 'datatables.net-bs4' )();
+    require( 'datatables.net-responsive-bs4' )();
 } catch (e) {}
 
 /**
