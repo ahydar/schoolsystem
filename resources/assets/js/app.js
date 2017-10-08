@@ -7,7 +7,6 @@
 
 require('./bootstrap');
 require('./custom');
-require('./delete');
 
 window.Vue = require('vue');
 

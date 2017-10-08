@@ -9,14 +9,16 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    require('popper.js');
-    require('bootstrap');
-    require('jquery.easing');
-    require('chartjs');
+
+    require('bootstrap-sass');
 } catch (e) {}
 
-require( 'datatables.net-bs4' )();
-require( 'datatables.net-responsive-bs4' )();
+window.dt = require( 'datatables.net' );
+window.dt_bt = require( 'datatables.net-bs' );
+window.responsive = require( 'datatables.net-responsive' );
+
+window.metisMenu = require( 'metismenu' );
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

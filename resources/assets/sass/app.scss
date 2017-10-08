@@ -6,11 +6,13 @@
 //@import "variables";
 
 // Bootstrap
-//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
-@import "~bootstrap/dist/css/bootstrap.css";
+//metisMenu
 
-@import "~font-awesome/css/font-awesome.css";
+@import "~metismenu/dist/metisMenu.min.css";
 
 // SetupCSS
 @import "custom";
+
+@import "~font-awesome/css/font-awesome.css";
