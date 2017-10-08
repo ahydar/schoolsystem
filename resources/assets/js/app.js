@@ -17,6 +17,10 @@ window.Vue = require('vue');
  */
 
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('modal', require('./components/Modal.vue'));
+Vue.component('datatable', require('./components/Table.vue'));
+
+Vue.component('accounts', require('./entrance/Accounts.vue'));
 
 const app = new Vue({
     el: '#app'

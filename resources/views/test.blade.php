@@ -39,7 +39,7 @@
           </nav>
 
           <div id="page-wrapper">
-            @include('content')
+            @yield('content')
           </div>
           <!-- /#page-wrapper -->
 

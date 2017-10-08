@@ -52,7 +52,7 @@
             $('#dataTables-example').DataTable({
                 responsive: true
             });
-            console.log('Component mounted.')
+            console.log('Component mounted.');
         }
     }
 </script>

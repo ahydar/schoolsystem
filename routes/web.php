@@ -11,6 +11,13 @@
 |
 */
 
+//Accounts
+Route::get('/accounts', function () {
+    return view('entrance.accounts');
+});
+
+Route::get('/getaccounts','AccountController@getAccounts');
+
 Route::get('/', function () {
     return view('welcome');
 });
