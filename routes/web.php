@@ -18,6 +18,12 @@ Route::get('/accounts', function () {
 
 Route::get('/getaccounts','AccountController@getAccounts');
 
+Route::get('/testform',function(){
+  return view('testform');
+});
+
+Route::post('/accounts','AccountController@store');
+
 Route::get('/', function () {
     return view('welcome');
 });

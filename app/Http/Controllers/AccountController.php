@@ -13,4 +13,14 @@ class AccountController extends Controller
         $accounts = Account::all();
         return $accounts;
     }
+
+    function store(){
+
+      $this -> validate(request(),[
+          'accountName' => 'required',
+          'accountType' => 'required'
+      ]);
+
+      return request()-> all();
+    }
 }

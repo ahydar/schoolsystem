@@ -11,13 +11,20 @@
                       <modal modalID="myModal">
                         <div slot="header"><h3>New Account</h3></div>
                         <div slot="body">
-                            <form>
+                          <form @submit.prevent="saveAccount" @keydown="form.errors.clear($event.target.name)">
                               <div class="form-group">
                                 <label for="usr">Account Name:</label>
-                                <input class="form-control" v-model="accountName">
+                                <input class="form-control" name='accountName' v-model="form.accountName">
+                                <span style="color:red;" v-text="form.errors.get('accountName')"></span>
                               </div>
-                              <button class="btn btn-primary" @click="btn">summi</button>
-                            </form>
+
+                              <div class="form-group">
+                                <label for="usr">Account Type:</label>
+                                <input class="form-control" name='accountType' v-model="form.accountType">
+                                <span style="color:red;" v-text="form.errors.get('accountType')"></span>
+                              </div>
+                              <button type="submit" :disabled="form.errors.any()" class="btn btn-primary">Submit</button>
+                          </form>
                         </div>
                       </modal>
 
@@ -35,7 +42,6 @@
                             </tr>
                           </tbody>
                       </datatable>
-
                     </div>
                 </div>
             </div>
@@ -44,35 +50,43 @@
 </template>
 
 <script>
-    import {getFunction} from '../services/ajaxcalls';
+    import {dataTableLoad,destroyDataTable} from '../services/ajaxService';
+    import {Form} from '../services/form';
     export default {
         data(){
           return {
+            form: new Form({
+                accountName:'',
+                accountType:''
+            }),
             accountTable:'accountTable',
             modal_id:'myModal',
-            accountName:'Name',
-            accountType:'',
             accounts:[]
           }
         },
         mounted() {
-            getFunction("abdullah");
             var self = this;
+            axios.get("/getaccounts").then(function(result){
+                    self.accounts = result.data;
+                    dataTableLoad(self.accountTable);
+            });
             console.log('Component mounted.');
-            $.ajax({url: '/getaccounts',
-            success:function(result){
-                console.log(result);
-                self.accounts = result;
-                $(document).ready(function(){
-                  $('#'+self.accountTable).DataTable({
-                      responsive: true
-                  });
-                });
-            }});
         },
         methods:{
-          btn:function(){
-            alert('hello');
+          saveAccount:function(){
+            var self = this;
+            //var data = {accountName:this.form.accountName,accountType:this.form.accountType};
+            destroyDataTable(self.accountTable);
+
+            this.form.submit('post','/accounts').then(response => {
+              console.log(response);
+              self.accounts.push(response);
+              console.log(self.accounts);
+              dataTableLoad(self.accountTable);
+              $("#"+self.modal_id).modal('hide');
+            })
+
+            .catch(error => console.log('something went wrong'));
           }
         }
     }
