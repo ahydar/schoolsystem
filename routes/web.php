@@ -11,8 +11,25 @@
 |
 */
 
+//Accounts
+Route::get('/accounts', function () {
+    return view('entrance.accounts');
+});
+
+Route::get('/getaccounts','AccountController@getAccounts');
+
+Route::get('/testform',function(){
+  return view('testform');
+});
+
+Route::post('/accounts','AccountController@store');
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/test', function () {
+    return view('test');
 });
 
 Auth::routes();

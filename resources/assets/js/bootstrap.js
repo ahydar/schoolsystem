@@ -13,6 +13,12 @@ try {
     require('bootstrap-sass');
 } catch (e) {}
 
+window.dt = require( 'datatables.net' );
+window.dt_bt = require( 'datatables.net-bs' );
+window.responsive = require( 'datatables.net-responsive' );
+
+window.metisMenu = require( 'metismenu' );
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
