@@ -20,6 +20,12 @@ export class Form{
 
     }
 
+    edit(data){
+        for(let field in data){
+          this[field] = data[field];
+        }
+    }
+
     data(){
         let data = Object.assign({},this);
 
@@ -52,6 +58,8 @@ export class Form{
     }
 
     onFail(error){
+        console.log("******Big Error********");
+        console.log(error);
         this.errors.record(error.response.data.errors);
     }
 }

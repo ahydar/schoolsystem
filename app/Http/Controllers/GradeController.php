@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
+use App\Grade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class AccountController extends Controller
+class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-      $accounts = Account::all();
-      return $accounts;
+        $grades = DB::table('accounts')->join('grades','grades.account_id','=','accounts.id')->get();
+        $accounts = DB::table('accounts')->get();
+        return ['grades' => $grades,'accounts' => $accounts];
     }
 
     /**
@@ -37,39 +39,38 @@ class AccountController extends Controller
     public function store(Request $request)
     {
       $this -> validate(request(),[
-          'accountName' => 'required',
-          'accountType' => 'required'
+          'gradeName' => 'required',
+          'account_id' => 'required'
       ]);
 
-      $account = new Account;
+      $grade = new Grade;
 
-      $account -> accountName = request('accountName');
-      $account -> accountType = request('accountType');
+      $grade -> gradeName = request('gradeName');
+      $grade -> account_id = request('account_id');
 
-      $account ->save();
+      $grade ->save();
 
-      $accounts = Account::all();
-      return $accounts;
+      return $this -> index();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Grade $grade)
     {
-        //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Grade $grade)
     {
         //
     }
@@ -78,39 +79,36 @@ class AccountController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
-    //public function update(Request $request, $id)
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-          $this -> validate(request(),[
-              'accountName' => 'required',
-              'accountType' => 'required'
-          ]);
-          
-          $account = Account::find($id);
+      $this -> validate(request(),[
+          'gradeName' => 'required',
+          'account_id' => 'required'
+      ]);
 
-          $account -> accountName = request('accountName');
-          $account -> accountType = request('accountType');
-          $account -> save();
+      $grade = Grade::find($id);
 
-          $accounts = Account::all();
-          return $accounts;
+      $grade -> gradeName = request('gradeName');
+      $grade -> account_id = request('account_id');
+      $grade -> save();
+
+      return $this -> index();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Grade  $grade
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-      $account = Account::find($id);
-      $account -> delete();
+      $grade = Grade::find($id);
+      $grade -> delete();
 
-      $accounts = Account::all();
-      return $accounts;
+      return $this -> index();
     }
 }

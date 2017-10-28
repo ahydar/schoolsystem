@@ -18,6 +18,7 @@
     </head>
 
   <body>
+    <div id="app">
       <div id="wrapper">
 
           <!-- Navigation -->
@@ -45,6 +46,8 @@
 
       </div>
       <!-- /#wrapper -->
+    </div>
+    <!-- /#app -->
 
 
 

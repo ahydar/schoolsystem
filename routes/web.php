@@ -10,22 +10,50 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 //Accounts
-Route::get('/accounts', function () {
-    return view('entrance.accounts');
+Route::get('/app', function () {
+    return view('entrance.app');
 });
 
-Route::get('/getaccounts','AccountController@getAccounts');
+
 
 Route::get('/testform',function(){
   return view('testform');
 });
 
+Route::get('/accounts','AccountController@index');
 Route::post('/accounts','AccountController@store');
+Route::patch('/accounts/{id}','AccountController@update');
+Route::delete('/accounts/{id}','AccountController@destroy');
+
+Route::get('/grades','GradeController@index');
+Route::post('/grades','GradeController@store');
+Route::patch('/grades/{id}','GradeController@update');
+Route::delete('/grades/{id}','GradeController@destroy');
+
+
+Route::get('/classes','FormController@index');
+Route::post('/classes','FormController@store');
+Route::patch('/classes/{id}','FormController@update');
+Route::delete('/classes/{id}','FormController@destroy');
+
+
+Route::get('/subjects','SubjectController@index');
+Route::post('/subjects','SubjectController@store');
+Route::patch('/subjects/{id}','SubjectController@update');
+Route::delete('/subjects/{id}','SubjectController@destroy');
+
+Route::get('/classsubjects','FormSubjectController@index');
+Route::post('/subjects','FormSubjectController@store');
+Route::patch('/subjects/{id}','FormSubjectController@update');
+Route::delete('/subjects/{id}','FormSubjectController@destroy');
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/posttest', function (){
+    return view('posttest');
 });
 
 Route::get('/test', function () {

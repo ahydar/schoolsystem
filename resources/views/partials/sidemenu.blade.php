@@ -13,11 +13,35 @@
                 <!-- /input-group -->
             </li>
             <li>
-                <a href="/dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="/accounts"><i class="fa fa-dashboard fa-fw"></i> Accounts</a>
-            </li>
+            <router-link tag="a" to="/" exact>
+                <i class="fa fa-dashboard fa-fw"></i> Dashboard
+            </router-link>
+          </li>
+          <li>
+            <router-link tag="a" to="/accounts">
+                <i class="fa fa-dashboard fa-fw"></i> Accounts
+            </router-link>
+          </li>
+          <li>
+            <router-link tag="a" to="/grades">
+                <i class="fa fa-dashboard fa-fw"></i> Grades
+            </router-link>
+          </li>
+          <li>
+            <router-link tag="a" to="/classes">
+                <i class="fa fa-dashboard fa-fw"></i> Classes
+            </router-link>
+          </li>
+          <li>
+            <router-link tag="a" to="/subjects">
+                <i class="fa fa-dashboard fa-fw"></i> Subjects
+            </router-link>
+          </li>
+          <li>
+            <router-link tag="a" to="/classsubjects">
+                <i class="fa fa-dashboard fa-fw"></i> Class Subjects
+            </router-link>
+          </li>
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
