@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\FormSubject;
+use App\Formsubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,6 +53,22 @@ class FormSubjectController extends Controller
     public function store(Request $request)
     {
         //
+        $this -> validate(request(),[
+            'form_id' => 'required',
+            'subject_id' => 'required',
+        ]);
+
+        $form_id = request('form_id');
+        $account_id = DB::table('forms')->where('id',$form_id)->value('account_id');
+        $classSubject = new Formsubject;
+
+        $classSubject -> form_id = request('form_id');
+        $classSubject -> subject_id = request('subject_id');
+        $classSubject -> account_id = $account_id;
+
+        $classSubject ->save();
+
+        return $this -> index();
     }
 
     /**
