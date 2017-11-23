@@ -44,9 +44,9 @@ Route::patch('/subjects/{id}','SubjectController@update');
 Route::delete('/subjects/{id}','SubjectController@destroy');
 
 Route::get('/classsubjects','FormSubjectController@index');
-Route::post('/subjects','FormSubjectController@store');
-Route::patch('/subjects/{id}','FormSubjectController@update');
-Route::delete('/subjects/{id}','FormSubjectController@destroy');
+Route::post('/classsubjects','FormSubjectController@store');
+Route::patch('/classsubjects/{id}','FormSubjectController@update');
+Route::delete('/classsubjects/{id}','FormSubjectController@destroy');
 
 Route::get('/', function () {
     return view('welcome');
