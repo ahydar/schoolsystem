@@ -2,13 +2,13 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-12">
-              <h4 class="page-header">Subjects</h4>
+              <h4 class="page-header">Class Subjects</h4>
           </div>
       </div>
         <div class="row">
             <div class="col-md-8">
                 <crudtable
-                :columns="columns" :items="items" newBtn="New Subject" :table="table"
+                :columns="columns" :items="items" newBtn="New Subject-Class link" :table="table"
                 @add = "formAction" @edit = "formAction" @remove="removeCheck"
                 ></crudtable>
                 <notifications />
@@ -31,7 +31,7 @@
                         <div class="form-group">
                           <label for="sel1">Subjects:</label>
                           <select class="form-control" name='subject_id' v-model="form.subject_id">
-                            <option v-for="subject in subjects" v-bind:value="subject.id">
+                            <option v-for="subject in subjectsAccount" v-bind:value="subject.id">
                               {{ subject.subjectName }}
                             </option>
                           </select>
@@ -76,6 +76,26 @@
               {title:'Subject Name',field:'subjectName'},
               {title:'Account Name',field:'accountName'}
             ]
+          }
+        },
+        computed:{
+          subjectsAccount: function () {
+            // `this` points to the vm instance
+            var classSubs = [];
+            if(this.form.form_id){
+              console.log("Computed");
+              var self = this;
+              var acc_id = this.classes.find(function(element){
+                  return element.id === self.form.form_id;
+              });
+              console.log(acc_id);
+              this.subjects.forEach(function(element){
+                    if(element.account_id === acc_id.account_id){
+                      classSubs.push(element);
+                    }
+              });
+            }
+            return classSubs;
           }
         },
         mounted() {

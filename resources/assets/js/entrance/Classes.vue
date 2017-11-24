@@ -16,13 +16,13 @@
                 <modal modalID="myModal">
                   <div slot="header"><h3>{{action}}</h3></div>
                   <div slot="body">
-                    <form @submit.prevent="save" @keydown="form.errors.clear($event.target.name)">
+                    <form @submit.prevent="save" @keydown="form.errors.clear($event.target.name)" @change="form.errors.clear($event.target.name)">
                         <div class="form-group">
                           <label for="usr">Class Name:</label>
                           <input class="form-control" name='formName' v-model="form.formName">
                           <span style="color:red;" v-text="form.errors.get('formName')"></span>
                         </div>
-                        
+
                         <div class="form-group">
                           <label for="sel1">Grade:</label>
                           <select class="form-control" name='grade_id' v-model="form.grade_id">
@@ -30,6 +30,7 @@
                               {{ grade.gradeName }} - {{grade.accountName}}
                             </option>
                           </select>
+                          <span style="color:red;" v-text="form.errors.get('grade_id')"></span>
                         </div>
 
                         <button type="submit" :disabled="form.errors.any()" class="btn btn-primary">Submit</button>

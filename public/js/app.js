@@ -65481,6 +65481,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -65559,6 +65560,9 @@ var render = function() {
                       _vm.save($event)
                     },
                     keydown: function($event) {
+                      _vm.form.errors.clear($event.target.name)
+                    },
+                    change: function($event) {
                       _vm.form.errors.clear($event.target.name)
                     }
                   }
@@ -65646,7 +65650,14 @@ var render = function() {
                           )
                         ])
                       })
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticStyle: { color: "red" },
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("grade_id"))
+                      }
+                    })
                   ]),
                   _vm._v(" "),
                   _c(
@@ -65806,6 +65817,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -65884,6 +65896,9 @@ var render = function() {
                       _vm.save($event)
                     },
                     keydown: function($event) {
+                      _vm.form.errors.clear($event.target.name)
+                    },
+                    change: function($event) {
                       _vm.form.errors.clear($event.target.name)
                     }
                   }
@@ -65975,7 +65990,14 @@ var render = function() {
                           ]
                         )
                       })
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("span", {
+                      staticStyle: { color: "red" },
+                      domProps: {
+                        textContent: _vm._s(_vm.form.errors.get("account_id"))
+                      }
+                    })
                   ]),
                   _vm._v(" "),
                   _c(
@@ -66163,6 +66185,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       columns: [{ title: 'Class Name', field: 'formName' }, { title: 'Subject Name', field: 'subjectName' }, { title: 'Account Name', field: 'accountName' }]
     };
   },
+
+  computed: {
+    subjectsAccount: function subjectsAccount() {
+      // `this` points to the vm instance
+      var classSubs = [];
+      if (this.form.form_id) {
+        console.log("Computed");
+        var self = this;
+        var acc_id = this.classes.find(function (element) {
+          return element.id === self.form.form_id;
+        });
+        console.log(acc_id);
+        this.subjects.forEach(function (element) {
+          if (element.account_id === acc_id.account_id) {
+            classSubs.push(element);
+          }
+        });
+      }
+      return classSubs;
+    }
+  },
   mounted: function mounted() {},
 
   methods: {
@@ -66197,7 +66240,7 @@ var render = function() {
             attrs: {
               columns: _vm.columns,
               items: _vm.items,
-              newBtn: "New Subject",
+              newBtn: "New Subject-Class link",
               table: _vm.table
             },
             on: {
@@ -66322,7 +66365,7 @@ var render = function() {
                           }
                         }
                       },
-                      _vm._l(_vm.subjects, function(subject) {
+                      _vm._l(_vm.subjectsAccount, function(subject) {
                         return _c(
                           "option",
                           { domProps: { value: subject.id } },
@@ -66380,7 +66423,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Subjects")])
+        _c("h4", { staticClass: "page-header" }, [_vm._v("Class Subjects")])
       ])
     ])
   }
