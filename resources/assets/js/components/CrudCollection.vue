@@ -13,7 +13,8 @@ export default {
       editing:false,
       modal_id:'myModal',
       deleteModalId : 'delete',
-      deleteItem : {}
+      deleteItem : {},
+      loading:true
     }
   },
   mounted(){
@@ -26,6 +27,7 @@ export default {
     createTable:function(data){
       console.log('****CRUD Collection****');
       this.items = data;
+      this.loading = false;
       dataTableLoad(this.table);
     },
     formAction:function(action,data = ""){
@@ -50,18 +52,18 @@ export default {
     submit(type,url,notify,title,message,modalId){
       var self = this;
       destroyDataTable(self.table);
-
+      this.loading = true;
       this.form.submit(type,url).then(response => {
         console.log(response);
         self.createTable(response);
         $("#"+modalId).modal('hide');
+        this.loading = false;
         this.$notify({
           title: title,
           type: notify,
           text: message
         });
       })
-
       .catch(error => console.log('something went wrong'));
     },
     add(){

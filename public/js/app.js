@@ -64545,6 +64545,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -64588,7 +64592,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       editing: false,
       modal_id: 'myModal',
       deleteModalId: 'delete',
-      deleteItem: {}
+      deleteItem: {},
+      loading: true
     };
   },
   mounted: function mounted() {
@@ -64602,6 +64607,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     createTable: function createTable(data) {
       console.log('****CRUD Collection****');
       this.items = data;
+      this.loading = false;
       Object(__WEBPACK_IMPORTED_MODULE_0__services_ajaxService__["a" /* dataTableLoad */])(this.table);
     },
     formAction: function formAction(action) {
@@ -64630,11 +64636,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var self = this;
       Object(__WEBPACK_IMPORTED_MODULE_0__services_ajaxService__["b" /* destroyDataTable */])(self.table);
-
+      this.loading = true;
       this.form.submit(type, url).then(function (response) {
         console.log(response);
         self.createTable(response);
         $("#" + modalId).modal('hide');
+        _this.loading = false;
         _this.$notify({
           title: title,
           type: notify,
@@ -64871,7 +64878,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("h4", { staticClass: "page-header" }, [
+          _vm._v("Acccounts "),
+          _vm.loading
+            ? _c("span", [
+                _c("i", { staticClass: "fa fa-spinner fa-pulse fa-1x fa-fw" })
+              ])
+            : _vm._e()
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -64896,7 +64914,16 @@ var render = function() {
           _vm._v(" "),
           _c("modal", { attrs: { modalID: "myModal" } }, [
             _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-              _c("h3", [_vm._v(_vm._s(_vm.action))])
+              _c("h3", [_vm._v(_vm._s(_vm.action))]),
+              _vm._v(" "),
+              _vm.loading
+                ? _c("span", { staticClass: "pull-right" }, [
+                    _vm._v("Saving "),
+                    _c("i", {
+                      staticClass: "fa fa-spinner fa-pulse fa-1x fa-fw"
+                    })
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { attrs: { slot: "body" }, slot: "body" }, [
@@ -65012,18 +65039,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Acccounts")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

@@ -2,7 +2,8 @@
     <div class="container">
       <div class="row">
           <div class="col-lg-12">
-              <h4 class="page-header">Acccounts</h4>
+              <h4 class="page-header">Acccounts <span v-if="loading"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></span></h4>
+
           </div>
       </div>
         <div class="row">
@@ -16,7 +17,10 @@
               <notifications />
 
               <modal modalID="myModal">
-                <div slot="header"><h3>{{action}}</h3></div>
+                <div slot="header">
+                  <h3>{{action}}</h3>
+                  <span class="pull-right" v-if="loading">Saving <i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></span>
+                </div>
                 <div slot="body">
                   <form @submit.prevent="save" @keydown="form.errors.clear($event.target.name)">
                       <div class="form-group">
