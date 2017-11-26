@@ -35,6 +35,11 @@ let routes = [
   {
     path:'/classsubjects',
     component:require('./entrance/ClassSubjects')
+  },
+
+  {
+    path:'/educators',
+    component:require('./users/educators/AddEducator')
   }
 ];
 

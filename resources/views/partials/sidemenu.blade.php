@@ -42,6 +42,11 @@
                 <i class="fa fa-dashboard fa-fw"></i> Class Subjects
             </router-link>
           </li>
+          <li>
+            <router-link tag="a" to="/educators">
+                <i class="fa fa-dashboard fa-fw"></i> Educators
+            </router-link>
+          </li>
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

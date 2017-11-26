@@ -64138,6 +64138,9 @@ var routes = [{
 }, {
   path: '/classsubjects',
   component: __webpack_require__(76)
+}, {
+  path: '/educators',
+  component: __webpack_require__(106)
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
@@ -66888,6 +66891,225 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(107)
+/* template */
+var __vue_template__ = __webpack_require__(108)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\users\\educators\\AddEducator.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b90bc7d6", Component.options)
+  } else {
+    hotAPI.reload("data-v-b90bc7d6", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 107 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("h4", { staticClass: "page-header" }, [
+          _vm._v("Acccounts "),
+          _vm.loading
+            ? _c("span", [
+                _c("i", { staticClass: "fa fa-spinner fa-pulse fa-1x fa-fw" })
+              ])
+            : _vm._e()
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-8" },
+        [_c("notifications"), _vm._v(" "), _vm._m(0, false, false)],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("form", { staticClass: "form-horizontal" }, [
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "label",
+          { staticClass: "control-label col-sm-2", attrs: { for: "email" } },
+          [_vm._v("Email:")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { type: "email", id: "email", placeholder: "Enter email" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "label",
+          { staticClass: "control-label col-sm-2", attrs: { for: "pwd" } },
+          [_vm._v("Password:")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "password",
+              id: "pwd",
+              placeholder: "Enter password"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+          _c("div", { staticClass: "checkbox" }, [
+            _c("label", [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" Remember me")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-default", attrs: { type: "submit" } },
+            [_vm._v("Submit")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-b90bc7d6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
