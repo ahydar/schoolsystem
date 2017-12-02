@@ -13,6 +13,8 @@
               <input-field id="name" type="text" label="Name" placeholder="Enter Name"></input-field>
               <input-field id="surname" type="text" label="Surname" placeholder="Enter Surname"></input-field>
               <input-field id="email" type="email" label="Email" placeholder="Enter Email"></input-field>
+              <input-field id="title" type="text" label="title" placeholder="e.g Mr, Mrs, Sheikh etc.."></input-field>
+              <input-field id="initial" type="text" label="Initial" placeholder="Enter Initial"></input-field>
 
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

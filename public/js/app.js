@@ -66547,6 +66547,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -66626,6 +66628,24 @@ var render = function() {
                   type: "email",
                   label: "Email",
                   placeholder: "Enter Email"
+                }
+              }),
+              _vm._v(" "),
+              _c("input-field", {
+                attrs: {
+                  id: "title",
+                  type: "text",
+                  label: "title",
+                  placeholder: "e.g Mr, Mrs, Sheikh etc.."
+                }
+              }),
+              _vm._v(" "),
+              _c("input-field", {
+                attrs: {
+                  id: "initial",
+                  type: "text",
+                  label: "Initial",
+                  placeholder: "Enter Initial"
                 }
               }),
               _vm._v(" "),

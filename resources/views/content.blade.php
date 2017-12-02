@@ -4,10 +4,6 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
-    <div class="row">
-        <div id="app">
-            <example></example>
-        </div>
+    <div id="app">
+        <example></example>
     </div>
-    <!-- /.row -->
