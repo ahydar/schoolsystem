@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import {dataTableLoad,destroyDataTable} from '../services/ajaxService';
+import {dataTableLoad,destroyDataTable} from '../services/dataTablesService';
 export default {
   data(){
     return{

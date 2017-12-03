@@ -18,34 +18,44 @@
             </router-link>
           </li>
           <li>
-            <router-link tag="a" to="/accounts">
-                <i class="fa fa-dashboard fa-fw"></i> Accounts
-            </router-link>
+              <a href="#"><i class="fa fa-sitemap fa-fw"></i> Command Center<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                  <li>
+                    <router-link tag="a" to="/accounts">
+                        <i class="fa fa-dashboard fa-fw"></i> Accounts
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link tag="a" to="/grades">
+                        <i class="fa fa-dashboard fa-fw"></i> Grades
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link tag="a" to="/classes">
+                        <i class="fa fa-dashboard fa-fw"></i> Classes
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link tag="a" to="/subjects">
+                        <i class="fa fa-dashboard fa-fw"></i> Subjects
+                    </router-link>
+                  </li>
+                  <li>
+                    <router-link tag="a" to="/classsubjects">
+                        <i class="fa fa-dashboard fa-fw"></i> Class Subjects
+                    </router-link>
+                  </li>
+              </ul>
           </li>
           <li>
-            <router-link tag="a" to="/grades">
-                <i class="fa fa-dashboard fa-fw"></i> Grades
-            </router-link>
-          </li>
-          <li>
-            <router-link tag="a" to="/classes">
-                <i class="fa fa-dashboard fa-fw"></i> Classes
-            </router-link>
-          </li>
-          <li>
-            <router-link tag="a" to="/subjects">
-                <i class="fa fa-dashboard fa-fw"></i> Subjects
-            </router-link>
-          </li>
-          <li>
-            <router-link tag="a" to="/classsubjects">
-                <i class="fa fa-dashboard fa-fw"></i> Class Subjects
-            </router-link>
-          </li>
-          <li>
-            <router-link tag="a" to="/educators">
-                <i class="fa fa-dashboard fa-fw"></i> Educators
-            </router-link>
+              <a href="#"><i class="fa fa-users fa-fw"></i> Educators<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <router-link tag="a" to="/educators">
+                       Educators
+                  </router-link>
+                </li>
+              </ul>
           </li>
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

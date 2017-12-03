@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Educatorform;
 use App\Educator;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 
 class EducatorController extends Controller
 {
@@ -16,7 +18,15 @@ class EducatorController extends Controller
      */
     public function index()
     {
-        //
+      $account_id  = Auth::user() -> account_id;
+      $classes = DB::table('users')
+                    ->leftJoin('educators','users.id','=','educators.user_id')
+                    ->leftJoin('educatorforms','educators.id','=','educatorforms.educator_id')
+                    ->leftJoin('forms','forms.id','=','educatorforms.form_id')
+                    ->select('users.*','title','initial','formName')
+                    ->where('users.account_id','=',$account_id)
+                    ->get();
+      return ['educators'=>$classes];
     }
 
     /**
@@ -43,12 +53,14 @@ class EducatorController extends Controller
         'lastName' => 'required',
         'email' => 'required|email',
         'initial' => 'required',
-        'title' => 'required'
+        'title' => 'required',
+        'form_id' => 'required',
+        'gender' => 'required'
       ]);
 
       $account_id = Auth::user() -> account_id;
 
-      $user_exist = User::where('email','3140171@myuwc.ac.za')->get();
+      $user_exist = User::where('email','=',request('email'))->get();
 
       if(count($user_exist) > 0){
           return ["exists" => "User with the provided email exist already"];
@@ -58,6 +70,7 @@ class EducatorController extends Controller
       $user -> lastName = request('lastName');
       $user -> userName = request('email');
       $user -> email = request('email');
+      $user -> gender = request('gender');
       $user -> usertype_id = 1;
       $user -> account_id = $account_id;
       $user -> password = bcrypt('password');
@@ -71,7 +84,17 @@ class EducatorController extends Controller
       $educator -> initial = request('initial');
       $educator -> account_id = $account_id;
 
+
       $user -> educator() -> save($educator);
+
+      if(request('form_id') != 0){
+        $educatorform = new EducatorForm;
+
+        $educatorform -> form_id = request('form_id');
+        $educatorform -> account_id = $account_id;
+
+        $educator -> educatorforms() -> save($educatorform);
+      }
 
       return $user;
     }

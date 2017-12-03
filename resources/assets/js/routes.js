@@ -39,6 +39,11 @@ let routes = [
 
   {
     path:'/educators',
+    component:require('./users/educators/ViewEducators')
+  },
+
+  {
+    path:'/new_educator',
     component:require('./users/educators/AddEducator')
   }
 ];

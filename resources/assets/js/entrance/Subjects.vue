@@ -51,7 +51,7 @@
     import {Form} from '../services/form';
     import CrudCollection from '../components/CrudCollection';
     import CrudTable from '../components/CrudTable';
-    import {dataTableLoad,destroyDataTable} from '../services/ajaxService';
+    import {dataTableLoad,destroyDataTable} from '../services/dataTablesService';
     export default {
         extends:CrudCollection,
         components:{'crudtable':CrudTable},

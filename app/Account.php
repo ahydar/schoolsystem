@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    public funnction users(){
+    public function users(){
           return $this->hasMany('App\User');
     }
 }

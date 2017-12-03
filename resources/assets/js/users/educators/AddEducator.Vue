@@ -9,7 +9,7 @@
       <div class="row">
           <div class="col-md-8">
             <notifications />
-            <form class="form-horizontal"  @submit.prevent="save" @keydown="form.errors.clear($event.target.name)">
+            <form class="form-horizontal"  @submit.prevent="save" @keydown="form.errors.clear($event.target.name)" @change="form.errors.clear($event.target.name)">
 
               <div class="form-group">
                 <label class="control-label col-sm-2" for="firstName"><span class="pull-left">First Name:</span></label>
@@ -36,6 +36,14 @@
               </div>
 
               <div class="form-group">
+                <label class="control-label col-sm-2" for="gender"><span class="pull-left">Gender:</span></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="gender" name="gender" placeholder="e.g Male or Female" v-model="form.gender">
+                  <span style="color:red;" v-text="form.errors.get('gender')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
                 <label class="control-label col-sm-2" for="title"><span class="pull-left">Title:</span></label>
                 <div class="col-sm-8">
                   <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" v-model="form.title">
@@ -48,6 +56,18 @@
                 <div class="col-sm-8">
                   <input type="text" class="form-control" id="initial" name="initial" placeholder="Enter Intitial" v-model="form.initial">
                   <span style="color:red;" v-text="form.errors.get('initial')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="form_id"><span class="pull-left">Class:</span></label>
+                <div class="col-sm-8">
+                  <select class="form-control" name='form_id' v-model="form.form_id" title="select a class">
+                    <option v-for="form in classes" v-bind:value="form.id">
+                      {{ form.formName }}
+                    </option>
+                  </select>
+                  <span style="color:red;" v-text="form.errors.get('form_id')"></span>
                 </div>
               </div>
 
@@ -76,7 +96,9 @@
     components:{'input-field':InputField},
     data(){
       return {
+        classes:[],
         form: new Form({
+            form_id:0,
             firstName:'',
             lastName:'',
             email:'',
@@ -85,12 +107,21 @@
         }),
       }
     },
+    mounted(){
+        var self = this;
+        axios.get('classes').then(function(result){
+            self.classes = result.data.classes;
+            self.classes.push({id:0,formName:'None'});
+        });
+    },
     methods:{
       save:function(){
         var self = this;
         this.form.submit('post','/educators').then(function(result){
                 if(result.exists){
                     alert(result.exists);
+                }else{
+                    self.$router.push('/educators');
                 }
                 console.log(result);
         });

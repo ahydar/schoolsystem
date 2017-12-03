@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class FormController extends Controller
 {
+
+  public function __construct(){
+  }
     /**
      * Display a listing of the resource.
      *
@@ -15,14 +19,17 @@ class FormController extends Controller
      */
     public function index()
     {
+        $account_id  = Auth::user() -> account_id;
         $classes = DB::table('accounts')
                       ->join('grades','accounts.id','=','grades.account_id')
                       ->join('forms','grades.id','=','forms.grade_id')
                       ->select('forms.*','gradeName','accountName')
+                      ->where('forms.account_id','=',$account_id)
                       ->get();
         $grades = DB::table('grades')
                       ->join('accounts','accounts.id','=','grades.account_id')
                       ->select('grades.*','accountName')
+                      ->where('grades.account_id','=',$account_id)
                       ->get();
         return ['classes'=>$classes,'grades'=>$grades];
     }
@@ -70,7 +77,7 @@ class FormController extends Controller
 
       $grade_id = request('grade_id');
       $account_id = DB::table('grades')->where('id',$grade_id)->value('account_id');
-      
+
       $class = Form::find($id);
 
       $class -> formName = request('formName');
