@@ -9,15 +9,50 @@
       <div class="row">
           <div class="col-md-8">
             <notifications />
-            <form class="form-horizontal"  @submit.prevent="save">
-              <input-field id="name" type="text" label="Name" placeholder="Enter Name"></input-field>
-              <input-field id="surname" type="text" label="Surname" placeholder="Enter Surname"></input-field>
-              <input-field id="email" type="email" label="Email" placeholder="Enter Email"></input-field>
-              <input-field id="title" type="text" label="title" placeholder="e.g Mr, Mrs, Sheikh etc.."></input-field>
-              <input-field id="initial" type="text" label="Initial" placeholder="Enter Initial"></input-field>
+            <form class="form-horizontal"  @submit.prevent="save" @keydown="form.errors.clear($event.target.name)">
 
               <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <label class="control-label col-sm-2" for="firstName"><span class="pull-left">First Name:</span></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter Name" v-model="form.firstName">
+                  <span style="color:red;" v-text="form.errors.get('firstName')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="lastName"><span class="pull-left">Surname:</span></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Surname" v-model="form.lastName">
+                  <span style="color:red;" v-text="form.errors.get('lastName')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email"><span class="pull-left">Email:</span></label>
+                <div class="col-sm-8">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" v-model="form.email">
+                  <span style="color:red;" v-text="form.errors.get('email')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="title"><span class="pull-left">Title:</span></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" v-model="form.title">
+                  <span style="color:red;" v-text="form.errors.get('title')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="initial"><span class="pull-left">Initial:</span></label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="initial" name="initial" placeholder="Enter Intitial" v-model="form.initial">
+                  <span style="color:red;" v-text="form.errors.get('initial')"></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8">
                   <div class="checkbox">
                     <label><input type="checkbox"> Admin</label>
                   </div>
@@ -25,7 +60,7 @@
               </div>
 
               <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-sm-offset-2 col-sm-8">
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
               </div>
@@ -42,23 +77,23 @@
     data(){
       return {
         form: new Form({
-            accountName:'',
-            accountType:''
+            firstName:'',
+            lastName:'',
+            email:'',
+            initial:'',
+            title:''
         }),
-        table:'accountTable',
-        url:'/accounts',
-        columns:[
-          {title:'Account Name',field:'accountName'},
-          {title:'Account Type',field:'accountType'}
-        ]
       }
-    },
-    mounted() {
-
     },
     methods:{
       save:function(){
-        console.log("Saving");
+        var self = this;
+        this.form.submit('post','/educators').then(function(result){
+                if(result.exists){
+                    alert(result.exists);
+                }
+                console.log(result);
+        });
       }
     }
   }

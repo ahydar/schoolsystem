@@ -48,6 +48,11 @@ Route::post('/classsubjects','FormSubjectController@store');
 Route::patch('/classsubjects/{id}','FormSubjectController@update');
 Route::delete('/classsubjects/{id}','FormSubjectController@destroy');
 
+Route::get('/educators','EducatorController@index');
+Route::post('/educators','EducatorController@store');
+Route::patch('/educators/{id}','EducatorController@update');
+Route::delete('/educators/{id}','EducatorController@destroy');
+
 Route::get('/', function () {
     return view('welcome');
 });

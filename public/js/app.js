@@ -66549,6 +66549,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -66557,19 +66592,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
-        accountName: '',
-        accountType: ''
-      }),
-      table: 'accountTable',
-      url: '/accounts',
-      columns: [{ title: 'Account Name', field: 'accountName' }, { title: 'Account Type', field: 'accountType' }]
+        firstName: '',
+        lastName: '',
+        email: '',
+        initial: '',
+        title: ''
+      })
     };
   },
-  mounted: function mounted() {},
 
   methods: {
     save: function save() {
-      console.log("Saving");
+      var self = this;
+      this.form.submit('post', '/educators').then(function (result) {
+        if (result.exists) {
+          alert(result.exists);
+        }
+        console.log(result);
+      });
     }
   }
 });
@@ -66600,60 +66640,217 @@ var render = function() {
                 submit: function($event) {
                   $event.preventDefault()
                   _vm.save($event)
+                },
+                keydown: function($event) {
+                  _vm.form.errors.clear($event.target.name)
                 }
               }
             },
             [
-              _c("input-field", {
-                attrs: {
-                  id: "name",
-                  type: "text",
-                  label: "Name",
-                  placeholder: "Enter Name"
-                }
-              }),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(1, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-8" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.firstName,
+                        expression: "form.firstName"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "firstName",
+                      name: "firstName",
+                      placeholder: "Enter Name"
+                    },
+                    domProps: { value: _vm.form.firstName },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "firstName", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("firstName"))
+                    }
+                  })
+                ])
+              ]),
               _vm._v(" "),
-              _c("input-field", {
-                attrs: {
-                  id: "surname",
-                  type: "text",
-                  label: "Surname",
-                  placeholder: "Enter Surname"
-                }
-              }),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(2, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-8" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.lastName,
+                        expression: "form.lastName"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "lastName",
+                      name: "lastName",
+                      placeholder: "Enter Surname"
+                    },
+                    domProps: { value: _vm.form.lastName },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "lastName", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("lastName"))
+                    }
+                  })
+                ])
+              ]),
               _vm._v(" "),
-              _c("input-field", {
-                attrs: {
-                  id: "email",
-                  type: "email",
-                  label: "Email",
-                  placeholder: "Enter Email"
-                }
-              }),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(3, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-8" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.email,
+                        expression: "form.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      id: "email",
+                      name: "email",
+                      placeholder: "Enter Email"
+                    },
+                    domProps: { value: _vm.form.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("email"))
+                    }
+                  })
+                ])
+              ]),
               _vm._v(" "),
-              _c("input-field", {
-                attrs: {
-                  id: "title",
-                  type: "text",
-                  label: "title",
-                  placeholder: "e.g Mr, Mrs, Sheikh etc.."
-                }
-              }),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(4, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-8" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.title,
+                        expression: "form.title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "title",
+                      name: "title",
+                      placeholder: "Enter Title"
+                    },
+                    domProps: { value: _vm.form.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "title", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("title"))
+                    }
+                  })
+                ])
+              ]),
               _vm._v(" "),
-              _c("input-field", {
-                attrs: {
-                  id: "initial",
-                  type: "text",
-                  label: "Initial",
-                  placeholder: "Enter Initial"
-                }
-              }),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(5, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-8" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.initial,
+                        expression: "form.initial"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "initial",
+                      name: "initial",
+                      placeholder: "Enter Intitial"
+                    },
+                    domProps: { value: _vm.form.initial },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "initial", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("initial"))
+                    }
+                  })
+                ])
+              ]),
               _vm._v(" "),
-              _vm._m(1, false, false),
+              _vm._m(6, false, false),
               _vm._v(" "),
-              _vm._m(2, false, false)
-            ],
-            1
+              _vm._m(7, false, false)
+            ]
           )
         ],
         1
@@ -66676,8 +66873,58 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "control-label col-sm-2", attrs: { for: "firstName" } },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("First Name:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "control-label col-sm-2", attrs: { for: "lastName" } },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("Surname:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "control-label col-sm-2", attrs: { for: "email" } },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("Email:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "control-label col-sm-2", attrs: { for: "title" } },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("Title:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "control-label col-sm-2", attrs: { for: "initial" } },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("Initial:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+      _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
         _c("div", { staticClass: "checkbox" }, [
           _c("label", [
             _c("input", { attrs: { type: "checkbox" } }),
@@ -66692,7 +66939,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "col-sm-offset-2 col-sm-10" }, [
+      _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
         _c(
           "button",
           {
@@ -67099,16 +67346,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['tableID']
@@ -67235,7 +67472,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id', 'label', 'type', 'placeholder']
+  props: ['id', 'label', 'type', 'placeholder', 'value'],
+  data: function data() {
+    return {
+      modelValue: this.value
+    };
+  },
+
+  methods: {
+    updateForm: function updateForm() {
+      this.$emit('updateForm', this.id, this.modelValue);
+    }
+  }
 });
 
 /***/ }),
@@ -67257,11 +67505,101 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "col-sm-10" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: _vm.type, id: _vm.id, placeholder: _vm.placeholder }
-      })
+    _c("div", { staticClass: "col-sm-8" }, [
+      _vm.type === "checkbox"
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.modelValue,
+                expression: "modelValue"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: _vm.id,
+              placeholder: _vm.placeholder,
+              type: "checkbox"
+            },
+            domProps: {
+              checked: Array.isArray(_vm.modelValue)
+                ? _vm._i(_vm.modelValue, null) > -1
+                : _vm.modelValue
+            },
+            on: {
+              blur: _vm.updateForm,
+              change: function($event) {
+                var $$a = _vm.modelValue,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.modelValue = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.modelValue = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
+                } else {
+                  _vm.modelValue = $$c
+                }
+              }
+            }
+          })
+        : _vm.type === "radio"
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.modelValue,
+                  expression: "modelValue"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                id: _vm.id,
+                placeholder: _vm.placeholder,
+                type: "radio"
+              },
+              domProps: { checked: _vm._q(_vm.modelValue, null) },
+              on: {
+                blur: _vm.updateForm,
+                change: function($event) {
+                  _vm.modelValue = null
+                }
+              }
+            })
+          : _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.modelValue,
+                  expression: "modelValue"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                id: _vm.id,
+                placeholder: _vm.placeholder,
+                type: _vm.type
+              },
+              domProps: { value: _vm.modelValue },
+              on: {
+                blur: _vm.updateForm,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.modelValue = $event.target.value
+                }
+              }
+            })
     ])
   ])
 }

@@ -1,13 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Formsubject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class FormSubjectController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,15 +24,18 @@ class FormSubjectController extends Controller
                               -> join('forms','forms.id','=','formsubjects.form_id')
                               -> join('subjects','subjects.id','=','formsubjects.subject_id')
                               ->select('formsubjects.*','formName','subjectName','accountName')
+                              ->where('formsubjects.account_id','=',Auth::user()->account_id)
                               -> get();
           $classes = DB::table('forms')
                               -> join('accounts', 'accounts.id','=','forms.account_id')
                               ->select('forms.*','accountName')
+                              ->where('forms.account_id','=',Auth::user()->account_id)
                               -> get();
 
           $subjects = DB::table('subjects')
                               -> join('accounts', 'accounts.id','=','subjects.account_id')
                               ->select('subjects.*','accountName')
+                              ->where('subjects.account_id','=',Auth::user()->account_id)
                               -> get();
 
           return ['classSubjects' => $classSubjects,'classes' => $classes,'subjects'=>$subjects];

@@ -17,7 +17,6 @@ export class Form{
       }
 
       this.errors.clear();
-
     }
 
     edit(data){
