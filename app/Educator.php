@@ -10,7 +10,7 @@ class Educator extends Model
     return $this -> belongsTo('App\User');
   }
 
-  public function educatorforms(){
-    return $this -> hasMany('App\Educatorform');
+  public function educatorform(){
+    return $this -> hasOne('App\Educatorform');
   }
 }

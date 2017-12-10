@@ -11,7 +11,7 @@
             <notifications />
             <div class="panel panel-default">
               <div class="panel-heading">
-                <router-link tag="button" class="btn btn-primary" to="/new_educator">
+                <router-link tag="button" class="btn btn-primary" to="/educator">
                      New Educators
                 </router-link>
               </div>
@@ -27,8 +27,11 @@
                       <tbody>
                         <tr v-for="educator in educators">
                           <td v-for="col in columns" >{{educator[col.field]}}</td>
-                          <td><button class="btn btn-warning btn-xs">Edit</button></td>
-                          <td><button class="btn btn-danger btn-xs">Delete</button></td>
+                          <td>
+                            <router-link :to="{ name: 'edu', params:{educator:educator}}" class="btn btn-warning btn-xs">
+                              Edit
+                            </router-link>
+                          <td><button v-on:click="remove(educator.id)" class="btn btn-danger btn-xs">Delete</button></td>
                         </tr>
                       </tbody>
                   </table>
@@ -64,7 +67,11 @@
         });
     },
     methods:{
-
+          remove:function(id){
+            axios.delete('educators/'+id).then(function(result){
+                console.log(result);
+            })
+          }
     }
   }
 </script>

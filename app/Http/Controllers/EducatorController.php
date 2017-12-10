@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 
+
+use App\Repositories\Educators;
+
 class EducatorController extends Controller
 {
     /**
@@ -16,27 +19,9 @@ class EducatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Educators $educators)
     {
-      $account_id  = Auth::user() -> account_id;
-      $classes = DB::table('users')
-                    ->leftJoin('educators','users.id','=','educators.user_id')
-                    ->leftJoin('educatorforms','educators.id','=','educatorforms.educator_id')
-                    ->leftJoin('forms','forms.id','=','educatorforms.form_id')
-                    ->select('users.*','title','initial','formName')
-                    ->where('users.account_id','=',$account_id)
-                    ->get();
-      return ['educators'=>$classes];
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+      return $educators -> all();
     }
 
     /**
@@ -93,32 +78,10 @@ class EducatorController extends Controller
         $educatorform -> form_id = request('form_id');
         $educatorform -> account_id = $account_id;
 
-        $educator -> educatorforms() -> save($educatorform);
+        $educator -> educatorform() -> save($educatorform);
       }
 
       return $user;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Educator  $educator
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Educator $educator)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Educator  $educator
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Educator $educator)
-    {
-        //
     }
 
     /**
@@ -128,9 +91,62 @@ class EducatorController extends Controller
      * @param  \App\Educator  $educator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Educator $educator)
+    public function update(Request $request, $id)
     {
         //
+        $this -> validate(request(),[
+          'id' => 'required',
+          'firstName' => 'required',
+          'lastName' => 'required',
+          'email' => 'required|email',
+          'initial' => 'required',
+          'title' => 'required',
+          'form_id' => 'required',
+          'gender' => 'required'
+        ]);
+
+        $user = User::find($id);
+
+        if(count($user) < 0){
+            return ["exists" => "User does not exists"];
+        }
+        $user -> firstName = request('firstName');
+        $user -> lastName = request('lastName');
+        $user -> userName = request('email');
+        $user -> email = request('email');
+        $user -> gender = request('gender');
+        $user -> save();
+
+
+        $educator = $user -> educator;
+
+        $educator ->  title = request('title');
+        $educator -> initial = request('initial');
+
+        $educator -> save();
+
+        if(request('form_id') != 0){
+            $educatorform = $educator -> educatorform;
+
+            //checking if and educator exists
+            if($educatorform != null){
+                $educatorform -> form_id = request('form_id');
+                $educatorform -> save();
+            }else{
+                $educatorform = new Educatorform;
+                $educatorform -> form_id = request('form_id');
+                $educatorform -> account_id = $educator -> account_id;
+
+                $educator -> educatorform() -> save($educatorform);
+            }
+        }else{
+            $educatorform = $educator -> educatorform;
+            if($educatorform != null){
+                $educatorform -> delete();
+            }
+        }
+
+        return $user;
     }
 
     /**
@@ -139,8 +155,22 @@ class EducatorController extends Controller
      * @param  \App\Educator  $educator
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Educator $educator)
+    public function destroy($id)
     {
-        //
+      $user = User::find($id);
+
+      $educator = $user -> educator;
+
+      $educatorform = $educator -> educatorform;
+
+      if($educatorform != null){
+        $educatorform -> delete();
+      }
+
+      $educator -> delete();
+
+      $user -> delete();
+
+      return "Deleted";
     }
 }

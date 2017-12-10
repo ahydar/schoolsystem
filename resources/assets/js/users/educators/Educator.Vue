@@ -84,6 +84,7 @@
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
               </div>
+
             </form>
           </div>
       </div>
@@ -94,13 +95,22 @@
   import InputField from '../../components/InputField';
   export default {
     components:{'input-field':InputField},
+    props:{
+       educator: {
+         type: Object,
+         required: false // User can accept a userData object on params, or not. It's totally optional.
+       }
+    },
     data(){
       return {
         classes:[],
+        action:'post',
+        url:'/educators',
         form: new Form({
             form_id:0,
             firstName:'',
             lastName:'',
+            gender:'',
             email:'',
             initial:'',
             title:''
@@ -113,11 +123,18 @@
             self.classes = result.data.classes;
             self.classes.push({id:0,formName:'None'});
         });
+        console.log('Mounted');
+        if(this.educator){
+          this.action = 'patch';
+          this.url = '/educators/'+this.educator.id;
+          this.form.edit(this.educator);
+          console.log(this.educator);
+        }
     },
     methods:{
       save:function(){
         var self = this;
-        this.form.submit('post','/educators').then(function(result){
+        this.form.submit(self.action,self.url).then(function(result){
                 if(result.exists){
                     alert(result.exists);
                 }else{
