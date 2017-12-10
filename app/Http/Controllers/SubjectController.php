@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class SubjectController extends Controller
 {
@@ -15,9 +16,11 @@ class SubjectController extends Controller
      */
     public function index()
     {
-      $subjects = DB::table('accounts')->join('subjects','subjects.account_id','=','accounts.id')->get();
-      $accounts = DB::table('accounts')->get();
-      return ['subjects' => $subjects,'accounts' => $accounts];
+      $subjects = DB::table('accounts')
+                      ->join('subjects','subjects.account_id','=','accounts.id')
+                      ->where('subjects.account_id','=', Auth::user()->account_id)
+                      ->get();
+      return ['subjects' => $subjects];
     }
     /**
      * Store a newly created resource in storage.
@@ -28,14 +31,13 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
       $this -> validate(request(),[
-          'subjectName' => 'required',
-          'account_id' => 'required'
+          'subjectName' => 'required'
       ]);
 
       $subject = new Subject;
 
       $subject -> subjectName = request('subjectName');
-      $subject -> account_id = request('account_id');
+      $subject -> account_id = Auth::user()->account_id;
 
       $subject ->save();
 
@@ -52,14 +54,13 @@ class SubjectController extends Controller
     public function update(Request $request, $id)
     {
       $this -> validate(request(),[
-          'subjectName' => 'required',
-          'account_id' => 'required'
+          'subjectName' => 'required'
       ]);
 
       $subject = Subject::find($id);
 
       $subject -> subjectName = request('subjectName');
-      $subject -> account_id = request('account_id');
+      $subject -> account_id = Auth::user()->account_id;
       $subject -> save();
 
       return $this -> index();

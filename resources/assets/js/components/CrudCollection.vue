@@ -79,6 +79,7 @@ export default {
     },
     remove(){
       var id = this.deleteItem.id;
+      console.log(id);
       this.submit('delete',this.url+'/'+id,'error','Removed','Grade has been removed',this.deleteModalId);
     }
   }

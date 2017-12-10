@@ -73,8 +73,7 @@
             url:'/classsubjects',
             columns:[
               {title:'Class Name',field:'formName'},
-              {title:'Subject Name',field:'subjectName'},
-              {title:'Account Name',field:'accountName'}
+              {title:'Subject Name',field:'subjectName'}
             ]
           }
         },

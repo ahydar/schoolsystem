@@ -23,16 +23,6 @@
                           <span style="color:red;" v-text="form.errors.get('subjectName')"></span>
                         </div>
 
-
-                        <div class="form-group">
-                          <label for="sel1">Account:</label>
-                          <select class="form-control" name='account_id' v-model="form.account_id">
-                            <option v-for="account in accounts" v-bind:value="account.id">
-                              {{ account.accountName }}
-                            </option>
-                          </select>
-                          <span style="color:red;" v-text="form.errors.get('account_id')"></span>
-                        </div>
                         <button type="submit" :disabled="form.errors.any()" class="btn btn-primary">Submit</button>
                     </form>
                   </div>
@@ -58,15 +48,12 @@
         data(){
           return {
             form: new Form({
-                subjectName:'',
-                account_id:''
+                subjectName:''
             }),
-            accounts:[],
             table:'subjectTable',
             url:'/subjects',
             columns:[
-              {title:'Subject Name',field:'subjectName'},
-              {title:'Account Name',field:'accountName'}
+              {title:'Subject Name',field:'subjectName'}
             ]
           }
         },
@@ -76,7 +63,6 @@
         methods:{
           createTable:function(data){
             this.items = data.subjects;
-            this.accounts = data.accounts;
             dataTableLoad(this.table);
           }
         }

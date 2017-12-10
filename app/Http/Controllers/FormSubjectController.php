@@ -66,7 +66,7 @@ class FormSubjectController extends Controller
         ]);
 
         $form_id = request('form_id');
-        $account_id = DB::table('forms')->where('id',$form_id)->value('account_id');
+        $account_id = Auth::user()->account_id;
         $classSubject = new Formsubject;
 
         $classSubject -> form_id = request('form_id');
@@ -107,9 +107,25 @@ class FormSubjectController extends Controller
      * @param  \App\FormSubject  $formSubject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FormSubject $formSubject)
+    public function update(Request $request, $id)
     {
         //
+        //
+        $this -> validate(request(),[
+            'form_id' => 'required',
+            'subject_id' => 'required',
+        ]);
+
+        $account_id = Auth::user()->account_id;
+        $classSubject = Formsubject::find($id);
+
+        $classSubject -> form_id = request('form_id');
+        $classSubject -> subject_id = request('subject_id');
+        $classSubject -> account_id = $account_id;
+
+        $classSubject ->save();
+
+        return $this -> index();
     }
 
     /**
@@ -118,8 +134,12 @@ class FormSubjectController extends Controller
      * @param  \App\FormSubject  $formSubject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FormSubject $formSubject)
+    public function destroy($id)
     {
         //
+        $formSubject = FormSubject::find($id);
+        $formSubject -> delete();
+
+        return $this -> index();
     }
 }

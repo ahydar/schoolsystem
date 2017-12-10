@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Grade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Auth;
 
 class GradeController extends Controller
 {
@@ -15,9 +16,11 @@ class GradeController extends Controller
      */
     public function index()
     {
-        $grades = DB::table('accounts')->join('grades','grades.account_id','=','accounts.id')->get();
-        $accounts = DB::table('accounts')->get();
-        return ['grades' => $grades,'accounts' => $accounts];
+        $grades = DB::table('accounts')
+                  ->join('grades','grades.account_id','=','accounts.id')
+                  ->where('grades.account_id','=', Auth::user()->account_id)
+                  ->get();
+        return ['grades' => $grades];
     }
 
     /**
@@ -39,14 +42,13 @@ class GradeController extends Controller
     public function store(Request $request)
     {
       $this -> validate(request(),[
-          'gradeName' => 'required',
-          'account_id' => 'required'
+          'gradeName' => 'required'
       ]);
 
       $grade = new Grade;
 
       $grade -> gradeName = request('gradeName');
-      $grade -> account_id = request('account_id');
+      $grade -> account_id = Auth::user()->account_id;
 
       $grade ->save();
 
@@ -85,14 +87,13 @@ class GradeController extends Controller
     public function update(Request $request, $id)
     {
       $this -> validate(request(),[
-          'gradeName' => 'required',
-          'account_id' => 'required'
+          'gradeName' => 'required'
       ]);
 
       $grade = Grade::find($id);
 
       $grade -> gradeName = request('gradeName');
-      $grade -> account_id = request('account_id');
+      $grade -> account_id = Auth::user()->account_id;
       $grade -> save();
 
       return $this -> index();
