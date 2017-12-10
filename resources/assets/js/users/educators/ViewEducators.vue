@@ -62,15 +62,20 @@
     mounted(){
         var self = this;
         axios.get('educators').then(function(result){
-            self.educators = result.data.educators;
-            dataTableLoad(self.tableID);
+            self.createTable(result.data.educators);
         });
     },
     methods:{
           remove:function(id){
+            var self = this;
             axios.delete('educators/'+id).then(function(result){
-                console.log(result);
+                destroyDataTable(self.tableID);
+                self.createTable(result.data.educators);
             })
+          },
+          createTable:function(educators){
+            this.educators = educators;
+            dataTableLoad(this.tableID);
           }
     }
   }

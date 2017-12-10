@@ -66572,16 +66572,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var self = this;
     axios.get('educators').then(function (result) {
-      self.educators = result.data.educators;
-      Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(self.tableID);
+      self.createTable(result.data.educators);
     });
   },
 
   methods: {
     remove: function remove(id) {
+      var self = this;
       axios.delete('educators/' + id).then(function (result) {
-        console.log(result);
+        Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["b" /* destroyDataTable */])(self.tableID);
+        self.createTable(result.data.educators);
       });
+    },
+    createTable: function createTable(educators) {
+      this.educators = educators;
+      Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(this.tableID);
     }
   }
 });

@@ -15,7 +15,7 @@ class Educators
                   User::leftJoin('educators','users.id','=','educators.user_id')
                     ->leftJoin('educatorforms','educators.id','=','educatorforms.educator_id')
                     ->leftJoin('forms','forms.id','=','educatorforms.form_id')
-                    ->select('users.id','firstName','lastName','email','gender','title','initial','formName','form_id')
+                    ->select('users.*','title','initial','formName','form_id')
                     ->where('users.account_id','=',$account_id)
                     ->get();
       return ['educators'=>$educators];

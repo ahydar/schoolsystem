@@ -155,22 +155,24 @@ class EducatorController extends Controller
      * @param  \App\Educator  $educator
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,Educators $educators)
     {
       $user = User::find($id);
 
       $educator = $user -> educator;
 
-      $educatorform = $educator -> educatorform;
+      if($educator != null){
+        $educatorform = $educator -> educatorform;
 
-      if($educatorform != null){
-        $educatorform -> delete();
+        if($educatorform != null){
+          $educatorform -> delete();
+        }
+
+        $educator -> delete();
       }
-
-      $educator -> delete();
 
       $user -> delete();
 
-      return "Deleted";
+      return $educators -> all();
     }
 }
