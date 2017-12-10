@@ -67557,6 +67557,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
+      header: 'New Educator',
       classes: [],
       action: 'post',
       url: '/educators',
@@ -67579,6 +67580,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
     console.log('Mounted');
     if (this.educator) {
+      this.header = 'Edit Educator';
       this.action = 'patch';
       this.url = '/educators/' + this.educator.id;
       this.form.edit(this.educator);
@@ -67610,7 +67612,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -67638,7 +67644,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(1, false, false),
+                _vm._m(0, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -67678,7 +67684,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(2, false, false),
+                _vm._m(1, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -67718,7 +67724,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(3, false, false),
+                _vm._m(2, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -67758,7 +67764,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(4, false, false),
+                _vm._m(3, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -67798,7 +67804,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(5, false, false),
+                _vm._m(4, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -67838,7 +67844,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(6, false, false),
+                _vm._m(5, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -67878,7 +67884,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(7, false, false),
+                _vm._m(6, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c(
@@ -67934,9 +67940,9 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(8, false, false),
+              _vm._m(7, false, false),
               _vm._v(" "),
-              _vm._m(9, false, false)
+              _vm._m(8, false, false)
             ]
           )
         ],
@@ -67946,16 +67952,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("New Educator")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68219,28 +68215,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      tableID: 'educators',
-      educators: [],
-      columns: [{ title: 'First Name', field: 'firstName' }, { title: 'Last Name', field: 'lastName' }, { title: 'Email', field: 'email' }, { title: 'Gender', field: 'gender' }, { title: 'Title', field: 'title' }, { title: 'Initials', field: 'initial' }, { title: 'Class', field: 'formName' }]
+      tableID: 'learners',
+      learners: [],
+      columns: [{ title: 'First Name', field: 'firstName' }, { title: 'Last Name', field: 'lastName' }, { title: 'Email', field: 'email' }, { title: 'Gender', field: 'gender' }, { title: 'Learner Number', field: 'learnerNumber' }, { title: 'Years in Phase', field: 'yearsInPhase' }, { title: 'Class', field: 'formName' }]
     };
   },
   mounted: function mounted() {
     var self = this;
-    axios.get('educators').then(function (result) {
-      self.createTable(result.data.educators);
+    axios.get('learners').then(function (result) {
+      console.log(result);
+      self.createTable(result.data.learners);
     });
   },
 
   methods: {
     remove: function remove(id) {
       var self = this;
-      axios.delete('educators/' + id).then(function (result) {
+      axios.delete('learners/' + id).then(function (result) {
         Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["b" /* destroyDataTable */])(self.tableID);
-        self.createTable(result.data.educators);
+        self.createTable(result.data.learners);
       });
     },
-    createTable: function createTable(educators) {
-      this.educators = educators;
+    createTable: function createTable(learners) {
+      this.learners = learners;
       Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(this.tableID);
     }
   }
@@ -68275,7 +68272,7 @@ var render = function() {
                     staticClass: "btn btn-primary",
                     attrs: { tag: "button", to: "/educator" }
                   },
-                  [_vm._v("\n                   New Educators\n              ")]
+                  [_vm._v("\n                   New Learners\n              ")]
                 )
               ],
               1
@@ -68307,13 +68304,13 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.educators, function(educator) {
+                    _vm._l(_vm.learners, function(learner) {
                       return _c(
                         "tr",
                         [
                           _vm._l(_vm.columns, function(col) {
                             return _c("td", [
-                              _vm._v(_vm._s(educator[col.field]))
+                              _vm._v(_vm._s(learner[col.field]))
                             ])
                           }),
                           _vm._v(" "),
@@ -68326,8 +68323,8 @@ var render = function() {
                                   staticClass: "btn btn-warning btn-xs",
                                   attrs: {
                                     to: {
-                                      name: "edu",
-                                      params: { educator: educator }
+                                      name: "learner",
+                                      params: { learner: learner }
                                     }
                                   }
                                 },
@@ -68347,7 +68344,7 @@ var render = function() {
                                 staticClass: "btn btn-danger btn-xs",
                                 on: {
                                   click: function($event) {
-                                    _vm.remove(educator.id)
+                                    _vm.remove(learner.id)
                                   }
                                 }
                               },
@@ -68376,7 +68373,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Educators")])
+        _c("h4", { staticClass: "page-header" }, [_vm._v("Learners")])
       ])
     ])
   }
@@ -68397,8 +68394,6 @@ if (false) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_form__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_InputField__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_InputField___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_InputField__);
 //
 //
 //
@@ -68483,38 +68478,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { 'input-field': __WEBPACK_IMPORTED_MODULE_1__components_InputField___default.a },
   props: {
-    educator: {
+    learner: {
       type: Object,
       required: false // User can accept a userData object on params, or not. It's totally optional.
     }
   },
   data: function data() {
     return {
+      header: 'New Learner',
       classes: [],
       action: 'post',
-      url: '/educators',
+      url: '/learners',
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
         form_id: 0,
         firstName: '',
         lastName: '',
         gender: '',
         email: '',
-        initial: '',
-        title: ''
+        learnerNumber: '',
+        yearsInPhase: ''
       })
     };
   },
@@ -68522,14 +68508,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var self = this;
     axios.get('classes').then(function (result) {
       self.classes = result.data.classes;
-      self.classes.push({ id: 0, formName: 'None' });
     });
     console.log('Mounted');
-    if (this.educator) {
+    if (this.learner) {
+      this.header = 'Edit Learner';
       this.action = 'patch';
-      this.url = '/educators/' + this.educator.id;
-      this.form.edit(this.educator);
-      console.log(this.educator);
+      this.url = '/learners/' + this.learner.id;
+      this.form.edit(this.learner);
+      console.log(this.learner);
     }
   },
 
@@ -68540,7 +68526,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (result.exists) {
           alert(result.exists);
         } else {
-          self.$router.push('/educators');
+          self.$router.push('/learners');
         }
         console.log(result);
       });
@@ -68557,7 +68543,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -68585,7 +68575,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(1, false, false),
+                _vm._m(0, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -68625,7 +68615,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(2, false, false),
+                _vm._m(1, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -68665,7 +68655,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(3, false, false),
+                _vm._m(2, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -68705,7 +68695,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(4, false, false),
+                _vm._m(3, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c("input", {
@@ -68745,6 +68735,46 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
+                _vm._m(4, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-8" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.learnerNumber,
+                        expression: "form.learnerNumber"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "title",
+                      name: "learnerNumber",
+                      placeholder: "Enter learner number"
+                    },
+                    domProps: { value: _vm.form.learnerNumber },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.form, "learnerNumber", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", {
+                    staticStyle: { color: "red" },
+                    domProps: {
+                      textContent: _vm._s(_vm.form.errors.get("learnerNumber"))
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
                 _vm._m(5, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
@@ -68753,24 +68783,24 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.form.title,
-                        expression: "form.title"
+                        value: _vm.form.yearsInPhase,
+                        expression: "form.yearsInPhase"
                       }
                     ],
                     staticClass: "form-control",
                     attrs: {
                       type: "text",
-                      id: "title",
-                      name: "title",
-                      placeholder: "Enter Title"
+                      id: "initial",
+                      name: "yearsInPhase",
+                      placeholder: "Enter years in phase"
                     },
-                    domProps: { value: _vm.form.title },
+                    domProps: { value: _vm.form.yearsInPhase },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.form, "title", $event.target.value)
+                        _vm.$set(_vm.form, "yearsInPhase", $event.target.value)
                       }
                     }
                   }),
@@ -68778,7 +68808,7 @@ var render = function() {
                   _c("span", {
                     staticStyle: { color: "red" },
                     domProps: {
-                      textContent: _vm._s(_vm.form.errors.get("title"))
+                      textContent: _vm._s(_vm.form.errors.get("yearsInPhase"))
                     }
                   })
                 ])
@@ -68786,46 +68816,6 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _vm._m(6, false, false),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-8" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.initial,
-                        expression: "form.initial"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "initial",
-                      name: "initial",
-                      placeholder: "Enter Intitial"
-                    },
-                    domProps: { value: _vm.form.initial },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "initial", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("span", {
-                    staticStyle: { color: "red" },
-                    domProps: {
-                      textContent: _vm._s(_vm.form.errors.get("initial"))
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _vm._m(7, false, false),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-8" }, [
                   _c(
@@ -68881,9 +68871,7 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(8, false, false),
-              _vm._v(" "),
-              _vm._m(9, false, false)
+              _vm._m(7, false, false)
             ]
           )
         ],
@@ -68893,16 +68881,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("New Educator")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -68949,8 +68927,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "control-label col-sm-2", attrs: { for: "title" } },
-      [_c("span", { staticClass: "pull-left" }, [_vm._v("Title:")])]
+      {
+        staticClass: "control-label col-sm-2",
+        attrs: { for: "learnerNumber" }
+      },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("Learner Number:")])]
     )
   },
   function() {
@@ -68959,8 +68940,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "label",
-      { staticClass: "control-label col-sm-2", attrs: { for: "initial" } },
-      [_c("span", { staticClass: "pull-left" }, [_vm._v("Initial:")])]
+      { staticClass: "control-label col-sm-2", attrs: { for: "yearsInPhase" } },
+      [_c("span", { staticClass: "pull-left" }, [_vm._v("Years in phase:")])]
     )
   },
   function() {
@@ -68972,21 +68953,6 @@ var staticRenderFns = [
       { staticClass: "control-label col-sm-2", attrs: { for: "form_id" } },
       [_c("span", { staticClass: "pull-left" }, [_vm._v("Class:")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "col-sm-offset-2 col-sm-8" }, [
-        _c("div", { staticClass: "checkbox" }, [
-          _c("label", [
-            _c("input", { attrs: { type: "checkbox" } }),
-            _vm._v(" Admin")
-          ])
-        ])
-      ])
-    ])
   },
   function() {
     var _vm = this

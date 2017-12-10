@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h4 class="page-header">New Educator</h4>
+            <h4 class="page-header">{{header}}</h4>
 
         </div>
     </div>
@@ -44,18 +44,18 @@
               </div>
 
               <div class="form-group">
-                <label class="control-label col-sm-2" for="title"><span class="pull-left">Title:</span></label>
+                <label class="control-label col-sm-2" for="learnerNumber"><span class="pull-left">Learner Number:</span></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="title" name="title" placeholder="Enter Title" v-model="form.title">
-                  <span style="color:red;" v-text="form.errors.get('title')"></span>
+                  <input type="text" class="form-control" id="title" name="learnerNumber" placeholder="Enter learner number" v-model="form.learnerNumber">
+                  <span style="color:red;" v-text="form.errors.get('learnerNumber')"></span>
                 </div>
               </div>
 
               <div class="form-group">
-                <label class="control-label col-sm-2" for="initial"><span class="pull-left">Initial:</span></label>
+                <label class="control-label col-sm-2" for="yearsInPhase"><span class="pull-left">Years in phase:</span></label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="initial" name="initial" placeholder="Enter Intitial" v-model="form.initial">
-                  <span style="color:red;" v-text="form.errors.get('initial')"></span>
+                  <input type="text" class="form-control" id="initial" name="yearsInPhase" placeholder="Enter years in phase" v-model="form.yearsInPhase">
+                  <span style="color:red;" v-text="form.errors.get('yearsInPhase')"></span>
                 </div>
               </div>
 
@@ -73,14 +73,6 @@
 
               <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
-                  <div class="checkbox">
-                    <label><input type="checkbox"> Admin</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-8">
                   <button type="submit" class="btn btn-primary pull-right">Submit</button>
                 </div>
               </div>
@@ -92,28 +84,27 @@
 </template>
 <script>
   import {Form} from '../../services/form';
-  import InputField from '../../components/InputField';
   export default {
-    components:{'input-field':InputField},
     props:{
-       educator: {
+       learner: {
          type: Object,
          required: false // User can accept a userData object on params, or not. It's totally optional.
        }
     },
     data(){
       return {
+        header:'New Learner',
         classes:[],
         action:'post',
-        url:'/educators',
+        url:'/learners',
         form: new Form({
             form_id:0,
             firstName:'',
             lastName:'',
             gender:'',
             email:'',
-            initial:'',
-            title:''
+            learnerNumber:'',
+            yearsInPhase:''
         }),
       }
     },
@@ -121,14 +112,14 @@
         var self = this;
         axios.get('classes').then(function(result){
             self.classes = result.data.classes;
-            self.classes.push({id:0,formName:'None'});
         });
         console.log('Mounted');
-        if(this.educator){
+        if(this.learner){
+          this.header = 'Edit Learner';
           this.action = 'patch';
-          this.url = '/educators/'+this.educator.id;
-          this.form.edit(this.educator);
-          console.log(this.educator);
+          this.url = '/learners/'+this.learner.id;
+          this.form.edit(this.learner);
+          console.log(this.learner);
         }
     },
     methods:{
@@ -138,7 +129,7 @@
                 if(result.exists){
                     alert(result.exists);
                 }else{
-                    self.$router.push('/educators');
+                    self.$router.push('/learners');
                 }
                 console.log(result);
         });

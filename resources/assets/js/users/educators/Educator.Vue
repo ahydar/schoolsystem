@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h4 class="page-header">New Educator</h4>
+            <h4 class="page-header">{{header}}</h4>
 
         </div>
     </div>
@@ -103,6 +103,7 @@
     },
     data(){
       return {
+        header:'New Educator',
         classes:[],
         action:'post',
         url:'/educators',
@@ -125,6 +126,7 @@
         });
         console.log('Mounted');
         if(this.educator){
+          this.header = 'Edit Educator';
           this.action = 'patch';
           this.url = '/educators/'+this.educator.id;
           this.form.edit(this.educator);

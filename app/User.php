@@ -38,4 +38,8 @@ class User extends Authenticatable
     public function educator(){
       return $this -> hasOne('App\Educator');
     }
+
+    public function learner(){
+      return $this -> hasOne('App\Learner');
+    }
 }
