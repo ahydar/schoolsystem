@@ -54,6 +54,11 @@ Route::middleware(['auth'])->group(function () {
       Route::patch('/educators/{id}','EducatorController@update');
       Route::delete('/educators/{id}','EducatorController@destroy');
 
+
+      Route::get('/learners','LearnerController@index');
+      Route::post('/learners','LearnerController@store');
+      Route::patch('/learners/{id}','LearnerController@update');
+      Route::delete('/learners/{id}','LearnerController@destroy');
 });
 
 Route::get('/', function () {

@@ -47,6 +47,17 @@ let routes = [
     name:'edu',
     component:require('./users/educators/Educator'),
     props:true
+  },
+
+  {
+    path:'/learners',
+    component:require('./users/learners/ViewLearners')
+  },
+  {
+    path:'/learner',
+    name:'learner',
+    component:require('./users/learners/Learner'),
+    props:true
   }
 ];
 

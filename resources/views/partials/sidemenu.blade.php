@@ -57,6 +57,16 @@
                 </li>
               </ul>
           </li>
+          <li>
+              <a href="#"><i class="fa fa-users fa-fw"></i> Learners<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <router-link tag="a" to="/learners">
+                       Learners
+                  </router-link>
+                </li>
+              </ul>
+          </li>
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
