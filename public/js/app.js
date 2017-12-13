@@ -66793,6 +66793,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     save: function save() {
       var self = this;
       this.form.submit(self.action, self.url).then(function (result) {
+        console.log("Going through");
         if (result.exists) {
           alert(result.exists);
         } else {

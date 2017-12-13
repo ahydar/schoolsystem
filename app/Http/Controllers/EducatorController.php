@@ -107,7 +107,7 @@ class EducatorController extends Controller
 
         $user = User::find($id);
 
-        if(count($user) < 0){
+        if($user == null){
             return ["exists" => "User does not exists"];
         }
         $user -> firstName = request('firstName');
@@ -140,7 +140,7 @@ class EducatorController extends Controller
                 $educator -> educatorform() -> save($educatorform);
             }
         }else{
-            $educatorform = $educator -> educatorform;
+            $educatorform = $educator -> educatorform();
             if($educatorform != null){
                 $educatorform -> delete();
             }
