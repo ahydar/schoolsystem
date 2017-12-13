@@ -11,7 +11,7 @@
             <notifications />
             <div class="panel panel-default">
               <div class="panel-heading">
-                <router-link tag="button" class="btn btn-primary" to="/educator">
+                <router-link tag="button" class="btn btn-primary" to="/learner">
                      New Learners
                 </router-link>
               </div>

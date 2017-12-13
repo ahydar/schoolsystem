@@ -67629,7 +67629,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-primary",
-                    attrs: { tag: "button", to: "/educator" }
+                    attrs: { tag: "button", to: "/learner" }
                   },
                   [_vm._v("\n                   New Learners\n              ")]
                 )

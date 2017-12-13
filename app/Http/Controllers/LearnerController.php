@@ -130,7 +130,7 @@ class LearnerController extends Controller
 
         $user = User::find($id);
 
-        if(count($user) < 0){
+        if($user == null){
             return ["exists" => "User does not exists"];
         }
         $user -> firstName = request('firstName');
