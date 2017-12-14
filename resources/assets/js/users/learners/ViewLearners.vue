@@ -20,6 +20,7 @@
                       <thead>
                         <tr>
                           <th v-for="col in columns">{{col.title}}</th>
+                          <th>Subjects</th>
                           <th>Edit</th>
                           <th>Delete</th>
                         </tr>
@@ -28,9 +29,15 @@
                         <tr v-for="learner in learners">
                           <td v-for="col in columns" >{{learner[col.field]}}</td>
                           <td>
+                            <router-link :to="{ name: 'learnersubjects', params:{learner:learner}}" class="btn btn-info btn-xs">
+                              Subjects
+                            </router-link>
+                          </td>
+                          <td>
                             <router-link :to="{ name: 'learner', params:{learner:learner}}" class="btn btn-warning btn-xs">
                               Edit
                             </router-link>
+                          </td>
                           <td><button v-on:click="remove(learner.id)" class="btn btn-danger btn-xs">Delete</button></td>
                         </tr>
                       </tbody>
@@ -40,10 +47,13 @@
           </div>
       </div>
     </div>
+    
 </template>
 <script>
   import {dataTableLoad,destroyDataTable} from '../../services/dataTablesService';
+  import learnerSubjects from './LearnerSubjects';
   export default {
+    components:{'learner-subjects':learnerSubjects},
     data(){
       return {
         tableID:'learners',

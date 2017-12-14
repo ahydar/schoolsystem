@@ -59,6 +59,11 @@ Route::middleware(['auth'])->group(function () {
       Route::post('/learners','LearnerController@store');
       Route::patch('/learners/{id}','LearnerController@update');
       Route::delete('/learners/{id}','LearnerController@destroy');
+
+      Route::get('/learnersubjects/{user_id}/{form_id}','LearnersubjectController@index');
+      Route::post('/learnersubjects','LearnersubjectController@store');
+      Route::patch('/learnersubjects/{id}','LearnersubjectController@update');
+      Route::delete('/learnersubjects/{id}','LearnersubjectController@destroy');
 });
 
 Route::get('/', function () {

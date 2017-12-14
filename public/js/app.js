@@ -64154,6 +64154,11 @@ var routes = [{
   name: 'learner',
   component: __webpack_require__(91),
   props: true
+}, {
+  path: '/learnersubjects',
+  name: 'learnersubjects',
+  component: __webpack_require__(121),
+  props: true
 }];
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
@@ -67527,6 +67532,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LearnerSubjects__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__LearnerSubjects___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__LearnerSubjects__);
 //
 //
 //
@@ -67570,9 +67577,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: { 'learner-subjects': __WEBPACK_IMPORTED_MODULE_1__LearnerSubjects___default.a },
   data: function data() {
     return {
       tableID: 'learners',
@@ -67654,6 +67671,8 @@ var render = function() {
                           return _c("th", [_vm._v(_vm._s(col.title))])
                         }),
                         _vm._v(" "),
+                        _c("th", [_vm._v("Subjects")]),
+                        _vm._v(" "),
                         _c("th", [_vm._v("Edit")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("Delete")])
@@ -67680,6 +67699,30 @@ var render = function() {
                               _c(
                                 "router-link",
                                 {
+                                  staticClass: "btn btn-info btn-xs",
+                                  attrs: {
+                                    to: {
+                                      name: "learnersubjects",
+                                      params: { learner: learner }
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Subjects\n                          "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
                                   staticClass: "btn btn-warning btn-xs",
                                   attrs: {
                                     to: {
@@ -67697,6 +67740,7 @@ var render = function() {
                             ],
                             1
                           ),
+                          _vm._v(" "),
                           _c("td", [
                             _c(
                               "button",
@@ -68814,6 +68858,325 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(122)
+/* template */
+var __vue_template__ = __webpack_require__(123)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\users\\learners\\LearnerSubjects.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-11ecbd11", Component.options)
+  } else {
+    hotAPI.reload("data-v-11ecbd11", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 122 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_form__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        learner: {
+            type: Object,
+            required: false // User can accept a userData object on params, or not. It's totally optional.
+        }
+    },
+    data: function data() {
+        return {
+            modalID: 'learnerSubjects',
+            form_id: 0,
+            id: 0,
+            header: 'Subjects for',
+            allSubjects: [],
+            subjects: [],
+            learnersubjects: [],
+            action: 'post',
+            url: '/learners',
+            form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
+                form_id: 0,
+                firstName: '',
+                lastName: '',
+                gender: '',
+                email: '',
+                learnerNumber: '',
+                yearsInPhase: ''
+            })
+        };
+    },
+    mounted: function mounted() {
+        var self = this;
+        if (this.learner) {
+            this.id = this.learner.id;
+            this.form_id = this.learner.form_id;
+            this.header = 'Subjects for ' + this.learner.firstName + ' ' + this.learner.lastName;
+            axios.get('learnersubjects/' + this.id + '/' + this.form_id).then(function (result) {
+                console.log("This learner");
+                console.log(result);
+                self.learnersubjects = result.data.user.learner.learnersubjects;
+                self.allSubjects = result.data.subjects;
+                //id in subjects = formsubject_id
+                self.subjectList();
+            });
+        }
+    },
+
+    methods: {
+        subjectList: function subjectList() {}
+    }
+});
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("notifications"),
+          _vm._v(" "),
+          _c("form", {
+            staticClass: "form-horizontal",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.save($event)
+              },
+              keydown: function($event) {
+                _vm.form.errors.clear($event.target.name)
+              },
+              change: function($event) {
+                _vm.form.errors.clear($event.target.name)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel panel-default" }, [
+            _vm._m(0, false, false),
+            _vm._v(" "),
+            _c("div", { staticClass: "panel-body" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-striped table-bordered table-hover",
+                  attrs: { width: "100%" }
+                },
+                [
+                  _vm._m(1, false, false),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.subjects, function(sub) {
+                      return _c("tr", [
+                        _c("td", [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(sub.subjectName) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2, true, false)
+                      ])
+                    })
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("modal", { attrs: { modalID: _vm.modalID } }, [
+            _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+              _c("h3", [_vm._v("Confirm")])
+            ]),
+            _vm._v(" "),
+            _c("div", { attrs: { slot: "body" }, slot: "body" }),
+            _vm._v(" "),
+            _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "button" } },
+                [_vm._v("Yes")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("No")]
+              )
+            ])
+          ])
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [
+        _vm._v("\n                   Add subjects\n              ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Subject")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Delete")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-danger btn-xs" }, [_vm._v("Delete")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-11ecbd11", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

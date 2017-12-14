@@ -58,6 +58,12 @@ let routes = [
     name:'learner',
     component:require('./users/learners/Learner'),
     props:true
+  },
+  {
+    path:'/learnersubjects',
+    name:'learnersubjects',
+    component:require('./users/learners/LearnerSubjects'),
+    props:true
   }
 ];
 
