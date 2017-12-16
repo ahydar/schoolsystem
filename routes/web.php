@@ -63,7 +63,7 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/learnersubjects/{user_id}/{form_id}','LearnersubjectController@index');
       Route::post('/learnersubjects','LearnersubjectController@store');
       Route::patch('/learnersubjects/{id}','LearnersubjectController@update');
-      Route::delete('/learnersubjects/{id}','LearnersubjectController@destroy');
+      Route::delete('/learnersubjects/{id}/{user_id}/{form_id}','LearnersubjectController@destroy');
 });
 
 Route::get('/', function () {

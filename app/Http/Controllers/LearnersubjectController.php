@@ -17,14 +17,20 @@ class LearnersubjectController extends Controller
      */
     public function index($user_id,$form_id)
     {
+        $account_id = Auth::user() -> account_id;
+        $subjects = DB::table('subjects')
+                    ->join('formsubjects','subjects.id','=','formsubjects.subject_id')
+                    ->where([
+                        ['form_id','=',$form_id],
+                        ['formsubjects.account_id','=',$account_id]
+                    ])
+                    ->select('formsubjects.*','subjectName')
+                    ->get();
+
         $user = User::with('learner.learnersubjects')
                             ->find($user_id);
 
-        $subjects = DB::table('subjects')
-                        ->join('formsubjects','subjects.id','=','formsubjects.subject_id')
-                        ->where('form_id','=',$form_id)
-                        ->select('formsubjects.*','subjectName')
-                        ->get();
+        
         return ['user'=>$user,'subjects'=>$subjects];
 
     }
@@ -48,6 +54,27 @@ class LearnersubjectController extends Controller
     public function store(Request $request)
     {
         //
+        $user_id = $request -> input('0.user_id');
+
+        $form_id = $request -> input('0.form_id');
+
+        $input = $request -> input();
+        
+        $learnersubjects = [];
+        $arr = [];
+        foreach($input as $item){
+            $subject = new Learnersubject;
+            $subject -> formsubject_id = $item['id'];
+            $learnersubjects[] = $subject;
+        }
+
+        $user = User::with('learner')->find($user_id);
+
+        $learner = $user -> learner;
+
+        $learner -> learnersubjects() -> saveMany($learnersubjects);
+
+        return  $this -> index($user_id,$form_id);
     }
 
     /**
@@ -90,8 +117,12 @@ class LearnersubjectController extends Controller
      * @param  \App\Learnersubject  $learnersubject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Learnersubject $learnersubject)
+    public function destroy($id,$user_id,$form_id)
     {
-        //
+        $learnersubject = Learnersubject::find($id);
+
+       $learnersubject -> delete();
+
+       return  $this -> index($user_id,$form_id);
     }
 }

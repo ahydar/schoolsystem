@@ -68982,6 +68982,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -68995,43 +68998,74 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             modalID: 'learnerSubjects',
             form_id: 0,
-            id: 0,
+            user_id: 0,
             header: 'Subjects for',
             allSubjects: [],
-            subjects: [],
-            learnersubjects: [],
-            action: 'post',
-            url: '/learners',
-            form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
-                form_id: 0,
-                firstName: '',
-                lastName: '',
-                gender: '',
-                email: '',
-                learnerNumber: '',
-                yearsInPhase: ''
-            })
+            subjectsTaken: [],
+            subjectsNotTaken: [],
+            learnersubjects: []
         };
     },
     mounted: function mounted() {
         var self = this;
         if (this.learner) {
-            this.id = this.learner.id;
+            this.user_id = this.learner.id;
             this.form_id = this.learner.form_id;
             this.header = 'Subjects for ' + this.learner.firstName + ' ' + this.learner.lastName;
-            axios.get('learnersubjects/' + this.id + '/' + this.form_id).then(function (result) {
-                console.log("This learner");
+            axios.get('learnersubjects/' + this.user_id + '/' + this.form_id).then(function (result) {
                 console.log(result);
-                self.learnersubjects = result.data.user.learner.learnersubjects;
-                self.allSubjects = result.data.subjects;
-                //id in subjects = formsubject_id
-                self.subjectList();
+                self.subjectList(result);
             });
         }
     },
 
     methods: {
-        subjectList: function subjectList() {}
+        subjectList: function subjectList(result) {
+            console.log(result.data.subjects);
+            this.learnersubjects = result.data.user.learner.learnersubjects;
+            this.allSubjects = result.data.subjects;
+            this.subjectsTaken = [];
+            this.subjectsNotTaken = [];
+            for (var i = 0; i < this.learnersubjects.length; i++) {
+                for (var j = 0; j < this.allSubjects.length; j++) {
+                    //console.log(this.allSubjects[j]);
+                    if (this.learnersubjects[i].formsubject_id === this.allSubjects[j].id) {
+                        this.allSubjects[j].learnersubject_id = this.learnersubjects[i].id;
+                        this.subjectsTaken.push(this.allSubjects[j]);
+                        this.allSubjects.splice(j, 1);
+                    }
+
+                    if (this.allSubjects[j]) {
+                        this.allSubjects[j].user_id = this.user_id;
+                        this.allSubjects[j].checked = false;
+                    }
+                }
+            }
+            this.subjectsNotTaken = this.allSubjects;
+        },
+        save: function save() {
+            $("#" + this.modalID).modal("hide");
+            if (this.subjectsNotTaken.length != 0) {
+                console.log("Going through");
+                console.log(this.subjectsNotTaken);
+                var saveSubjects = this.subjectsNotTaken.filter(function (element) {
+                    return element.checked === true;
+                });
+                var self = this;
+                axios.post('learnersubjects', saveSubjects).then(function (result) {
+                    console.log(result);
+                    self.subjectList(result);
+                });
+            }
+        },
+        remove: function remove(learnersubject_id) {
+            var self = this;
+            console.log(learnersubject_id);
+            axios.delete('learnersubjects/' + learnersubject_id + '/' + this.user_id + '/' + this.form_id).then(function (result) {
+                console.log(result);
+                self.subjectList(result);
+            });
+        }
     }
 });
 
@@ -69088,7 +69122,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "tbody",
-                    _vm._l(_vm.subjects, function(sub) {
+                    _vm._l(_vm.subjectsTaken, function(sub) {
                       return _c("tr", [
                         _c("td", [
                           _vm._v(
@@ -69098,7 +69132,20 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _vm._m(2, true, false)
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-xs",
+                              on: {
+                                click: function($event) {
+                                  _vm.remove(sub.learnersubject_id)
+                                }
+                              }
+                            },
+                            [_vm._v("Remove")]
+                          )
+                        ])
                       ])
                     })
                   )
@@ -69112,14 +69159,67 @@ var render = function() {
               _c("h3", [_vm._v("Confirm")])
             ]),
             _vm._v(" "),
-            _c("div", { attrs: { slot: "body" }, slot: "body" }),
+            _c(
+              "div",
+              { attrs: { slot: "body" }, slot: "body" },
+              _vm._l(_vm.subjectsNotTaken, function(sub) {
+                return _c("div", { staticClass: "checkbox input-sm" }, [
+                  _c("label", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: sub.checked,
+                          expression: "sub.checked"
+                        }
+                      ],
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(sub.checked)
+                          ? _vm._i(sub.checked, null) > -1
+                          : sub.checked
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = sub.checked,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (sub.checked = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (sub.checked = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.$set(sub, "checked", $$c)
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(_vm._s(sub.subjectName))
+                  ])
+                ])
+              })
+            ),
             _vm._v(" "),
             _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "button" } },
-                [_vm._v("Yes")]
-              ),
+              _vm.subjectsNotTaken.length
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary pull-left",
+                      attrs: { type: "button" },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Save")]
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "button",
@@ -69127,7 +69227,7 @@ var render = function() {
                   staticClass: "btn btn-default",
                   attrs: { type: "button", "data-dismiss": "modal" }
                 },
-                [_vm._v("No")]
+                [_vm._v("Close")]
               )
             ])
           ])
@@ -69143,9 +69243,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("\n                   Add subjects\n              ")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { "data-toggle": "modal", "data-target": "#learnerSubjects" }
+        },
+        [_vm._v("\n                   Add subjects\n              ")]
+      )
     ])
   },
   function() {
@@ -69156,16 +69261,8 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Subject")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Delete")])
+        _c("th", [_vm._v("Remove")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-danger btn-xs" }, [_vm._v("Delete")])
     ])
   }
 ]
