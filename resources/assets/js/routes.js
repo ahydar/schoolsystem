@@ -48,6 +48,12 @@ let routes = [
     component:require('./users/educators/Educator'),
     props:true
   },
+  {
+    path:'/educatorsubjects',
+    name:'educatorsubjects',
+    component:require('./users/educators/EducatorSubjects'),
+    props:true
+  },
 
   {
     path:'/learners',

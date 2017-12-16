@@ -20,6 +20,7 @@
                       <thead>
                         <tr>
                           <th v-for="col in columns">{{col.title}}</th>
+                          <th>Subjects</th>
                           <th>Edit</th>
                           <th>Delete</th>
                         </tr>
@@ -27,6 +28,11 @@
                       <tbody>
                         <tr v-for="educator in educators">
                           <td v-for="col in columns" >{{educator[col.field]}}</td>
+                          <td>
+                            <router-link :to="{ name: 'educatorsubjects', params:{educator:educator}}" class="btn btn-info btn-xs">
+                              Subjects
+                            </router-link>
+                          </td>
                           <td>
                             <router-link :to="{ name: 'edu', params:{educator:educator}}" class="btn btn-warning btn-xs">
                               Edit

@@ -54,6 +54,10 @@ Route::middleware(['auth'])->group(function () {
       Route::patch('/educators/{id}','EducatorController@update');
       Route::delete('/educators/{id}','EducatorController@destroy');
 
+      Route::get('/educatorsubjects/{user_id}/{form_id}','EducatorsubjectController@index');
+      Route::post('/educatorsubjects','EducatorsubjectController@store');
+      Route::patch('/educatorsubjects/{id}','EducatorsubjectController@update');
+      Route::delete('/educatorsubjects/{id}/{user_id}/{form_id}','EducatorsubjectController@destroy');
 
       Route::get('/learners','LearnerController@index');
       Route::post('/learners','LearnerController@store');
@@ -64,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
       Route::post('/learnersubjects','LearnersubjectController@store');
       Route::patch('/learnersubjects/{id}','LearnersubjectController@update');
       Route::delete('/learnersubjects/{id}/{user_id}/{form_id}','LearnersubjectController@destroy');
+
 });
 
 Route::get('/', function () {

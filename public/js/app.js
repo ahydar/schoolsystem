@@ -64147,6 +64147,11 @@ var routes = [{
   component: __webpack_require__(82),
   props: true
 }, {
+  path: '/educatorsubjects',
+  name: 'educatorsubjects',
+  component: __webpack_require__(124),
+  props: true
+}, {
   path: '/learners',
   component: __webpack_require__(88)
 }, {
@@ -66425,6 +66430,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66508,6 +66519,8 @@ var render = function() {
                           return _c("th", [_vm._v(_vm._s(col.title))])
                         }),
                         _vm._v(" "),
+                        _c("th", [_vm._v("Subjects")]),
+                        _vm._v(" "),
                         _c("th", [_vm._v("Edit")]),
                         _vm._v(" "),
                         _c("th", [_vm._v("Delete")])
@@ -66527,6 +66540,30 @@ var render = function() {
                               _vm._v(_vm._s(educator[col.field]))
                             ])
                           }),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "btn btn-info btn-xs",
+                                  attrs: {
+                                    to: {
+                                      name: "educatorsubjects",
+                                      params: { educator: educator }
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Subjects\n                          "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
                           _c(
                             "td",
@@ -68983,8 +69020,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69090,22 +69125,6 @@ var render = function() {
         { staticClass: "col-md-12" },
         [
           _c("notifications"),
-          _vm._v(" "),
-          _c("form", {
-            staticClass: "form-horizontal",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.save($event)
-              },
-              keydown: function($event) {
-                _vm.form.errors.clear($event.target.name)
-              },
-              change: function($event) {
-                _vm.form.errors.clear($event.target.name)
-              }
-            }
-          }),
           _vm._v(" "),
           _c("div", { staticClass: "panel panel-default" }, [
             _vm._m(0, false, false),
@@ -69272,6 +69291,420 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-11ecbd11", module.exports)
+  }
+}
+
+/***/ }),
+/* 124 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(125)
+/* template */
+var __vue_template__ = __webpack_require__(126)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\users\\educators\\EducatorSubjects.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6fbd07e9", Component.options)
+  } else {
+    hotAPI.reload("data-v-6fbd07e9", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 125 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_form__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        educator: {
+            type: Object,
+            required: false // User can accept a userData object on params, or not. It's totally optional.
+        }
+    },
+    data: function data() {
+        return {
+            modalID: 'educatorSubjects',
+            form_id: 0,
+            user_id: 0,
+            header: 'Subjects for',
+            allSubjects: [],
+            subjectsTaken: [],
+            subjectsNotTaken: [],
+            educatorsubjects: [{ name: "English", checked: false }, { name: "Math", checked: false }, { name: "Afrikaans", checked: true }, { name: "Arabic", checked: false }, { name: "Fiqh", checked: false }]
+        };
+    },
+    mounted: function mounted() {
+        var self = this;
+        if (this.educator) {
+            this.user_id = this.educator.id;
+            this.form_id = this.educator.form_id;
+            this.header = 'Subjects for ' + this.educator.firstName + ' ' + this.educator.lastName;
+            axios.get('learnersubjects/' + this.user_id + '/' + this.form_id).then(function (result) {
+                console.log(result);
+                self.subjectList(result);
+            });
+        }
+    },
+
+    methods: {
+        subjectList: function subjectList(result) {},
+        save: function save() {},
+        remove: function remove(learnersubject_id) {}
+    }
+});
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12" }, [
+        _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-lg-4" },
+        _vm._l(_vm.educatorsubjects, function(sub) {
+          return !sub.checked
+            ? _c("div", [
+                _vm._v("\n              " + _vm._s(sub.name) + "  "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success pull-right btn-xs",
+                    on: {
+                      click: function($event) {
+                        sub.checked = !sub.checked
+                      }
+                    }
+                  },
+                  [_vm._v("Add")]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _c("br")
+              ])
+            : _vm._e()
+        })
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-lg-4" }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-lg-4" },
+        _vm._l(_vm.educatorsubjects, function(sub) {
+          return sub.checked
+            ? _c("div", [
+                _vm._v("\n              " + _vm._s(sub.name) + "  "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger pull-right btn-xs",
+                    on: {
+                      click: function($event) {
+                        sub.checked = !sub.checked
+                      }
+                    }
+                  },
+                  [_vm._v("Remove")]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _c("br")
+              ])
+            : _vm._e()
+        })
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("notifications"),
+          _vm._v(" "),
+          _vm.educator
+            ? _c("div", { staticClass: "panel panel-default" }, [
+                _vm._m(0, false, false),
+                _vm._v(" "),
+                _c("div", { staticClass: "panel-body" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-striped table-bordered table-hover",
+                      attrs: { width: "100%" }
+                    },
+                    [
+                      _vm._m(1, false, false),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.subjectsTaken, function(sub) {
+                          return _c("tr", [
+                            _c("td", [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(sub.subjectName) +
+                                  "\n                        "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-xs",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.remove()
+                                    }
+                                  }
+                                },
+                                [_vm._v("Remove")]
+                              )
+                            ])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("modal", { attrs: { modalID: _vm.modalID } }, [
+            _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+              _c("h3", [_vm._v("Confirm")])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { attrs: { slot: "body" }, slot: "body" },
+              _vm._l(_vm.subjectsNotTaken, function(sub) {
+                return _c("div", { staticClass: "checkbox input-sm" }, [
+                  _c("label", [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: sub.checked,
+                          expression: "sub.checked"
+                        }
+                      ],
+                      attrs: { type: "checkbox" },
+                      domProps: {
+                        checked: Array.isArray(sub.checked)
+                          ? _vm._i(sub.checked, null) > -1
+                          : sub.checked
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = sub.checked,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (sub.checked = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (sub.checked = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.$set(sub, "checked", $$c)
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(_vm._s(sub.subjectName))
+                  ])
+                ])
+              })
+            ),
+            _vm._v(" "),
+            _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+              _vm.subjectsNotTaken.length
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary pull-left",
+                      attrs: { type: "button" },
+                      on: { click: _vm.save }
+                    },
+                    [_vm._v("Save")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Close")]
+              )
+            ])
+          ])
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel-heading" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { "data-toggle": "modal", "data-target": "#educatorSubjects" }
+        },
+        [_vm._v("\n                   Add subjects\n              ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Subject")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Remove")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6fbd07e9", module.exports)
   }
 }
 
