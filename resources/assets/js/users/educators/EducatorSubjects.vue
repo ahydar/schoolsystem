@@ -6,21 +6,6 @@
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-4">
-            <div  v-for="sub in educatorsubjects" v-if='!sub.checked'>
-                {{sub.name}}  <button class="btn btn-success pull-right btn-xs" @click="sub.checked = !sub.checked">Add</button>
-                <br><br>
-            </div>
-        </div>
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4">
-            <div v-for="sub in educatorsubjects" v-if='sub.checked'>
-                {{sub.name}}  <button class="btn btn-danger pull-right btn-xs" @click="sub.checked = !sub.checked">Remove</button>
-                <br><br>
-            </div>
-        </div>
-    </div>
       <div class="row">
           <div class="col-md-12">
             <notifications />
@@ -35,29 +20,40 @@
                       <thead>
                         <tr>
                           <th>Subject</th>
+                          <th>Class</th>
                           <th>Remove</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="sub in subjectsTaken">
-                          <td>
-                              {{sub.subjectName}}
-                          </td>
+                        <tr v-for="sub in subjects" v-if="sub.subjectTeaching">
+                          <td>{{sub.subjectName}}</td>
+                          <td> {{sub.formName}}</td>
                           <td><button class="btn btn-danger btn-xs" @click="remove()">Remove</button></td>
                         </tr>
                       </tbody>
                   </table>
               </div>
             </div>
-            <modal :modalID="modalID">
-                <div slot="header"><h3>Confirm</h3></div>
+            <modal :modalID="modalID" width="75%">
+                <div slot="header"><h3>Subjects</h3></div>
                 <div slot="body">
-                    <div class="checkbox input-sm" v-for="sub in subjectsNotTaken">
-                        <label><input type="checkbox" v-model="sub.checked">{{sub.subjectName}}</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" v-model="searchVal" @keyup='filterSubs'>
+                            <ul>
+                                <li v-for="sub in subjectsListed" v-if="!sub.subjectTeaching">
+                                    {{sub.subjectName}} {{sub.formName}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            
+                        </div>
                     </div>
                 </div>
                 <div slot="footer">
-                    <button type="button" class="btn btn-primary pull-left" @click="save" v-if="subjectsNotTaken.length">Save</button>
+                    <button type="button" class="btn btn-primary pull-left" @click="save">Save</button>
                     <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </modal>
@@ -77,36 +73,71 @@
     data(){
       return {
         modalID:'educatorSubjects',
-        form_id:0,
         user_id:0,
+        searchVal:'',
         header:'Subjects for',
-        allSubjects:[],
-        subjectsTaken:[],
-        subjectsNotTaken:[],
-        educatorsubjects:[
-            {name:"English",checked:false},
-            {name:"Math",checked:false},
-            {name:"Afrikaans",checked:true},
-            {name:"Arabic",checked:false},
-            {name:"Fiqh",checked:false}
-        ],
+        subjects:[],
+        educatorsubjects:[]
       }
     },
     mounted(){
         var self = this;
         if(this.educator){
             this.user_id = this.educator.id;
-            this.form_id = this.educator.form_id;
             this.header = 'Subjects for '+ this.educator.firstName+' '+this.educator.lastName;
-            axios.get('learnersubjects/'+this.user_id+'/'+this.form_id).then(function(result){
+            axios.get('educatorsubjects/'+this.user_id).then(function(result){
                 console.log(result);
                 self.subjectList(result);
             });
         }
     },
+    computed:{
+        subjectsListed: function(){
+            var self = this;
+            return this.subjects.filter(function(subject){
+                return subject.subjectName.includes(self.searchVal) || subject.formName.includes(self.searchVal);
+            });
+        }
+    },
     methods:{
+        
         subjectList:function(result){
-
+            var self = this;
+            console.log(result.data.subjects);
+            this.educatorsubjects = result.data.user.educator.educatorsubjects;
+            this.subjects = result.data.subjects;
+            this.subjects.forEach(function(subject){
+                var formsubject_id = subject.id;
+                var check = self.educatorsubjects.some(function(arrVal){
+                        return arrVal.formsubject_id === formsubject_id;
+                });
+                if(check){
+                    subject.subjectTeaching = true;
+                }else{
+                    subject.subjectTeaching = false;
+                    subject.subjectSelected = false;
+                    subject.subjectInList = true;
+                }
+                
+            });
+        },
+        filterSubs:function(event){
+            console.log(event.keyCode);
+            console.log(this.searchVal);
+            var searchVal = this.searchVal;
+            this.subjects.forEach(function(subject){
+                console.log("----Busy----");
+                if(!searchVal){
+                    subject.subjectInList = true;
+                }else{
+                    if(subject.subjectName.includes(searchVal) || subject.formName.includes(searchVal)){
+                    subject.subjectInList = true;
+                    }else{
+                        subject.subjectInList = false;
+                    }
+                }
+            });
+            console.log("/****************************/");
         },
         save:function(){
 

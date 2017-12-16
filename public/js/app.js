@@ -68739,7 +68739,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['modalID']
+  props: ['modalID', 'width']
 });
 
 /***/ }),
@@ -68754,7 +68754,7 @@ var render = function() {
     "div",
     { staticClass: "modal fade", attrs: { id: _vm.modalID, role: "dialog" } },
     [
-      _c("div", { staticClass: "modal-dialog" }, [
+      _c("div", { staticClass: "modal-dialog", style: { width: _vm.width } }, [
         _c("div", { staticClass: "modal-content" }, [
           _c("div", { staticClass: "modal-header" }, [_vm._t("header")], 2),
           _vm._v(" "),
@@ -69175,7 +69175,7 @@ var render = function() {
           _vm._v(" "),
           _c("modal", { attrs: { modalID: _vm.modalID } }, [
             _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-              _c("h3", [_vm._v("Confirm")])
+              _c("h3", [_vm._v("Subjects")])
             ]),
             _vm._v(" "),
             _c(
@@ -69412,10 +69412,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69428,30 +69424,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             modalID: 'educatorSubjects',
-            form_id: 0,
             user_id: 0,
+            searchVal: '',
             header: 'Subjects for',
-            allSubjects: [],
-            subjectsTaken: [],
-            subjectsNotTaken: [],
-            educatorsubjects: [{ name: "English", checked: false }, { name: "Math", checked: false }, { name: "Afrikaans", checked: true }, { name: "Arabic", checked: false }, { name: "Fiqh", checked: false }]
+            subjects: [],
+            educatorsubjects: []
         };
     },
     mounted: function mounted() {
         var self = this;
         if (this.educator) {
             this.user_id = this.educator.id;
-            this.form_id = this.educator.form_id;
             this.header = 'Subjects for ' + this.educator.firstName + ' ' + this.educator.lastName;
-            axios.get('learnersubjects/' + this.user_id + '/' + this.form_id).then(function (result) {
+            axios.get('educatorsubjects/' + this.user_id).then(function (result) {
                 console.log(result);
                 self.subjectList(result);
             });
         }
     },
 
+    computed: {
+        subjectsListed: function subjectsListed() {
+            var self = this;
+            return this.subjects.filter(function (subject) {
+                return subject.subjectName.includes(self.searchVal) || subject.formName.includes(self.searchVal);
+            });
+        }
+    },
     methods: {
-        subjectList: function subjectList(result) {},
+
+        subjectList: function subjectList(result) {
+            var self = this;
+            console.log(result.data.subjects);
+            this.educatorsubjects = result.data.user.educator.educatorsubjects;
+            this.subjects = result.data.subjects;
+            this.subjects.forEach(function (subject) {
+                var formsubject_id = subject.id;
+                var check = self.educatorsubjects.some(function (arrVal) {
+                    return arrVal.formsubject_id === formsubject_id;
+                });
+                if (check) {
+                    subject.subjectTeaching = true;
+                } else {
+                    subject.subjectTeaching = false;
+                    subject.subjectSelected = false;
+                    subject.subjectInList = true;
+                }
+            });
+        },
+        filterSubs: function filterSubs(event) {
+            console.log(event.keyCode);
+            console.log(this.searchVal);
+            var searchVal = this.searchVal;
+            this.subjects.forEach(function (subject) {
+                console.log("----Busy----");
+                if (!searchVal) {
+                    subject.subjectInList = true;
+                } else {
+                    if (subject.subjectName.includes(searchVal) || subject.formName.includes(searchVal)) {
+                        subject.subjectInList = true;
+                    } else {
+                        subject.subjectInList = false;
+                    }
+                }
+            });
+            console.log("/****************************/");
+        },
         save: function save() {},
         remove: function remove(learnersubject_id) {}
     }
@@ -69470,64 +69508,6 @@ var render = function() {
       _c("div", { staticClass: "col-lg-12" }, [
         _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-lg-4" },
-        _vm._l(_vm.educatorsubjects, function(sub) {
-          return !sub.checked
-            ? _c("div", [
-                _vm._v("\n              " + _vm._s(sub.name) + "  "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-success pull-right btn-xs",
-                    on: {
-                      click: function($event) {
-                        sub.checked = !sub.checked
-                      }
-                    }
-                  },
-                  [_vm._v("Add")]
-                ),
-                _vm._v(" "),
-                _c("br"),
-                _c("br")
-              ])
-            : _vm._e()
-        })
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-lg-4" }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-lg-4" },
-        _vm._l(_vm.educatorsubjects, function(sub) {
-          return sub.checked
-            ? _c("div", [
-                _vm._v("\n              " + _vm._s(sub.name) + "  "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger pull-right btn-xs",
-                    on: {
-                      click: function($event) {
-                        sub.checked = !sub.checked
-                      }
-                    }
-                  },
-                  [_vm._v("Remove")]
-                ),
-                _vm._v(" "),
-                _c("br"),
-                _c("br")
-              ])
-            : _vm._e()
-        })
-      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -69554,31 +69534,29 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "tbody",
-                        _vm._l(_vm.subjectsTaken, function(sub) {
-                          return _c("tr", [
-                            _c("td", [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(sub.subjectName) +
-                                  "\n                        "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger btn-xs",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.remove()
-                                    }
-                                  }
-                                },
-                                [_vm._v("Remove")]
-                              )
-                            ])
-                          ])
+                        _vm._l(_vm.subjects, function(sub) {
+                          return sub.subjectTeaching
+                            ? _c("tr", [
+                                _c("td", [_vm._v(_vm._s(sub.subjectName))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(" " + _vm._s(sub.formName))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-xs",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.remove()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Remove")]
+                                  )
+                                ])
+                              ])
+                            : _vm._e()
                         })
                       )
                     ]
@@ -69587,72 +69565,71 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("modal", { attrs: { modalID: _vm.modalID } }, [
+          _c("modal", { attrs: { modalID: _vm.modalID, width: "75%" } }, [
             _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-              _c("h3", [_vm._v("Confirm")])
+              _c("h3", [_vm._v("Subjects")])
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              { attrs: { slot: "body" }, slot: "body" },
-              _vm._l(_vm.subjectsNotTaken, function(sub) {
-                return _c("div", { staticClass: "checkbox input-sm" }, [
-                  _c("label", [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: sub.checked,
-                          expression: "sub.checked"
-                        }
-                      ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(sub.checked)
-                          ? _vm._i(sub.checked, null) > -1
-                          : sub.checked
-                      },
-                      on: {
-                        change: function($event) {
-                          var $$a = sub.checked,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (sub.checked = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (sub.checked = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.$set(sub, "checked", $$c)
-                          }
-                        }
+            _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-4" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.searchVal,
+                        expression: "searchVal"
                       }
-                    }),
-                    _vm._v(_vm._s(sub.subjectName))
-                  ])
-                ])
-              })
-            ),
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.searchVal },
+                    on: {
+                      keyup: _vm.filterSubs,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.searchVal = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    _vm._l(_vm.subjectsListed, function(sub) {
+                      return !sub.subjectTeaching
+                        ? _c("li", [
+                            _vm._v(
+                              "\n                                  " +
+                                _vm._s(sub.subjectName) +
+                                " " +
+                                _vm._s(sub.formName) +
+                                "\n                              "
+                            )
+                          ])
+                        : _vm._e()
+                    })
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-4" })
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-              _vm.subjectsNotTaken.length
-                ? _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-primary pull-left",
-                      attrs: { type: "button" },
-                      on: { click: _vm.save }
-                    },
-                    [_vm._v("Save")]
-                  )
-                : _vm._e(),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary pull-left",
+                  attrs: { type: "button" },
+                  on: { click: _vm.save }
+                },
+                [_vm._v("Save")]
+              ),
               _vm._v(" "),
               _c(
                 "button",
@@ -69693,6 +69670,8 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Subject")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Class")]),
         _vm._v(" "),
         _c("th", [_vm._v("Remove")])
       ])

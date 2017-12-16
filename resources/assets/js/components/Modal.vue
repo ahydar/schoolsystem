@@ -1,7 +1,7 @@
 <template>
   <!-- Modal -->
   <div v-bind:id="modalID" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" v-bind:style="{ width:width }">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -23,6 +23,6 @@
 
 <script>
 export default {
-  props:['modalID']
+  props:['modalID','width']
 }
 </script>

@@ -35,7 +35,7 @@
               </div>
             </div>
             <modal :modalID="modalID">
-                <div slot="header"><h3>Confirm</h3></div>
+                <div slot="header"><h3>Subjects</h3></div>
                 <div slot="body">
                     <div class="checkbox input-sm" v-for="sub in subjectsNotTaken">
                         <label><input type="checkbox" v-model="sub.checked">{{sub.subjectName}}</label>

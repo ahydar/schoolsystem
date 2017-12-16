@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Educatorsubject;
 use Illuminate\Http\Request;
+use Auth;
+use DB;
+use App\User;
 
 class EducatorsubjectController extends Controller
 {
@@ -12,9 +15,22 @@ class EducatorsubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_id)
     {
         //
+        $account_id = Auth::user() -> account_id;
+        $subjects = DB::table('subjects')
+                    ->join('formsubjects','subjects.id','=','formsubjects.subject_id')
+                    ->join('forms','formsubjects.form_id','=','forms.id')
+                    ->where('formsubjects.account_id','=',$account_id)
+                    ->select('formsubjects.*','subjectName','formName')
+                    ->get();
+
+        $user = User::with('educator.educatorsubjects')
+                            ->find($user_id);
+
+        
+        return ['user'=>$user,'subjects'=>$subjects];
     }
 
     /**
