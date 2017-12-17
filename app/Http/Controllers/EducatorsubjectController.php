@@ -23,7 +23,8 @@ class EducatorsubjectController extends Controller
                     ->join('formsubjects','subjects.id','=','formsubjects.subject_id')
                     ->join('forms','formsubjects.form_id','=','forms.id')
                     ->where('formsubjects.account_id','=',$account_id)
-                    ->select('formsubjects.*','subjectName','formName')
+                    ->select('formsubjects.id','formsubjects.subject_id','formsubjects.form_id','subjectName','formName',
+                    '0 as subjectTeaching','0 as subjectSelected','0 as subjectInList')
                     ->get();
 
         $user = User::with('educator.educatorsubjects')
@@ -51,7 +52,26 @@ class EducatorsubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = $request -> input('0.user_id');
+        
+        $input = $request -> input();
+
+        $educatorsubject = [];
+
+        foreach($input as $item){
+            $subjectTeach = new Educatorsubject;
+            $subjectTeach -> formsubject_id = $item['id'];
+            $educatorsubject[] = $subjectTeach;
+        }
+
+
+        $user = User::with('learner')->find($user_id);
+
+        $educator = $user -> educator;
+
+        $educator -> educatorsubjects() -> saveMany($educatorsubject);
+
+        return  $this -> index($user_id);
     }
 
     /**
@@ -94,8 +114,12 @@ class EducatorsubjectController extends Controller
      * @param  \App\Educatorsubject  $educatorsubject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Educatorsubject $educatorsubject)
+    public function destroy($id,$user_id)
     {
-        //
+        $educatorsubject = Educatorsubject::find($id);
+        
+        $educatorsubject -> delete();
+
+        return  $this -> index($user_id);
     }
 }

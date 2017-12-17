@@ -61,7 +61,6 @@ class LearnersubjectController extends Controller
         $input = $request -> input();
         
         $learnersubjects = [];
-        $arr = [];
         foreach($input as $item){
             $subject = new Learnersubject;
             $subject -> formsubject_id = $item['id'];

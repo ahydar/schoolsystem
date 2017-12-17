@@ -28,7 +28,7 @@
                         <tr v-for="sub in subjects" v-if="sub.subjectTeaching">
                           <td>{{sub.subjectName}}</td>
                           <td> {{sub.formName}}</td>
-                          <td><button class="btn btn-danger btn-xs" @click="remove()">Remove</button></td>
+                          <td><button class="btn btn-danger btn-xs" @click="remove(sub.educatorsubject_id)">Remove</button></td>
                         </tr>
                       </tbody>
                   </table>
@@ -39,21 +39,27 @@
                 <div slot="body">
                     <div class="row">
                         <div class="col-md-4">
-                            <input type="text" class="form-control" v-model="searchVal" @keyup='filterSubs'>
-                            <ul>
-                                <li v-for="sub in subjectsListed" v-if="!sub.subjectTeaching">
+                            <input type="text" class="form-control" v-model="searchVal">
+                            <div v-for="sub in subjects" v-if="!sub.subjectTeaching && !sub.subjectSelected && sub.subjectInList">
                                     {{sub.subjectName}} {{sub.formName}}
-                                </li>
-                            </ul>
+                                    <button class="btn btn-success btn-xs" @click="sub.subjectSelected = !sub.subjectSelected">
+                                        Add
+                                    </button>
+                            </div>
                         </div>
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            
+                            <div v-for="sub in subjects" v-if="!sub.subjectTeaching && sub.subjectSelected">
+                                    {{sub.subjectName}} {{sub.formName}}
+                                    <button class="btn btn-danger btn-xs" @click="sub.subjectSelected = !sub.subjectSelected">
+                                        Remove
+                                    </button>
+                            </div>
+                            <button type="button" class="btn btn-primary pull-right" @click="save">Save</button>
                         </div>
                     </div>
                 </div>
                 <div slot="footer">
-                    <button type="button" class="btn btn-primary pull-left" @click="save">Save</button>
                     <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </modal>
@@ -91,26 +97,35 @@
             });
         }
     },
-    computed:{
-        subjectsListed: function(){
-            var self = this;
-            return this.subjects.filter(function(subject){
-                return subject.subjectName.includes(self.searchVal) || subject.formName.includes(self.searchVal);
+    watch:{
+        searchVal:function(val){
+            this.subjects.forEach(function(subject){
+                if(subject.subjectName.toLowerCase().includes(val.toLowerCase())){
+                    subject.subjectInList = true;
+                }else{
+                    subject.subjectInList = false;
+                }
             });
         }
     },
-    methods:{
-        
+    methods:{ 
         subjectList:function(result){
             var self = this;
-            console.log(result.data.subjects);
             this.educatorsubjects = result.data.user.educator.educatorsubjects;
             this.subjects = result.data.subjects;
             this.subjects.forEach(function(subject){
                 var formsubject_id = subject.id;
+                subject.user_id = self.user_id;
+                //subject.educatorsubject_id = self.user_id;
                 var check = self.educatorsubjects.some(function(arrVal){
-                        return arrVal.formsubject_id === formsubject_id;
+                        var status = false;
+                        if(arrVal.formsubject_id === formsubject_id){
+                            subject.educatorsubject_id = arrVal.id;
+                            status = true;
+                        }
+                        return status;
                 });
+
                 if(check){
                     subject.subjectTeaching = true;
                 }else{
@@ -121,29 +136,22 @@
                 
             });
         },
-        filterSubs:function(event){
-            console.log(event.keyCode);
-            console.log(this.searchVal);
-            var searchVal = this.searchVal;
-            this.subjects.forEach(function(subject){
-                console.log("----Busy----");
-                if(!searchVal){
-                    subject.subjectInList = true;
-                }else{
-                    if(subject.subjectName.includes(searchVal) || subject.formName.includes(searchVal)){
-                    subject.subjectInList = true;
-                    }else{
-                        subject.subjectInList = false;
-                    }
-                }
-            });
-            console.log("/****************************/");
-        },
         save:function(){
+            var self = this;
+            $("#"+this.modalID).modal("hide");
+            var saveSubjects = this.subjects.filter(function(subject){
+                    return subject.subjectSelected && !subject.subjectTeaching;
+            });
 
+            axios.post('educatorsubjects',saveSubjects).then(function(result){
+                self.subjectList(result);
+            });
         },
-        remove:function(learnersubject_id){
-
+        remove:function(educatorsubject_id){
+             var self = this;
+            axios.delete('educatorsubjects/'+educatorsubject_id+'/'+this.user_id).then(function(result){
+                self.subjectList(result);
+            });
         }
     }
   }

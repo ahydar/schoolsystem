@@ -69412,6 +69412,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69443,26 +69449,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
 
-    computed: {
-        subjectsListed: function subjectsListed() {
-            var self = this;
-            return this.subjects.filter(function (subject) {
-                return subject.subjectName.includes(self.searchVal) || subject.formName.includes(self.searchVal);
+    watch: {
+        searchVal: function searchVal(val) {
+            this.subjects.forEach(function (subject) {
+                if (subject.subjectName.toLowerCase().includes(val.toLowerCase())) {
+                    subject.subjectInList = true;
+                } else {
+                    subject.subjectInList = false;
+                }
             });
         }
     },
     methods: {
-
         subjectList: function subjectList(result) {
             var self = this;
-            console.log(result.data.subjects);
             this.educatorsubjects = result.data.user.educator.educatorsubjects;
             this.subjects = result.data.subjects;
             this.subjects.forEach(function (subject) {
                 var formsubject_id = subject.id;
+                subject.user_id = self.user_id;
+                //subject.educatorsubject_id = self.user_id;
                 var check = self.educatorsubjects.some(function (arrVal) {
-                    return arrVal.formsubject_id === formsubject_id;
+                    var status = false;
+                    if (arrVal.formsubject_id === formsubject_id) {
+                        subject.educatorsubject_id = arrVal.id;
+                        status = true;
+                    }
+                    return status;
                 });
+
                 if (check) {
                     subject.subjectTeaching = true;
                 } else {
@@ -69472,26 +69487,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        filterSubs: function filterSubs(event) {
-            console.log(event.keyCode);
-            console.log(this.searchVal);
-            var searchVal = this.searchVal;
-            this.subjects.forEach(function (subject) {
-                console.log("----Busy----");
-                if (!searchVal) {
-                    subject.subjectInList = true;
-                } else {
-                    if (subject.subjectName.includes(searchVal) || subject.formName.includes(searchVal)) {
-                        subject.subjectInList = true;
-                    } else {
-                        subject.subjectInList = false;
-                    }
-                }
+        save: function save() {
+            var self = this;
+            $("#" + this.modalID).modal("hide");
+            var saveSubjects = this.subjects.filter(function (subject) {
+                return subject.subjectSelected && !subject.subjectTeaching;
             });
-            console.log("/****************************/");
+
+            axios.post('educatorsubjects', saveSubjects).then(function (result) {
+                self.subjectList(result);
+            });
         },
-        save: function save() {},
-        remove: function remove(learnersubject_id) {}
+        remove: function remove(educatorsubject_id) {
+            var self = this;
+            axios.delete('educatorsubjects/' + educatorsubject_id + '/' + this.user_id).then(function (result) {
+                self.subjectList(result);
+            });
+        }
     }
 });
 
@@ -69548,7 +69560,7 @@ var render = function() {
                                       staticClass: "btn btn-danger btn-xs",
                                       on: {
                                         click: function($event) {
-                                          _vm.remove()
+                                          _vm.remove(sub.educatorsubject_id)
                                         }
                                       }
                                     },
@@ -69572,65 +69584,119 @@ var render = function() {
             _vm._v(" "),
             _c("div", { attrs: { slot: "body" }, slot: "body" }, [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-4" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.searchVal,
-                        expression: "searchVal"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.searchVal },
-                    on: {
-                      keyup: _vm.filterSubs,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "col-md-4" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.searchVal,
+                          expression: "searchVal"
                         }
-                        _vm.searchVal = $event.target.value
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.searchVal },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.searchVal = $event.target.value
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    _vm._l(_vm.subjectsListed, function(sub) {
-                      return !sub.subjectTeaching
-                        ? _c("li", [
+                    }),
+                    _vm._v(" "),
+                    _vm._l(_vm.subjects, function(sub) {
+                      return !sub.subjectTeaching &&
+                        !sub.subjectSelected &&
+                        sub.subjectInList
+                        ? _c("div", [
                             _vm._v(
                               "\n                                  " +
                                 _vm._s(sub.subjectName) +
                                 " " +
                                 _vm._s(sub.formName) +
-                                "\n                              "
+                                "\n                                  "
+                            ),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-xs",
+                                on: {
+                                  click: function($event) {
+                                    sub.subjectSelected = !sub.subjectSelected
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                      Add\n                                  "
+                                )
+                              ]
                             )
                           ])
                         : _vm._e()
                     })
-                  )
-                ]),
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-4" }),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-4" })
+                _c(
+                  "div",
+                  { staticClass: "col-md-4" },
+                  [
+                    _vm._l(_vm.subjects, function(sub) {
+                      return !sub.subjectTeaching && sub.subjectSelected
+                        ? _c("div", [
+                            _vm._v(
+                              "\n                                  " +
+                                _vm._s(sub.subjectName) +
+                                " " +
+                                _vm._s(sub.formName) +
+                                "\n                                  "
+                            ),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-xs",
+                                on: {
+                                  click: function($event) {
+                                    sub.subjectSelected = !sub.subjectSelected
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                      Remove\n                                  "
+                                )
+                              ]
+                            )
+                          ])
+                        : _vm._e()
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary pull-right",
+                        attrs: { type: "button" },
+                        on: { click: _vm.save }
+                      },
+                      [_vm._v("Save")]
+                    )
+                  ],
+                  2
+                )
               ])
             ]),
             _vm._v(" "),
             _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary pull-left",
-                  attrs: { type: "button" },
-                  on: { click: _vm.save }
-                },
-                [_vm._v("Save")]
-              ),
-              _vm._v(" "),
               _c(
                 "button",
                 {
