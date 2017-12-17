@@ -25,6 +25,7 @@ class AssessmentController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -36,6 +37,9 @@ class AssessmentController extends Controller
     public function store(Request $request)
     {
         //
+        $path = $request->file('avatar')->store('avatars');
+        
+        return $path;
     }
 
     /**

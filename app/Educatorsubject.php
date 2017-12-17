@@ -9,5 +9,9 @@ class Educatorsubject extends Model
     //
     public function educator(){
         return $this -> belongsTo('App\Educator');
+    }
+
+    public function assessments(){
+        return $this -> hasMany('App\Assessment');
       }
 }

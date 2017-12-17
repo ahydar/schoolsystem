@@ -70,6 +70,13 @@ let routes = [
     name:'learnersubjects',
     component:require('./users/learners/LearnerSubjects'),
     props:true
+  },
+
+  {
+    path:'/assessments',
+    name:'assessments',
+    component:require('./assessments/Assessments'),
+    props:true
   }
 ];
 
