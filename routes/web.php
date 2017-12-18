@@ -76,11 +76,21 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+Route::get('/exceltest', 'ExceltestController@index');
+
 Route::get('/fileupload', function () {
     return view('fileupload');
 });
 
-Route::post('/upload', 'AssessmentController@store');
+Route::post('/upload', 'ExceltestController@store');
+
+Route::get('/pdf', function () {
+    $pdf = App::make('dompdf.wrapper');
+    $pdf->loadHTML('غفت');
+    return $pdf->stream();
+});
+
+Route::get('/pdffile', 'ExceltestController@pdfGenerate');
 
 Route::get('/', function () {
     return view('welcome');
