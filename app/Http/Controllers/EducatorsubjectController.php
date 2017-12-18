@@ -52,6 +52,7 @@ class EducatorsubjectController extends Controller
      */
     public function store(Request $request)
     {
+        $account_id = Auth::user()->account_id;
         $user_id = $request -> input('0.user_id');
         
         $input = $request -> input();
@@ -61,6 +62,7 @@ class EducatorsubjectController extends Controller
         foreach($input as $item){
             $subjectTeach = new Educatorsubject;
             $subjectTeach -> formsubject_id = $item['id'];
+            $subjectTeach -> account_id = $account_id;
             $educatorsubject[] = $subjectTeach;
         }
 

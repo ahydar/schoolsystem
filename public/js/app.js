@@ -69823,19 +69823,67 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      subjects: [],
+      assess: [],
       tableID: 'learners',
       learners: [],
-      columns: [{ title: 'First Name', field: 'firstName' }, { title: 'Last Name', field: 'lastName' }, { title: 'Email', field: 'email' }, { title: 'Gender', field: 'gender' }, { title: 'Learner Number', field: 'learnerNumber' }, { title: 'Years in Phase', field: 'yearsInPhase' }, { title: 'Class', field: 'formName' }]
+      columns: [{ title: 'Name', field: 'assessName' }, { title: 'Mark', field: 'assessMark' }, { title: 'Term %', field: 'assessTermPercentage' }, { title: 'Final %', field: 'assessFinalPercentage' }]
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    var self = this;
+    axios.get('/assessments').then(function (result) {
+      self.subjects = result.data;
+      console.log(result.data);
+    });
+  },
 
-  methods: {}
+  methods: {
+    assessments: function assessments(sub) {
+      this.assess = sub.assessments;
+      console.log(this.assess);
+    }
+  }
 });
 
 /***/ }),
@@ -69850,7 +69898,7 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-lg-12" },
+        { staticClass: "col-md-12" },
         [
           _c("h4", { staticClass: "page-header" }, [_vm._v("Assessments")]),
           _vm._v(" "),
@@ -69858,6 +69906,117 @@ var render = function() {
         ],
         1
       )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3" }, [
+        _c("div", { staticClass: "panel panel-default" }, [
+          _c("div", { staticClass: "panel-heading" }, [_vm._v("Subjects")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel-body" }, [
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.subjects, function(sub) {
+                return _c("li", { staticClass: "list-group-item" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-xs",
+                      on: {
+                        click: function($event) {
+                          _vm.assessments(sub)
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(sub.subjectName))]
+                  )
+                ])
+              })
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("table", { staticClass: "table" }, [
+          _c("thead", { attrs: { slot: "head" }, slot: "head" }, [
+            _c(
+              "tr",
+              [
+                _vm._l(_vm.columns, function(col) {
+                  return _c("th", [
+                    _vm._v(
+                      "\n                  " +
+                        _vm._s(col.title) +
+                        "\n                "
+                    )
+                  ])
+                }),
+                _vm._v(" "),
+                _c("th", [_vm._v("Edit")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Delete")])
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            { attrs: { slot: "body" }, slot: "body" },
+            _vm._l(_vm.assess, function(item) {
+              return _c(
+                "tr",
+                [
+                  _vm._l(_vm.columns, function(col) {
+                    return _c("td", [
+                      _vm._v(
+                        "\n                      " +
+                          _vm._s(item[col.field]) +
+                          "\n                  "
+                      )
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-xs",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.edit(item)
+                          }
+                        }
+                      },
+                      [_vm._v("Edit")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-xs",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.remove(item)
+                          }
+                        }
+                      },
+                      [_vm._v("Delete")]
+                    )
+                  ])
+                ],
+                2
+              )
+            })
+          )
+        ])
+      ])
     ])
   ])
 }

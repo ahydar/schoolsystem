@@ -14,7 +14,16 @@ class AssessmentController extends Controller
      */
     public function index()
     {
-        //
+        //$user = 'App\User'::with('educator.educatorsubjects.assessments')->find(1);
+        $user = 'App\User'::with(['educator.educatorsubjects' => function ($query) {
+            $query->join('formsubjects','formsubjects.id','=','educatorsubjects.formsubject_id')
+                  ->join('subjects','subjects.id','=','formsubjects.subject_id')
+                  ->select('educatorsubjects.*','subjectName')
+                  ->with('assessments');
+        }])->find(1);
+
+        $subjects = $user -> educator -> educatorsubjects;  
+        return $subjects;
     }
 
     /**

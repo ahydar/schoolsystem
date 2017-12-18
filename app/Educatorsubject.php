@@ -12,6 +12,6 @@ class Educatorsubject extends Model
     }
 
     public function assessments(){
-        return $this -> hasMany('App\Assessment');
+        return $this -> hasMany('App\Assessment','formsubject_id','formsubject_id');
       }
 }

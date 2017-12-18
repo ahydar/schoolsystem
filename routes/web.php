@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
       Route::patch('/learnersubjects/{id}','LearnersubjectController@update');
       Route::delete('/learnersubjects/{id}/{user_id}/{form_id}','LearnersubjectController@destroy');
 
-      Route::get('/assessments/{formsubject_id}','AssessmentController@index');
+      Route::get('/assessments','AssessmentController@index');
       Route::post('/assessments','AssessmentController@store');
       Route::patch('/assessments/{id}','AssessmentController@update');
       Route::delete('/assessments/{id}','AssessmentController@destroy');
