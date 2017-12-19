@@ -66091,12 +66091,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       // `this` points to the vm instance
       var classSubs = [];
       if (this.form.form_id) {
-        console.log("Computed");
         var self = this;
         var acc_id = this.classes.find(function (element) {
           return element.id === self.form.form_id;
         });
-        console.log(acc_id);
         this.subjects.forEach(function (element) {
           if (element.account_id === acc_id.account_id) {
             classSubs.push(element);
@@ -69813,6 +69811,9 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_form__ = __webpack_require__(2);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -69858,16 +69859,94 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      loading: false,
+      editing: false,
       subjects: [],
       assess: [],
       tableID: 'learners',
-      learners: [],
-      columns: [{ title: 'Name', field: 'assessName' }, { title: 'Mark', field: 'assessMark' }, { title: 'Term %', field: 'assessTermPercentage' }, { title: 'Final %', field: 'assessFinalPercentage' }]
+      subjectSelected: false,
+      subjectName: '',
+      formsubject_id: '',
+      heading: '',
+      index: '',
+      form: new __WEBPACK_IMPORTED_MODULE_1__services_form__["a" /* Form */]({
+        formsubject_id: '',
+        assessName: '',
+        assessTerm: '',
+        assessMark: '',
+        assessTermPercentage: '',
+        assessFinalPercentage: ''
+      }),
+      columns: [{ title: 'Name', field: 'assessName' }, { title: 'Term', field: 'assessTerm' }, { title: 'Mark', field: 'assessMark' }, { title: 'Term %', field: 'assessTermPercentage' }, { title: 'Final %', field: 'assessFinalPercentage' }]
     };
   },
   mounted: function mounted() {
@@ -69878,12 +69957,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     });
   },
 
-  methods: {
+  methods: _defineProperty({
     assessments: function assessments(sub) {
+      this.index = this.subjects.indexOf(sub);
+      console.log(sub);
+      this.subjectName = sub.subjectName;
+      this.formsubject_id = sub.formsubject_id;
+      this.subjectSelected = true;
       this.assess = sub.assessments;
       console.log(this.assess);
+    },
+    save: function save() {
+      var self = this;
+      if (!this.editing) {
+        this.form.submit('post', '/assessments/' + this.formsubject_id).then(function (result) {
+          $('#myModal').modal('hide');
+          self.subjects[self.index].assessments.push(result);
+        });
+      } else {
+        this.form.submit('patch', '/assessments/' + this.formsubject_id).then(function (result) {
+          $('#myModal').modal('hide');
+          console.log(result);
+        });
+      }
+    },
+    edit: function edit() {},
+    remove: function remove() {},
+    add: function add() {
+      this.form.reset();
+      this.heading = "New Assessment - " + this.subjectName;
+      this.editing = false;
+      $('#myModal').modal('show');
     }
-  }
+  }, 'edit', function edit(data) {
+    this.form.errors.clear();
+    this.heading = "Edit Assessment - " + this.subjectName;
+    console.log(data);
+    this.editing = true;
+    this.form.edit(data);
+    $('#myModal').modal('show');
+  })
 });
 
 /***/ }),
@@ -69939,83 +70052,453 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9" }, [
-        _c("table", { staticClass: "table" }, [
-          _c("thead", { attrs: { slot: "head" }, slot: "head" }, [
-            _c(
-              "tr",
-              [
-                _vm._l(_vm.columns, function(col) {
-                  return _c("th", [
-                    _vm._v(
-                      "\n                  " +
-                        _vm._s(col.title) +
-                        "\n                "
-                    )
-                  ])
-                }),
-                _vm._v(" "),
-                _c("th", [_vm._v("Edit")]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Delete")])
-              ],
-              2
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "tbody",
-            { attrs: { slot: "body" }, slot: "body" },
-            _vm._l(_vm.assess, function(item) {
-              return _c(
-                "tr",
+        _vm.subjectSelected
+          ? _c("div", { staticClass: "panel panel-default" }, [
+              _c("div", { staticClass: "panel-heading" }, [
+                _vm._v(_vm._s(_vm.subjectName) + " "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-default btn-sm",
+                    on: {
+                      click: function($event) {
+                        _vm.add()
+                      }
+                    }
+                  },
+                  [_vm._v("New Assessment")]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "panel-body" },
                 [
-                  _vm._l(_vm.columns, function(col) {
-                    return _c("td", [
-                      _vm._v(
-                        "\n                      " +
-                          _vm._s(item[col.field]) +
-                          "\n                  "
+                  _c("table", { staticClass: "table" }, [
+                    _c("thead", { attrs: { slot: "head" }, slot: "head" }, [
+                      _c(
+                        "tr",
+                        [
+                          _vm._l(_vm.columns, function(col) {
+                            return _c("th", [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(col.title) +
+                                  "\n                    "
+                              )
+                            ])
+                          }),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Edit")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Delete")])
+                        ],
+                        2
                       )
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("td", [
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-xs",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.edit(item)
-                          }
-                        }
-                      },
-                      [_vm._v("Edit")]
+                      "tbody",
+                      { attrs: { slot: "body" }, slot: "body" },
+                      _vm._l(_vm.assess, function(item) {
+                        return _c(
+                          "tr",
+                          [
+                            _vm._l(_vm.columns, function(col) {
+                              return _c("td", [
+                                _vm._v(
+                                  "\n                          " +
+                                    _vm._s(item[col.field]) +
+                                    "\n                      "
+                                )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-primary btn-xs",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.edit(item)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-xs",
+                                  attrs: { type: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.remove(item)
+                                    }
+                                  }
+                                },
+                                [_vm._v("Delete")]
+                              )
+                            ])
+                          ],
+                          2
+                        )
+                      })
                     )
                   ]),
                   _vm._v(" "),
-                  _c("td", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-xs",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.remove(item)
+                  _c("modal", { attrs: { modalID: "myModal" } }, [
+                    _c("div", { attrs: { slot: "header" }, slot: "header" }, [
+                      _c("h4", [_vm._v(_vm._s(_vm.heading))]),
+                      _vm._v(" "),
+                      _vm.loading
+                        ? _c("span", { staticClass: "pull-right" }, [
+                            _vm._v("Saving "),
+                            _c("i", {
+                              staticClass: "fa fa-spinner fa-pulse fa-1x fa-fw"
+                            })
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+                      _c(
+                        "form",
+                        {
+                          staticClass: "form-horizontal",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              _vm.save($event)
+                            },
+                            keydown: function($event) {
+                              _vm.form.errors.clear($event.target.name)
+                            },
+                            change: function($event) {
+                              _vm.form.errors.clear($event.target.name)
+                            }
                           }
-                        }
-                      },
-                      [_vm._v("Delete")]
-                    )
+                        },
+                        [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "control-label col-sm-2",
+                                attrs: { for: "assessName" }
+                              },
+                              [
+                                _c("span", { staticClass: "pull-left" }, [
+                                  _vm._v("Name:")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-8" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.assessName,
+                                    expression: "form.assessName"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "assessName",
+                                  name: "assessName",
+                                  placeholder: "Enter Name"
+                                },
+                                domProps: { value: _vm.form.assessName },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "assessName",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", {
+                                staticStyle: { color: "red" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors.get("assessName")
+                                  )
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "control-label col-sm-2",
+                                attrs: { for: "assessTerm" }
+                              },
+                              [
+                                _c("span", { staticClass: "pull-left" }, [
+                                  _vm._v("Term:")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-8" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.assessTerm,
+                                    expression: "form.assessTerm"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "assessTerm",
+                                  name: "assessTerm",
+                                  placeholder: "Enter Term"
+                                },
+                                domProps: { value: _vm.form.assessTerm },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "assessTerm",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", {
+                                staticStyle: { color: "red" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors.get("assessTerm")
+                                  )
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "control-label col-sm-2",
+                                attrs: { for: "assessMark" }
+                              },
+                              [
+                                _c("span", { staticClass: "pull-left" }, [
+                                  _vm._v("Mark:")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-8" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.assessMark,
+                                    expression: "form.assessMark"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "assessMark",
+                                  name: "assessMark",
+                                  placeholder: "Enter Mark"
+                                },
+                                domProps: { value: _vm.form.assessMark },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "assessMark",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", {
+                                staticStyle: { color: "red" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors.get("assessMark")
+                                  )
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "control-label col-sm-2",
+                                attrs: { for: "assessTermPercentage" }
+                              },
+                              [
+                                _c("span", { staticClass: "pull-left" }, [
+                                  _vm._v("Term %:")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-8" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.assessTermPercentage,
+                                    expression: "form.assessTermPercentage"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "assessTermPercentage",
+                                  name: "assessTermPercentage",
+                                  placeholder: "Enter Term %"
+                                },
+                                domProps: {
+                                  value: _vm.form.assessTermPercentage
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "assessTermPercentage",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", {
+                                staticStyle: { color: "red" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors.get("assessTermPercentage")
+                                  )
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "control-label col-sm-2",
+                                attrs: { for: "assessFinalPercentage" }
+                              },
+                              [
+                                _c("span", { staticClass: "pull-left" }, [
+                                  _vm._v("Final %:")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-sm-8" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.assessFinalPercentage,
+                                    expression: "form.assessFinalPercentage"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  id: "assessFinalPercentage",
+                                  name: "assessFinalPercentage",
+                                  placeholder: "Enter Final %"
+                                },
+                                domProps: {
+                                  value: _vm.form.assessFinalPercentage
+                                },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "assessFinalPercentage",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", {
+                                staticStyle: { color: "red" },
+                                domProps: {
+                                  textContent: _vm._s(
+                                    _vm.form.errors.get("assessFinalPercentage")
+                                  )
+                                }
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "div",
+                              { staticClass: "col-sm-offset-2 col-sm-8" },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-primary pull-right",
+                                    attrs: { type: "submit" }
+                                  },
+                                  [_vm._v("Submit")]
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ])
                   ])
                 ],
-                2
+                1
               )
-            })
-          )
-        ])
+            ])
+          : _vm._e()
       ])
     ])
   ])

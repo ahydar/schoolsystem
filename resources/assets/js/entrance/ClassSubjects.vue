@@ -82,12 +82,10 @@
             // `this` points to the vm instance
             var classSubs = [];
             if(this.form.form_id){
-              console.log("Computed");
               var self = this;
               var acc_id = this.classes.find(function(element){
                   return element.id === self.form.form_id;
               });
-              console.log(acc_id);
               this.subjects.forEach(function(element){
                     if(element.account_id === acc_id.account_id){
                       classSubs.push(element);

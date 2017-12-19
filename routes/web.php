@@ -70,8 +70,8 @@ Route::middleware(['auth'])->group(function () {
       Route::delete('/learnersubjects/{id}/{user_id}/{form_id}','LearnersubjectController@destroy');
 
       Route::get('/assessments','AssessmentController@index');
-      Route::post('/assessments','AssessmentController@store');
-      Route::patch('/assessments/{id}','AssessmentController@update');
+      Route::post('/assessments/{formsubject_id}','AssessmentController@store');
+      Route::patch('/assessments/{formsubject_id}','AssessmentController@update');
       Route::delete('/assessments/{id}','AssessmentController@destroy');
 
 });

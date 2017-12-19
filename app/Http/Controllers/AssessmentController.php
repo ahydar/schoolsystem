@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Assessment;
 use Illuminate\Http\Request;
+use Auth;
 
 class AssessmentController extends Controller
 {
@@ -14,13 +15,14 @@ class AssessmentController extends Controller
      */
     public function index()
     {
+        $user_id = Auth::user() -> id;
         //$user = 'App\User'::with('educator.educatorsubjects.assessments')->find(1);
         $user = 'App\User'::with(['educator.educatorsubjects' => function ($query) {
             $query->join('formsubjects','formsubjects.id','=','educatorsubjects.formsubject_id')
                   ->join('subjects','subjects.id','=','formsubjects.subject_id')
                   ->select('educatorsubjects.*','subjectName')
                   ->with('assessments');
-        }])->find(1);
+        }])->find($user_id);
 
         $subjects = $user -> educator -> educatorsubjects;  
         return $subjects;
@@ -43,12 +45,31 @@ class AssessmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$formsubject_id)
     {
         //
-        $path = $request->file('avatar')->store('avatars');
+        $account_id = Auth::user() -> account_id;
+        $this -> validate(request(),[
+            'assessName' => 'required',
+            'assessTerm' => 'required|numeric',
+            'assessMark' => 'required|numeric',
+            'assessTermPercentage' => 'required|numeric|max:100',
+            'assessFinalPercentage' => 'required|numeric|max:100',
+        ]);
         
-        return $path;
+        $assess = New Assessment;
+
+        $assess -> assessName = request('assessName');
+        $assess -> assessTerm = request('assessTerm');
+        $assess -> assessMark = request('assessMark');
+        $assess -> assessTermPercentage = request('assessTermPercentage');
+        $assess -> assessFinalPercentage = request('assessFinalPercentage');
+        $assess -> formsubject_id = $formsubject_id;
+        $assess -> account_id = $account_id;
+
+        $assess -> save();
+
+        return $assess;
     }
 
     /**
@@ -80,9 +101,18 @@ class AssessmentController extends Controller
      * @param  \App\Assessment  $assessment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Assessment $assessment)
+    public function update(Request $request,$formsubject_id)
     {
         //
+        $this -> validate(request(),[
+            'assessName' => 'required',
+            'assessTerm' => 'required|numeric',
+            'assessMark' => 'required|numeric',
+            'assessTermPercentage' => 'required|numeric|max:100',
+            'assessFinalPercentage' => 'required|numeric|max:100'
+        ]);
+
+        return $request;
     }
 
     /**
