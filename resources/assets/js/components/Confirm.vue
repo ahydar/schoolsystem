@@ -1,7 +1,7 @@
 <template>
   <div>
     <modal :modalID="modalID">
-      <div slot="header"><h3>Confirm</h3></div>
+      <div slot="header"><h3>Delete - {{name}}</h3></div>
       <div slot="body">
             {{message}}
       </div>
@@ -15,7 +15,7 @@
 
 <script>
     export default {
-      props:['message','btnClass','modalID'],
+      props:['message','btnClass','modalID','name'],
       data(){
         return{
 

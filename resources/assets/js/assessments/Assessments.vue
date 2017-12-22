@@ -8,6 +8,7 @@
     </div>
     <div class="row">
         <div class="col-md-3">
+            <subjectslist></subjectslist>
             <div class="panel panel-default">
               <div class="panel-heading">Subjects</div>
               <div class="panel-body">
@@ -38,7 +39,7 @@
                             {{item[col.field]}}
                         </td>
                         <td> <button type="button" @click="edit(item)" class="btn btn-primary btn-xs">Edit</button></td>
-                        <td> <button type="button" @click="remove(item)" class="btn btn-danger btn-xs">Delete</button></td>
+                        <td> <button type="button" @click="removeCheck(item)" class="btn btn-danger btn-xs">Delete</button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -100,6 +101,11 @@
                     </form>
                   </div>
                 </modal>
+                <confirm
+                message="Are you sure you want to remove this assessment. Note: all learners linked 
+                to this assessment will be unlinked."
+                :name = "assessName"
+                btnClass="danger" v-on:confirmed="remove" :modalID="deleteModalId"></confirm>
               </div>
             </div>
         </div>
@@ -109,7 +115,9 @@
 <script>
   import {dataTableLoad,destroyDataTable} from '../services/dataTablesService';
   import {Form} from '../services/form';
+  import SubjectsList from '../ListComponents/SubjectsList';
   export default {
+    components:{'subjectslist':SubjectsList},
     data(){
       return {
         loading:false,
@@ -119,9 +127,12 @@
         tableID:'learners',
         subjectSelected:false,
         subjectName:'',
+        assessName:'',
         formsubject_id:'',
+        deleteModalId:'delete',
         heading:'',
         index:'',
+        assessIndex:'',
         form: new Form({
             formsubject_id:'',
             assessName:'',
@@ -164,17 +175,28 @@
                       self.subjects[self.index].assessments.push(result);
               });
             }else{
-              this.form.submit('patch','/assessments/'+this.formsubject_id).then(function(result){
+              this.form.submit('patch','/assessments').then(function(result){
                       $('#myModal').modal('hide');
+                      self.subjects[self.index].assessments.splice(self.assessIndex,1,result);
                       console.log(result);
               });
             }
         },
-        edit:function(){
-
+        removeCheck:function(data){
+          $("#"+this.deleteModalId).modal('show');
+          this.assessIndex = this.assess.indexOf(data);
+          this.assessName = data.assessName+" - Term: "+ data.assessTerm;
         },
         remove:function(){
-
+            $("#"+this.deleteModalId).modal('hide');
+            
+            var id = this.subjects[this.index].assessments[this.assessIndex].id;
+            var self = this;
+            console.log("We'll take it from here -- "+id);
+            axios.delete('/assessments/'+id).then(function(result){
+               self.subjects[self.index].assessments.splice(self.assessIndex,1);
+            });
+            
         },
         add:function(){
           this.form.reset();
@@ -185,6 +207,8 @@
         edit:function(data){
           this.form.errors.clear();
           this.heading = "Edit Assessment - "+this.subjectName;
+          this.assessIndex = this.assess.indexOf(data);
+          console.log(this.assessIndex);
           console.log(data);
           this.editing = true;
           this.form.edit(data);

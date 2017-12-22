@@ -19,6 +19,8 @@ window.responsive = require( 'datatables.net-responsive' );
 
 window.metisMenu = require( 'metismenu' );
 
+window.bootstrapselector = require( 'bootstrap-select' );
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

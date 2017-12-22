@@ -20,6 +20,7 @@
     "vue-router": "^3.0.0"
   },
   "dependencies": {
+    "bootstrap-select": "^1.12.4",
     "chartjs": "^0.3.24",
     "datatables.net-bs": "^1.10.16",
     "datatables.net-responsive-bs": "^2.2.0",

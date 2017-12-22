@@ -27,7 +27,7 @@
                           <label for="sel1">Grade:</label>
                           <select class="form-control" name='grade_id' v-model="form.grade_id">
                             <option v-for="grade in grades" v-bind:value="grade.id">
-                              {{ grade.gradeName }} - {{grade.accountName}}
+                              {{ grade.gradeName }}
                             </option>
                           </select>
                           <span style="color:red;" v-text="form.errors.get('grade_id')"></span>
@@ -72,7 +72,7 @@
           }
         },
         mounted() {
-
+        
         },
         methods:{
           createTable:function(data){

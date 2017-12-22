@@ -16,7 +16,6 @@ class AssessmentController extends Controller
     public function index()
     {
         $user_id = Auth::user() -> id;
-        //$user = 'App\User'::with('educator.educatorsubjects.assessments')->find(1);
         $user = 'App\User'::with(['educator.educatorsubjects' => function ($query) {
             $query->join('formsubjects','formsubjects.id','=','educatorsubjects.formsubject_id')
                   ->join('subjects','subjects.id','=','formsubjects.subject_id')
@@ -73,35 +72,13 @@ class AssessmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Assessment  $assessment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Assessment $assessment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Assessment  $assessment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Assessment $assessment)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Assessment  $assessment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$formsubject_id)
+    public function update(Request $request)
     {
         //
         $this -> validate(request(),[
@@ -109,10 +86,22 @@ class AssessmentController extends Controller
             'assessTerm' => 'required|numeric',
             'assessMark' => 'required|numeric',
             'assessTermPercentage' => 'required|numeric|max:100',
-            'assessFinalPercentage' => 'required|numeric|max:100'
+            'assessFinalPercentage' => 'required|numeric|max:100',
         ]);
 
-        return $request;
+        $id = request("id");
+
+        $assess = Assessment::find($id);
+        
+        $assess -> assessName = request('assessName');
+        $assess -> assessTerm = request('assessTerm');
+        $assess -> assessMark = request('assessMark');
+        $assess -> assessTermPercentage = request('assessTermPercentage');
+        $assess -> assessFinalPercentage = request('assessFinalPercentage');
+
+        $assess -> save();
+
+        return $assess;
     }
 
     /**
@@ -121,8 +110,9 @@ class AssessmentController extends Controller
      * @param  \App\Assessment  $assessment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Assessment $assessment)
+    public function destroy($id)
     {
         //
+        $assessment = Assessment::find($id) -> delete();
     }
 }

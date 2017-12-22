@@ -9,4 +9,8 @@ class Assessment extends Model
     public function educatorsubject(){
         return $this -> belongsTo('App\Educatorsubject');
     }
+
+    public function learnerassessments(){
+        return $this->hasMany('App\Learnerassessment');
+    }
 }

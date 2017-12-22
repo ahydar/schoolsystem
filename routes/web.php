@@ -71,8 +71,19 @@ Route::middleware(['auth'])->group(function () {
 
       Route::get('/assessments','AssessmentController@index');
       Route::post('/assessments/{formsubject_id}','AssessmentController@store');
-      Route::patch('/assessments/{formsubject_id}','AssessmentController@update');
+      Route::patch('/assessments','AssessmentController@update');
       Route::delete('/assessments/{id}','AssessmentController@destroy');
+
+      Route::get('/learnerassessments','LearnerassessmentController@index');
+      Route::post('/learnerassessments','LearnerassessmentController@store');
+      Route::patch('/learnerassessments','LearnerassessmentController@update');
+      Route::delete('/learnerassessments/{id}','LearnerassessmentController@destroy');
+
+
+      Route::get('/listcomponents/subjects','ListComponentsController@GetAllSubjectsWithClasses');
+      Route::get('listcomponents/subjects/{formsubject_id}','ListComponentsController@GetSubjectsWithClasses');
+      Route::get('listcomponents','ListComponentsController@update');
+      Route::get('listcomponents','ListComponentsController@destroy');
 
 });
 
