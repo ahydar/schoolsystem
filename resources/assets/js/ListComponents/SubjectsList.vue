@@ -1,6 +1,6 @@
 <template>
     <div>
-        <select class="form-control selectpicker" name='grade_id' v-model="formsubject_id">
+        <select class="form-control" name='grade_id' v-model="formsubject_id" @change="announce()">
             <option v-for="subject in subjects" v-bind:value="subject.id">
                 {{ subject.subjectName }} {{ subject.formName }}
             </option>
@@ -29,7 +29,15 @@
         });
     },
     methods:{
-
+        announce:function(){
+          if(this.formsubject_id === 0){
+              console.log("No Announcement");
+          }else{
+              console.log("Announce : "+this.formsubject_id);
+              this.$emit('announce',this.formsubject_id);
+          }
+          
+        }
     }
   }
 </script>

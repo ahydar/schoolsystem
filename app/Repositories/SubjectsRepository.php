@@ -17,7 +17,8 @@ class SubjectsRepository
                                 ->select('formsubjects.id','subjectName','formName')
                                 ->get();
 
-        return $formsubjects;
+        $firstItem = ["id" => 0,"subjectName" => "Select a subject","formName" => ""];
+        return $formsubjects -> prepend($firstItem);
     }
 
     public function GetSubjectsWithClasses($formsubject_id){

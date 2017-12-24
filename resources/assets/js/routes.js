@@ -77,7 +77,29 @@ let routes = [
     name:'assessments',
     component:require('./assessments/Assessments'),
     props:true
+  },
+
+  {
+    path:'/learnerassessments',
+    name:'learnerassessments',
+    component:require('./assessments/LearnerAssessments'),
+    props:true
+  },
+
+  {
+    path:'/learnerassessmentmarks',
+    name:'learnerassessmentmarks',
+    component:require('./assessments/LearnerAssessmentMarks'),
+    props:true
+  },
+
+  {
+    path:'/learnermarks',
+    name:'learnermarks',
+    component:require('./assessments/LearnerMarks'),
+    props:true
   }
+
 ];
 
 

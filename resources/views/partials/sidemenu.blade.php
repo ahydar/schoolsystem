@@ -1,7 +1,7 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
-            <li class="sidebar-search">
+            <!--<li class="sidebar-search">
                 <div class="input-group custom-search-form">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
@@ -10,8 +10,7 @@
                       </button>
                     </span>
                 </div>
-                <!-- /input-group -->
-            </li>
+            </li>-->
             <li>
             <router-link tag="a" to="/" exact>
                 <i class="fa fa-dashboard fa-fw"></i> Dashboard
@@ -73,6 +72,21 @@
                 <li>
                   <router-link tag="a" to="/assessments">
                        Assessments
+                  </router-link>
+                </li>
+                <li>
+                  <router-link tag="a" to="/learnerassessments">
+                       Learner Assesments
+                  </router-link>
+                </li>
+                <li>
+                  <router-link tag="a" to="/learnerassessmentmarks">
+                       Learner Assessments Marks
+                  </router-link>
+                </li>
+                <li>
+                  <router-link tag="a" to="/learnermarks">
+                       Learner Marks
                   </router-link>
                 </li>
               </ul>

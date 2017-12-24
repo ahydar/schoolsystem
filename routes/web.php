@@ -74,15 +74,19 @@ Route::middleware(['auth'])->group(function () {
       Route::patch('/assessments','AssessmentController@update');
       Route::delete('/assessments/{id}','AssessmentController@destroy');
 
-      Route::get('/learnerassessments','LearnerassessmentController@index');
+      Route::get('/learnerassessments/{assessment_id}','LearnerassessmentController@index');
       Route::post('/learnerassessments','LearnerassessmentController@store');
-      Route::patch('/learnerassessments','LearnerassessmentController@update');
-      Route::delete('/learnerassessments/{id}','LearnerassessmentController@destroy');
+
+      Route::get('/learnerassessmentmarks','LearnerassessmentmarkController@index');
+      Route::post('/learnerassessmentmarks','LearnerassessmentmarkController@store');
+
+      Route::get('/learnermarks','LearnermarkController@index');
+      Route::post('/learnermarks','LearnermarkController@store');
 
 
       Route::get('/listcomponents/subjects','ListComponentsController@GetAllSubjectsWithClasses');
       Route::get('listcomponents/subjects/{formsubject_id}','ListComponentsController@GetSubjectsWithClasses');
-      Route::get('listcomponents','ListComponentsController@update');
+      Route::get('listcomponents/assessments/{formsubject_id}','ListComponentsController@GetAllAssessmentsOfSubject');
       Route::get('listcomponents','ListComponentsController@destroy');
 
 });

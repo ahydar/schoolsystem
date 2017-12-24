@@ -111,10 +111,11 @@
         save:function(){
             $("#"+this.modalID).modal("hide");
             if(this.subjectsNotTaken.length != 0){
+                var self = this;
                 console.log("Going through");
                 console.log(this.subjectsNotTaken);
-                var saveSubjects = this.subjectsNotTaken.filter(element => element.checked === true);
-                var self = this;
+                var saveSubjects = this.subjectsNotTaken.filter(element => {element.user_id = self.user_id;return element.checked === true});
+                
                 axios.post('learnersubjects',saveSubjects).then(function(result){
                     console.log(result);
                     self.subjectList(result);

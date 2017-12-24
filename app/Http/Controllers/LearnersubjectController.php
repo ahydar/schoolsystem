@@ -81,6 +81,7 @@ class LearnersubjectController extends Controller
      *
      * @param  \App\Learnersubject  $learnersubject
      * @return \Illuminate\Http\Response
+     * 
      */
     public function show(Learnersubject $learnersubject)
     {
