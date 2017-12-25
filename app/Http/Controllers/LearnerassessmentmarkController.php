@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Learnerassessmentmark;
 use Illuminate\Http\Request;
+use Auth;
 
 class LearnerassessmentmarkController extends Controller
 {
@@ -15,6 +16,9 @@ class LearnerassessmentmarkController extends Controller
     public function index()
     {
         //
+        $l = Learnerassessmentmark::get();
+
+        return $l;
     }
 
     /**

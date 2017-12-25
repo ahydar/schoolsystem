@@ -35,6 +35,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function account(){
+      return $this -> belongsTo('App\Account');
+    }
+
     public function educator(){
       return $this -> hasOne('App\Educator');
     }
