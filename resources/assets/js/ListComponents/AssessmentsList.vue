@@ -41,13 +41,8 @@
     },
     methods:{
         announce:function(){
-          if(this.assess_id === 0){
-              console.log("No Announcement");
-          }else{
-              console.log("Announce : "+this.assess_id);
-              this.$emit('announce',this.assess_id);
-          }
-          
+            console.log("Announce : "+this.assess_id);
+            this.$emit('announce',this.assess_id);
         }
     }
   }

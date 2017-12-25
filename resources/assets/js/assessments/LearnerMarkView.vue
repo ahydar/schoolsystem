@@ -9,26 +9,23 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4><u>{{assessName}}</u></h4>
+                Term marks
             </div>
             <div class="panel-body">
                 <table  width="100%" class="table table-striped table-bordered table-hover" :id="tableID">
                     <thead>
                     <tr>
-                        <th v-for="col in columns" v-if="col.title != 'Mark'">
+                        <th v-for="col in columns">
                             {{col.title}}
-                        </th>
-                        <th v-for="col in columns" v-if="col.title === 'Mark'">
-                            {{col.title}} ({{assessMark}})
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="learner in learners">
-                        <td v-for="col in columns" v-if="col.field != 'mark'">
+                        <td v-for="col in columns" v-if="!col.editable">
                             {{learner[col.field]}}
                         </td>
-                        <td v-for="col in columns" v-if="col.field === 'mark'">
+                        <td v-for="col in columns" v-if="col.editable">
                             <input type="text" class="form-control" 
                             :value="learner[col.field]" 
                             @input="editted(learner,$event)" 
@@ -50,13 +47,13 @@
   import {dataTableLoad,destroyDataTable} from '../services/dataTablesService';
   export default {
     props:{
-       assessment_id: {
+       formsubject_id: {
          type: Number,
          required: true // User can accept a userData object on params, or not. It's totally optional.
        }
     },
     watch:{
-        assessment_id:function(newVal){
+        formsubject_id:function(newVal){
             var self = this;
             axios.get('/learnerassessments/'+newVal).then(function(result){
                 self.learners = result.data; 
@@ -73,15 +70,19 @@
         assessMark:'',
         assessName:'',
         columns:[
-          {title:'First Name',field:'firstName'},
-          {title:'Last Name',field:'lastName'},
-          {title:'Mark',field:'mark'}
+          {title:'Last Name',field:'lastName',editable:false},          
+          {title:'First Name',field:'firstName',editable:false},
+          {title:'Term 1',field:'mark1',editable:true},
+          {title:'Term 2',field:'mark2',editable:true},
+          {title:'Term 3',field:'mark3',editable:true},
+          {title:'Term 4',field:'mark4',editable:true},
+          {title:'Final',field:'final',editable:true}
         ]
       }
     },
     mounted(){
         var self = this;
-        axios.get('/learnerassessments/'+this.assessment_id).then(function(result){
+        axios.get('/learnermarks/'+this.formsubject_id).then(function(result){
             self.learners = result.data;
             self.createTable(self.learners);
         });

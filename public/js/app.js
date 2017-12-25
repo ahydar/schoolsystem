@@ -71566,12 +71566,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     announce: function announce() {
-      if (this.formsubject_id === 0) {
-        console.log("No Announcement");
-      } else {
-        console.log("Announce : " + this.formsubject_id);
-        this.$emit('announce', this.formsubject_id);
-      }
+      console.log("Announce : " + this.formsubject_id);
+      this.$emit('announce', this.formsubject_id);
     }
   }
 });
@@ -72806,11 +72802,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getAssessments: function getAssessments(formsubject_id) {
             console.log("Received: " + formsubject_id);
             this.formsubject_id = formsubject_id;
-            this.showAssessList = true;
+            if (formsubject_id === 0) {
+                this.showAssessList = false;
+                this.showLearners = false;
+            } else {
+                this.showAssessList = true;
+            }
         },
         getLearnerAssessments: function getLearnerAssessments(assess_id) {
+            console.log("Received: " + assess_id);
             this.assessment_id = assess_id;
-            this.showLearners = true;
+            this.showLearners = assess_id === 0 ? false : true;
         }
     }
 });
@@ -72982,12 +72984,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         announce: function announce() {
-            if (this.assess_id === 0) {
-                console.log("No Announcement");
-            } else {
-                console.log("Announce : " + this.assess_id);
-                this.$emit('announce', this.assess_id);
-            }
+            console.log("Announce : " + this.assess_id);
+            this.$emit('announce', this.assess_id);
         }
     }
 });
@@ -73214,12 +73212,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         createTable: function createTable(learners) {
-            this.assessMark = learners[0].assessMark;
-            this.assessName = learners[0].assessName;
-            console.log();
-            this.learners = learners;
-            Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["b" /* destroyDataTable */])(this.tableID);
-            Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(this.tableID);
+            if (learners.length > 0) {
+                this.assessMark = learners[0].assessMark;
+                this.assessName = learners[0].assessName;
+                console.log();
+                this.learners = learners;
+                Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["b" /* destroyDataTable */])(this.tableID);
+                Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(this.tableID);
+            }
         },
         editted: function editted(data, event) {
             var val = event.target.value.trim();
@@ -73775,8 +73775,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -73795,9 +73793,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         getLearnerMarks: function getLearnerMarks(formsubject_id) {
-            console.log("Received: " + formsubject_id);
-            //this.formsubject_id = formsubject_id;
-            //this.showAssessList = true;
+            if (formsubject_id === 0) {
+                this.formsubject_id = formsubject_id;
+                this.showLearners = false;
+            } else {
+                console.log("Received: " + formsubject_id);
+                this.formsubject_id = formsubject_id;
+                this.showLearners = true;
+            }
         }
     }
 });
@@ -73889,7 +73892,7 @@ exports = module.exports = __webpack_require__(118)(undefined);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -73946,20 +73949,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        assessment_id: {
+        formsubject_id: {
             type: Number,
             required: true // User can accept a userData object on params, or not. It's totally optional.
         }
     },
     watch: {
-        assessment_id: function assessment_id(newVal) {
+        formsubject_id: function formsubject_id(newVal) {
             var self = this;
             axios.get('/learnerassessments/' + newVal).then(function (result) {
                 self.learners = result.data;
@@ -73975,12 +73975,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             saving: false,
             assessMark: '',
             assessName: '',
-            columns: [{ title: 'First Name', field: 'firstName' }, { title: 'Last Name', field: 'lastName' }, { title: 'Mark', field: 'mark' }]
+            columns: [{ title: 'Last Name', field: 'lastName', editable: false }, { title: 'First Name', field: 'firstName', editable: false }, { title: 'Term 1', field: 'mark1', editable: true }, { title: 'Term 2', field: 'mark2', editable: true }, { title: 'Term 3', field: 'mark3', editable: true }, { title: 'Term 4', field: 'mark4', editable: true }, { title: 'Final', field: 'final', editable: true }]
         };
     },
     mounted: function mounted() {
         var self = this;
-        axios.get('/learnerassessments/' + this.assessment_id).then(function (result) {
+        axios.get('/learnermarks/' + this.formsubject_id).then(function (result) {
             self.learners = result.data;
             self.createTable(self.learners);
         });
@@ -74071,7 +74071,7 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "panel panel-default" }, [
       _c("div", { staticClass: "panel-heading" }, [
-        _c("h4", [_c("u", [_vm._v(_vm._s(_vm.assessName))])])
+        _vm._v("\n            Term marks\n        ")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "panel-body" }, [
@@ -74085,34 +74085,15 @@ var render = function() {
             _c("thead", [
               _c(
                 "tr",
-                [
-                  _vm._l(_vm.columns, function(col) {
-                    return col.title != "Mark"
-                      ? _c("th", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(col.title) +
-                              "\n                    "
-                          )
-                        ])
-                      : _vm._e()
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.columns, function(col) {
-                    return col.title === "Mark"
-                      ? _c("th", [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(col.title) +
-                              " (" +
-                              _vm._s(_vm.assessMark) +
-                              ")\n                    "
-                          )
-                        ])
-                      : _vm._e()
-                  })
-                ],
-                2
+                _vm._l(_vm.columns, function(col) {
+                  return _c("th", [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(col.title) +
+                        "\n                    "
+                    )
+                  ])
+                })
               )
             ]),
             _vm._v(" "),
@@ -74123,7 +74104,7 @@ var render = function() {
                   "tr",
                   [
                     _vm._l(_vm.columns, function(col) {
-                      return col.field != "mark"
+                      return !col.editable
                         ? _c("td", [
                             _vm._v(
                               "\n                        " +
@@ -74135,7 +74116,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _vm._l(_vm.columns, function(col) {
-                      return col.field === "mark"
+                      return col.editable
                         ? _c("td", [
                             _c("input", {
                               staticClass: "form-control",
@@ -74198,9 +74179,7 @@ var render = function() {
         "div",
         { staticClass: "col-md-12" },
         [
-          _c("h4", { staticClass: "page-header" }, [
-            _vm._v("Learner Assessments")
-          ]),
+          _c("h4", { staticClass: "page-header" }, [_vm._v("Learner Marks")]),
           _vm._v(" "),
           _c("notifications")
         ],
@@ -74212,18 +74191,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "col-md-4" },
-        [
-          _c("subjectslist", { on: { announce: _vm.getAssessments } }),
-          _vm._v(" "),
-          _c("hr"),
-          _vm._v(" "),
-          _vm.showAssessList
-            ? _c("assesslist", {
-                attrs: { formsubject_id: _vm.formsubject_id },
-                on: { announce: _vm.getLearnerAssessments }
-              })
-            : _vm._e()
-        ],
+        [_c("subjectslist", { on: { announce: _vm.getLearnerMarks } })],
         1
       ),
       _vm._v(" "),
@@ -74233,7 +74201,7 @@ var render = function() {
         [
           _vm.showLearners
             ? _c("learnermarkview", {
-                attrs: { assessment_id: _vm.assessment_id }
+                attrs: { formsubject_id: _vm.formsubject_id }
               })
             : _vm._e()
         ],

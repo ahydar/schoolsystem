@@ -80,7 +80,7 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/learnerassessmentmarks','LearnerassessmentmarkController@index');
       Route::post('/learnerassessmentmarks','LearnerassessmentmarkController@store');
 
-      Route::get('/learnermarks','LearnermarkController@index');
+      Route::get('/learnermarks/{formsubject_id}','LearnermarkController@index');
       Route::post('/learnermarks','LearnermarkController@store');
 
 

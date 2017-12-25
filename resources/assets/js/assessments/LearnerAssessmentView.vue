@@ -97,12 +97,14 @@
           }
         },
         createTable:function(learners){
-            this.assessMark = learners[0].assessMark;
-            this.assessName = learners[0].assessName;
-            console.log();
-            this.learners = learners;
-            destroyDataTable(this.tableID);
-            dataTableLoad(this.tableID);
+            if(learners.length > 0){
+                this.assessMark = learners[0].assessMark;
+                this.assessName = learners[0].assessName;
+                console.log();
+                this.learners = learners;
+                destroyDataTable(this.tableID);
+                dataTableLoad(this.tableID);
+            }
         },
         editted:function(data,event){
             var val = event.target.value.trim();

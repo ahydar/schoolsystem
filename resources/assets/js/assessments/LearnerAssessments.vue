@@ -46,11 +46,17 @@ export default {
         getAssessments:function(formsubject_id){
             console.log("Received: "+formsubject_id);
             this.formsubject_id = formsubject_id;
-            this.showAssessList = true;
+            if(formsubject_id === 0){
+                this.showAssessList = false;
+                this.showLearners = false;
+            }else{
+                this.showAssessList = true;
+            }
         },
         getLearnerAssessments:function(assess_id){
+            console.log("Received: "+assess_id);
             this.assessment_id = assess_id;
-            this.showLearners=true;
+            this.showLearners=(assess_id === 0?false:true);
         }
     }
 }

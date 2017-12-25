@@ -2,19 +2,17 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <h4 class="page-header">Learner Assessments</h4>
+                <h4 class="page-header">Learner Marks</h4>
                 <notifications />
             </div>
          </div>
 
           <div class="row">
             <div class="col-md-4">
-                <subjectslist @announce="getAssessments"></subjectslist>
-                <hr>
-                <assesslist v-if="showAssessList" :formsubject_id="formsubject_id" @announce="getLearnerAssessments"></assesslist>
+                <subjectslist @announce="getLearnerMarks"></subjectslist>
             </div>
             <div class="col-md-8">
-                <learnermarkview v-if="showLearners" :assessment_id="assessment_id">
+                <learnermarkview v-if="showLearners" :formsubject_id="formsubject_id">
                 </learnermarkview>
             </div>
          </div>
@@ -40,9 +38,14 @@ export default {
     },
     methods:{
         getLearnerMarks:function(formsubject_id){
-            console.log("Received: "+formsubject_id);
-            //this.formsubject_id = formsubject_id;
-            //this.showAssessList = true;
+            if(formsubject_id === 0){
+                this.formsubject_id = formsubject_id;
+                this.showLearners = false;
+            }else{
+                console.log("Received: "+formsubject_id);
+                this.formsubject_id = formsubject_id;
+                this.showLearners = true;
+            } 
         }
     }
 }

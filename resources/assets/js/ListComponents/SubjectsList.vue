@@ -30,12 +30,8 @@
     },
     methods:{
         announce:function(){
-          if(this.formsubject_id === 0){
-              console.log("No Announcement");
-          }else{
-              console.log("Announce : "+this.formsubject_id);
-              this.$emit('announce',this.formsubject_id);
-          }
+            console.log("Announce : "+this.formsubject_id);
+            this.$emit('announce',this.formsubject_id);
           
         }
     }
