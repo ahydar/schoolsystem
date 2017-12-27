@@ -15,4 +15,8 @@ class Learner extends Model
     public function learnersubjects(){
       return $this->hasMany('App\Learnersubject');
     }
+
+    public function learnerassessments(){
+      return $this->hasMany('App\Learnerassessment');
+    }
 }

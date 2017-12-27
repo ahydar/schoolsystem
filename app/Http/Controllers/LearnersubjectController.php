@@ -54,6 +54,7 @@ class LearnersubjectController extends Controller
     public function store(Request $request)
     {
         //
+        $account_id = Auth::user() -> account_id;
         $user_id = $request -> input('0.user_id');
 
         $form_id = $request -> input('0.form_id');
@@ -63,6 +64,7 @@ class LearnersubjectController extends Controller
         $learnersubjects = [];
         foreach($input as $item){
             $subject = new Learnersubject;
+            $subject -> account_id = $account_id;
             $subject -> formsubject_id = $item['id'];
             $learnersubjects[] = $subject;
         }
