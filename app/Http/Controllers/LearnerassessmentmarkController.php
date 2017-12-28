@@ -16,7 +16,7 @@ class LearnerassessmentmarkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($formsubject_id)
     {
         //
         $learners = User::join('learners','learners.user_id','=','users.id')
@@ -26,21 +26,32 @@ class LearnerassessmentmarkController extends Controller
                         $join -> on('learnerassessments.assessment_id','=','assessments.id')
                               -> on('learnerassessments.learner_id','=','learners.id');
                     })
-                    -> where('assessments.formsubject_id','=',1)
+                    -> where('assessments.formsubject_id','=',$formsubject_id)
                     ->select('learners.id as learner_id','assessments.id as assessment_id','assessments.formsubject_id',
                     'assessMark','assessName','assessTermPercentage','assessFinalPercentage','assessTerm'
                     ,'firstName','lastName','learnerNumber','mark','mark as originalMark')
+                    ->orderBy('assessTerm','asc')
                     -> get();
         
-        //$this::getPercMark($learners);
+        $this::getPercMark($learners);
 
         $this::getTermPerc($learners);
 
         $this::getFinalPerc($learners);
         
-        //$grouped = $learners -> groupBy('firstName');
-
-        return $learners -> groupBy('firstName');
+        $groupedAndKeyed = $learners -> groupBy('learnerNumber',true) 
+                ->map(function($item){
+                    return $item -> keyBy(function($key){
+                        if(isset($key['assessMark'])){
+                            return $key['assessName']." (".$key['assessMark'].")";
+                        }else{
+                            return $key['assessName'];
+                        }
+                        
+                    });
+        });
+   
+        return $groupedAndKeyed;
     }
 
     public static function getPercMark($learners){
@@ -63,8 +74,9 @@ class LearnerassessmentmarkController extends Controller
                 $termArray[$newKey]['mark'] += ($item['mark'] / $item['assessMark']) * $item['assessTermPercentage'];
             }else{
                 $termArray[$newKey]['mark'] = ($item['mark'] / $item['assessMark']) * $item['assessTermPercentage'];
-                $termArray[$newKey]['firstName'] = $item['firstName'];
+                $termArray[$newKey]['learnerNumber'] = $item['learnerNumber'];
                 $termArray[$newKey]['Term'] = $item['assessTerm'];
+                $termArray[$newKey]['assessName'] = "Term ".$item['assessTerm'];
             }
         }
 
@@ -84,8 +96,9 @@ class LearnerassessmentmarkController extends Controller
                     $termArray[$newKey]['mark'] += ($item['mark'] / $item['assessMark']) * $item['assessFinalPercentage'];
                 }else{
                     $termArray[$newKey]['mark'] = ($item['mark'] / $item['assessMark']) * $item['assessFinalPercentage'];
-                    $termArray[$newKey]['firstName'] = $item['firstName'];
+                    $termArray[$newKey]['learnerNumber'] = $item['learnerNumber'];
                     $termArray[$newKey]['Final'] = 'final';
+                    $termArray[$newKey]['assessName'] = 'Final';
                 }
             }
         }

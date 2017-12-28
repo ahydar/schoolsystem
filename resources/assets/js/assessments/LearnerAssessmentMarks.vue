@@ -2,20 +2,19 @@
     <div>
         <div class="row">
             <div class="col-md-12">
-                <h4 class="page-header">Learner Assessments</h4>
+                <h4 class="page-header">Learner Assessments</h4> 
                 <notifications />
             </div>
          </div>
-
-          <div class="row">
+        <div class="row">
             <div class="col-md-4">
-                <subjectslist @announce="getAssessments"></subjectslist>
-                <hr>
-                <assesslist v-if="showAssessList" :formsubject_id="formsubject_id" @announce="getLearnerAssessments"></assesslist>
+                <subjectslist @announce="getLearners"></subjectslist>
             </div>
-            <div class="col-md-8">
-                <learnerassessmentview v-if="showLearners" :assessment_id="assessment_id">
-                </learnerassessmentview>
+         </div>
+          <div class="row">
+            <div class="col-md-12">
+                <learnerassessmentmarkview v-if="showLearners" :formsubject_id="formsubject_id">
+                </learnerassessmentmarkview>
             </div>
          </div>
     </div>
@@ -24,32 +23,26 @@
 <script>
 import SubjectsList from '../ListComponents/SubjectsList';
 import AssessmentsList from '../ListComponents/AssessmentsList';
-import LearnerAssessmentView from './LearnerAssessmentView';
+import LearnerAssessmentMarkView from './LearnerAssessmentMarkView';
 export default {
     components:{
         'subjectslist':SubjectsList,
         'assesslist':AssessmentsList,
-        'learnerassessmentview':LearnerAssessmentView
+        'learnerassessmentmarkview':LearnerAssessmentMarkView
         },
     data(){
         return{
             showAssessList:false,
             showLearners:false,
             formsubject_id:0,
-            assessment_id:0
         }
     },
     mounted(){
 
     },
     methods:{
-        getAssessments:function(formsubject_id){
-            console.log("Received: "+formsubject_id);
+        getLearners:function(formsubject_id){
             this.formsubject_id = formsubject_id;
-            this.showAssessList = true;
-        },
-        getLearnerAssessments:function(assess_id){
-            this.assessment_id = assess_id;
             this.showLearners=true;
         }
     }
