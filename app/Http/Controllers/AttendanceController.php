@@ -17,7 +17,7 @@ class AttendanceController extends Controller
     public function index()
     {
         //
-        $user = User::with('attendance')->where('usertype_id','=',1)->get();
+        $user = User::with('attendance')->where('usertype_id','=',2)->get();
 
         return $user;
     }
