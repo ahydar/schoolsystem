@@ -90,6 +90,11 @@ Route::middleware(['auth'])->group(function () {
       Route::get('listcomponents/assessments/{formsubject_id}','ListComponentsController@GetAllAssessmentsOfSubject');
       Route::get('listcomponents','ListComponentsController@destroy');
 
+      Route::get('/attendance','AttendanceController@index');
+      Route::post('/attendance','AttendanceController@store');
+      Route::patch('/attendance/{id}','AttendanceController@update');
+      Route::delete('/attendance/{id}','AttendanceController@destroy');
+
 });
 
 Route::get('/fileupload', function () {

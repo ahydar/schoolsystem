@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function learner(){
       return $this -> hasOne('App\Learner');
     }
+
+    public function attendance(){
+      return $this -> hasMany('App\Attendance');
+    }
 }
