@@ -9,7 +9,7 @@
 
           <div class="row">
             <div class="col-md-4">
-                <subjectslist @announce="getAssessments"></subjectslist>
+                <subjectslist educator="1" @announce="getAssessments"></subjectslist>
                 <hr>
                 <assesslist v-if="showAssessList" :formsubject_id="formsubject_id" @announce="getLearnerAssessments"></assesslist>
             </div>

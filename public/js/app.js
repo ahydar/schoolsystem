@@ -71545,20 +71545,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    learner: {
-      type: Object,
+    educator: {
+      type: Boolean,
       required: false // User can accept a userData object on params, or not. It's totally optional.
     }
   },
   data: function data() {
     return {
       formsubject_id: 0,
+      link: '',
       subjects: []
     };
   },
   mounted: function mounted() {
+    if (this.educator) {
+      this.link = '/listcomponents/subjects/educator';
+    } else {
+      this.link = '/listcomponents/subjects';
+    }
     var self = this;
-    axios.get('/listcomponents/subjects').then(function (result) {
+    axios.get(this.link).then(function (result) {
       self.subjects = result.data;
       //$('.selectpicker').selectpicker();
     });
@@ -72846,7 +72852,10 @@ var render = function() {
         "div",
         { staticClass: "col-md-4" },
         [
-          _c("subjectslist", { on: { announce: _vm.getAssessments } }),
+          _c("subjectslist", {
+            attrs: { educator: "1" },
+            on: { announce: _vm.getAssessments }
+          }),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),

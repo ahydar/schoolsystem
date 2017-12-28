@@ -83,8 +83,9 @@ Route::middleware(['auth'])->group(function () {
       Route::get('/learnermarks/{formsubject_id}','LearnermarkController@index');
       Route::post('/learnermarks','LearnermarkController@store');
 
-
+      
       Route::get('/listcomponents/subjects','ListComponentsController@GetAllSubjectsWithClasses');
+      Route::get('/listcomponents/subjects/educator','ListComponentsController@GetSubjectsWithClassesForEducator');
       Route::get('listcomponents/subjects/{formsubject_id}','ListComponentsController@GetSubjectsWithClasses');
       Route::get('listcomponents/assessments/{formsubject_id}','ListComponentsController@GetAllAssessmentsOfSubject');
       Route::get('listcomponents','ListComponentsController@destroy');

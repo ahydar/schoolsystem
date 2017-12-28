@@ -14,8 +14,8 @@ class ListComponentsController extends Controller
         return $subjectsRepo -> GetAllSubjectsWithClasses();
     }
 
-    public function GetSubjectsWithClasses(SubjectsRepository $subjectsRepo,$formsubject_id){
-        return $subjectsRepo -> GetSubjectsWithClasses($formsubject_id);
+    public function GetSubjectsWithClassesForEducator(SubjectsRepository $subjectsRepo){
+        return $subjectsRepo -> GetSubjectsWithClassesForEducator();
     }
 
     public function GetAllAssessmentsOfSubject(AssessmentsRepository $assessRepo,$formsubject_id){

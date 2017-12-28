@@ -10,20 +10,26 @@
 <script>
   export default {
     props:{
-       learner: {
-         type: Object,
+       educator: {
+         type: Boolean,
          required: false // User can accept a userData object on params, or not. It's totally optional.
        }
     },
     data(){
       return {
         formsubject_id:0,
+        link:'',
         subjects:[]
       }
     },
     mounted(){
+        if(this.educator){
+            this.link = '/listcomponents/subjects/educator';
+        }else{
+            this.link ='/listcomponents/subjects';
+        }
         var self = this;
-        axios.get('/listcomponents/subjects').then(function(result){
+        axios.get(this.link).then(function(result){
                self.subjects = result.data; 
                 //$('.selectpicker').selectpicker();
         });

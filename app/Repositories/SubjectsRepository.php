@@ -21,11 +21,16 @@ class SubjectsRepository
         return $formsubjects -> prepend($firstItem);
     }
 
-    public function GetSubjectsWithClasses($formsubject_id){
-        $formsubjects = Formsubject::find($formsubject_id);
-        
-        $formsubjects -> load('subject','form');
+    public function GetSubjectsWithClassesForEducator(){
+        $educator_id = Auth::user() -> educator -> id;
+        $formsubjects = Subject::join('formsubjects','formsubjects.subject_id','=','subjects.id')
+                ->join('forms','forms.id','=','formsubjects.form_id')
+                ->join('educatorsubjects','formsubjects.id','=','educatorsubjects.formsubject_id')
+                ->where('educatorsubjects.educator_id','=',$educator_id)
+                ->select('formsubjects.id','subjectName','formName')
+                ->get();
 
-        return $formsubjects;
+        $firstItem = ["id" => 0,"subjectName" => "Select a subject","formName" => ""];
+        return $formsubjects -> prepend($firstItem);
     }
 }
