@@ -12,7 +12,7 @@
                 Term marks
             </div>
             <div class="panel-body">
-                <table  width="100%" class="table table-striped table-bordered table-hover" :id="tableID">
+                <table  width="100%" class=" table table-bordered table-hover" :id="tableID">
                     <thead>
                     <tr>
                         <th v-for="col in columns">

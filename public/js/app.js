@@ -73305,7 +73305,7 @@ var render = function() {
         _c(
           "table",
           {
-            staticClass: "table table-striped table-bordered table-hover",
+            staticClass: " table table-bordered table-hover",
             attrs: { width: "100%", id: _vm.tableID }
           },
           [
@@ -74087,7 +74087,7 @@ var render = function() {
         _c(
           "table",
           {
-            staticClass: "table table-striped table-bordered table-hover",
+            staticClass: " table table-bordered table-hover",
             attrs: { width: "100%", id: _vm.tableID }
           },
           [
@@ -74613,7 +74613,7 @@ var render = function() {
         _c(
           "table",
           {
-            staticClass: "table table-striped table-bordered table-hover",
+            staticClass: " table table-bordered table-hover",
             attrs: { width: "100%", id: _vm.tableID }
           },
           [
