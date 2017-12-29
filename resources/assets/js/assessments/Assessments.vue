@@ -23,7 +23,7 @@
           <div class="panel panel-default" v-if="subjectSelected">
               <div class="panel-heading">{{subjectName}} <button class="btn btn-default btn-sm" @click="add()">New Assessment</button></div>
               <div class="panel-body">
-                <table class="table">
+                <table class="table table-hover">
                   <thead slot="head">
                     <tr>
                       <th v-for="col in columns">

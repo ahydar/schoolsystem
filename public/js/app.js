@@ -68452,7 +68452,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-striped table-bordered table-hover",
+                  staticClass: "table table-bordered table-hover",
                   attrs: { width: "100%", id: _vm.tableID }
                 },
                 [
@@ -70434,7 +70434,7 @@ var render = function() {
               _c(
                 "table",
                 {
-                  staticClass: "table table-striped table-bordered table-hover",
+                  staticClass: "table  table-bordered table-hover",
                   attrs: { width: "100%", id: _vm.tableID }
                 },
                 [
@@ -71727,7 +71727,7 @@ var render = function() {
                 "div",
                 { staticClass: "panel-body" },
                 [
-                  _c("table", { staticClass: "table" }, [
+                  _c("table", { staticClass: "table table-hover" }, [
                     _c("thead", { attrs: { slot: "head" }, slot: "head" }, [
                       _c(
                         "tr",
@@ -72579,7 +72579,7 @@ var render = function() {
     _c(
       "table",
       {
-        staticClass: "table table-striped table-bordered table-hover",
+        staticClass: " table table-bordered table-hover",
         attrs: { width: "100%", id: _vm.tableID }
       },
       [_vm._t("head"), _vm._v(" "), _vm._t("body")],

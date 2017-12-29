@@ -1,6 +1,6 @@
 <template>
 <div>
-    <table  width="100%" class="table table-striped table-bordered table-hover" v-bind:id="tableID">
+    <table  width="100%" class=" table table-bordered table-hover" v-bind:id="tableID">
         <slot name='head'></slot>
         <slot name='body'></slot>
     </table>
