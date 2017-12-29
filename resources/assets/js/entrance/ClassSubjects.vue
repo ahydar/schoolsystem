@@ -62,6 +62,7 @@
         components:{'crudtable':CrudTable},
         data(){
           return {
+            name:'Class Subject',
             form: new Form({
                 form_id:'',
                 subject_id:''

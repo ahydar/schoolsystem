@@ -25,38 +25,97 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-           <li>
-              <a href="#"><i class="fa fa-sitemap fa-fw"></i> Command Center<span class="fa arrow"></span></a>
-              <ul class="nav nav-second-level">
-                  <li>
-                    <router-link tag="a" to="/accounts">
-                        <i class="fa fa-dashboard fa-fw"></i> Accounts
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link tag="a" to="/grades">
-                        <i class="fa fa-dashboard fa-fw"></i> Grades
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link tag="a" to="/classes">
-                        <i class="fa fa-dashboard fa-fw"></i> Classes
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link tag="a" to="/subjects">
-                        <i class="fa fa-dashboard fa-fw"></i> Subjects
-                    </router-link>
-                  </li>
-                  <li>
-                    <router-link tag="a" to="/classsubjects">
-                        <i class="fa fa-dashboard fa-fw"></i> Class Subjects
-                    </router-link>
-                  </li>
-              </ul>
-          </li>
         <li class="header">MAIN NAVIGATION</li>
+
         <li class="active treeview">
+          <a href="#">
+            <i class="fa fa-sitemap fa-fw"></i> <span>Command Center</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+                <router-link tag="a" to="/accounts">
+                    <i class="fa fa-circle-o"></i> Accounts
+                </router-link>
+            </li>
+            <li>
+                <router-link tag="a" to="/grades">
+                    <i class="fa fa-circle-o"></i> Grades
+                </router-link>
+            </li>
+            <li>
+                <router-link tag="a" to="/classes">
+                    <i class="fa fa-circle-o"></i> Classes
+                </router-link>
+            </li>
+            <li>
+                <router-link tag="a" to="/subjects">
+                    <i class="fa fa-circle-o"></i> Subjects
+                </router-link>
+            </li>
+            <li>
+                <router-link tag="a" to="/classsubjects">
+                    <i class="fa fa-circle-o"></i> Class Subjects
+                </router-link>
+            </li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-sitemap fa-fw"></i> <span>People</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+                <router-link tag="a" to="/educators">
+                    <i class="fa fa-circle-o"></i> Educators
+                </router-link>
+            </li>
+            <li>
+                <router-link tag="a" to="/learners">
+                    <i class="fa fa-circle-o"></i> Learners
+                </router-link>
+            </li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-sitemap fa-fw"></i> <span>Assessments</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <router-link tag="a" to="/assessments">
+                  Assessments
+              </router-link>
+            </li>
+            <li>
+              <router-link tag="a" to="/learnerassessments">
+                  Learner Assesments
+              </router-link>
+            </li>
+            <li>
+              <router-link tag="a" to="/learnerassessmentmarks">
+                  Learner Assessments Marks
+              </router-link>
+            </li>
+            <li>
+              <router-link tag="a" to="/learnermarks">
+                  Learner Marks
+              </router-link>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
@@ -65,11 +124,8 @@
           </a>
           <ul class="treeview-menu">
             <li>
-            <router-link tag="a" to="/subjects">
-                <i class="fa fa-dashboard fa-fw"></i> Subjects
-            </router-link>
-            </li> 
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                <a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a>
+            </li>
             <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>

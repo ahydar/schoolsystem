@@ -32,12 +32,12 @@ export default {
     },
     formAction:function(action,data = ""){
         if(action === "add"){
-            this.action = "New Grade";
+            this.action = "New "+this.name;
             this.editing = false;
             this.form.reset();
         }else{
             this.form.edit(data);
-            this.action = "Update Grade";
+            this.action = "Update "+this.name;
             this.editing = true;
         }
         $("#"+this.modal_id).modal('show');

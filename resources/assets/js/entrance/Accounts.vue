@@ -56,6 +56,7 @@
         components:{'crudtable':CrudTable},
         data(){
           return {
+            name:'Account',
             form: new Form({
                 accountName:'',
                 accountType:''

@@ -57,6 +57,7 @@
         components:{'crudtable':CrudTable},
         data(){
           return {
+            name:'Class',
             form: new Form({
                 formName:'',
                 grade_id:''

@@ -67241,6 +67241,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
   data: function data() {
     return {
+      name: 'Account',
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
         accountName: '',
         accountType: ''
@@ -67297,12 +67298,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
 
       if (action === "add") {
-        this.action = "New Grade";
+        this.action = "New " + this.name;
         this.editing = false;
         this.form.reset();
       } else {
         this.form.edit(data);
-        this.action = "Update Grade";
+        this.action = "Update " + this.name;
         this.editing = true;
       }
       $("#" + this.modal_id).modal('show');
@@ -67842,6 +67843,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
   data: function data() {
     return {
+      name: 'Grade',
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
         gradeName: ''
       }),
@@ -68118,6 +68120,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
   data: function data() {
     return {
+      name: 'Class',
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
         formName: '',
         grade_id: ''
@@ -68442,6 +68445,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
   data: function data() {
     return {
+      name: 'Subject',
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
         subjectName: ''
       }),
@@ -68723,6 +68727,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
   data: function data() {
     return {
+      name: 'Class Subject',
       form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
         form_id: '',
         subject_id: ''

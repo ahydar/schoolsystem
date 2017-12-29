@@ -47,6 +47,7 @@
         components:{'crudtable':CrudTable},
         data(){
           return {
+            name:'Subject',
             form: new Form({
                 subjectName:''
             }),
