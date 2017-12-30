@@ -1,12 +1,7 @@
 <template>
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-12">
-              <h4 class="page-header">Classes</h4>
-          </div>
-      </div>
+    <div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <crudtable
                 :columns="columns" :items="items" newBtn="New Class" :table="table"
                 @add = "formAction" @edit = "formAction" @remove="removeCheck"
@@ -67,13 +62,12 @@
             url:'/classes',
             columns:[
               {title:'Class Name',field:'formName'},
-              {title:'Grade',field:'gradeName'},
-              {title:'Account',field:'accountName'}
+              {title:'Grade',field:'gradeName'}
             ]
           }
         },
-        mounted() {
-        
+        created() {
+            this.$root.pageHead = "Classes";
         },
         methods:{
           createTable:function(data){

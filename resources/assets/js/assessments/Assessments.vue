@@ -1,12 +1,6 @@
 <template>
   <div>
     <div class="row">
-        <div class="col-md-12">
-            <h4 class="page-header">Assessments</h4>
-            <notifications />
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-3">
             <subjectslist></subjectslist>
             <div class="panel panel-default">
@@ -149,6 +143,9 @@
           {title:'Final %',field:'assessFinalPercentage'},
         ]
       }
+    },
+    created() {
+          this.$root.pageHead = "Assessmets";
     },
     mounted(){
         var self = this;

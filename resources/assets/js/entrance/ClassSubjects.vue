@@ -1,12 +1,7 @@
 <template>
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-12">
-              <h4 class="page-header">Class Subjects</h4>
-          </div>
-      </div>
+    <div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <crudtable
                 :columns="columns" :items="items" newBtn="New Subject-Class link" :table="table"
                 @add = "formAction" @edit = "formAction" @remove="removeCheck"
@@ -96,8 +91,8 @@
             return classSubs;
           }
         },
-        mounted() {
-
+        created() {
+            this.$root.pageHead = "Class Subjects";
         },
         methods:{
           createTable:function(data){

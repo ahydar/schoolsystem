@@ -1,12 +1,6 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-12">
-                <h4 class="page-header">Learner Assessments</h4> 
-                <notifications />
-            </div>
-         </div>
-        <div class="row">
             <div class="col-md-4">
                 <subjectslist @announce="getLearners"></subjectslist>
             </div>
@@ -36,6 +30,9 @@ export default {
             showLearners:false,
             formsubject_id:0,
         }
+    },
+    created() {
+          this.$root.pageHead = "Learner Assessmet Marks";
     },
     mounted(){
 

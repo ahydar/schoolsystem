@@ -1,13 +1,7 @@
 <template>
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-12">
-              <h4 class="page-header">Acccounts <span v-if="loading"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i></span></h4>
-
-          </div>
-      </div>
+    <div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
 
               <crudtable
               :columns="columns" :items="items" newBtn="New Account" :table="table"
@@ -69,8 +63,8 @@
             ]
           }
         },
-        mounted() {
-
+        created() {
+            this.$root.pageHead = "Accounts";
         }
     }
 </script>

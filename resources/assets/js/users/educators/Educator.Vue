@@ -1,13 +1,7 @@
 <template>
-  <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h4 class="page-header">{{header}}</h4>
-
-        </div>
-    </div>
+  <div>
       <div class="row">
-          <div class="col-md-8">
+          <div class="col-md-8 col-md-offset-2">
             <notifications />
             <form class="form-horizontal"  @submit.prevent="save" @keydown="form.errors.clear($event.target.name)" @change="form.errors.clear($event.target.name)">
 
@@ -124,14 +118,15 @@
             self.classes = result.data.classes;
             self.classes.push({id:0,formName:'None'});
         });
-        console.log('Mounted');
+        this.$root.pageHead = "New Educators";
         if(this.educator){
-          this.header = 'Edit Educator';
+          this.$root.pageHead = 'Edit Educator';
           this.action = 'patch';
           this.url = '/educators/'+this.educator.id;
           this.form.edit(this.educator);
           console.log(this.educator);
         }
+        
     },
     methods:{
       save:function(){

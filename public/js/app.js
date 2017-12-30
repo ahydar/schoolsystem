@@ -40795,7 +40795,10 @@ Vue.component('accounts', __webpack_require__(23));
 
 var app = new Vue({
   el: '#app',
-  router: __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* default */]
+  router: __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* default */],
+  data: {
+    pageHead: 'App'
+  }
 });
 
 /***/ }),
@@ -67226,32 +67229,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  extends: __WEBPACK_IMPORTED_MODULE_1__components_CrudCollection___default.a,
-  components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
-  data: function data() {
-    return {
-      name: 'Account',
-      form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
-        accountName: '',
-        accountType: ''
-      }),
-      table: 'accountTable',
-      url: '/accounts',
-      columns: [{ title: 'Account Name', field: 'accountName' }, { title: 'Account Type', field: 'accountType' }]
-    };
-  },
-  mounted: function mounted() {}
+    extends: __WEBPACK_IMPORTED_MODULE_1__components_CrudCollection___default.a,
+    components: { 'crudtable': __WEBPACK_IMPORTED_MODULE_2__components_CrudTable___default.a },
+    data: function data() {
+        return {
+            name: 'Account',
+            form: new __WEBPACK_IMPORTED_MODULE_0__services_form__["a" /* Form */]({
+                accountName: '',
+                accountType: ''
+            }),
+            table: 'accountTable',
+            url: '/accounts',
+            columns: [{ title: 'Account Name', field: 'accountName' }, { title: 'Account Type', field: 'accountType' }]
+        };
+    },
+    created: function created() {
+        this.$root.pageHead = "Accounts";
+    }
 });
 
 /***/ }),
@@ -67562,24 +67561,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [
-          _vm._v("Acccounts "),
-          _vm.loading
-            ? _c("span", [
-                _c("i", { staticClass: "fa fa-spinner fa-pulse fa-1x fa-fw" })
-              ])
-            : _vm._e()
-        ])
-      ])
-    ]),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-12" },
         [
           _c("crudtable", {
             attrs: {
@@ -67828,11 +67814,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -67852,7 +67833,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       columns: [{ title: 'Grade Name', field: 'gradeName' }]
     };
   },
-  mounted: function mounted() {},
+  created: function created() {
+    this.$root.pageHead = "Grades";
+  },
 
   methods: {
     createTable: function createTable(data) {
@@ -67870,13 +67853,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-12" },
         [
           _c("crudtable", {
             attrs: {
@@ -67980,18 +67961,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Grades")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -68105,11 +68075,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -68128,10 +68093,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       table: 'classesTable',
       grades: [],
       url: '/classes',
-      columns: [{ title: 'Class Name', field: 'formName' }, { title: 'Grade', field: 'gradeName' }, { title: 'Account', field: 'accountName' }]
+      columns: [{ title: 'Class Name', field: 'formName' }, { title: 'Grade', field: 'gradeName' }]
     };
   },
-  mounted: function mounted() {},
+  created: function created() {
+    this.$root.pageHead = "Classes";
+  },
 
   methods: {
     createTable: function createTable(data) {
@@ -68150,13 +68117,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-12" },
         [
           _c("crudtable", {
             attrs: {
@@ -68315,18 +68280,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Classes")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -68430,11 +68384,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -68454,7 +68403,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       columns: [{ title: 'Subject Name', field: 'subjectName' }]
     };
   },
-  mounted: function mounted() {},
+  created: function created() {
+    this.$root.pageHead = "Subjects";
+  },
 
   methods: {
     createTable: function createTable(data) {
@@ -68472,13 +68423,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-12" },
         [
           _c("crudtable", {
             attrs: {
@@ -68582,18 +68531,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Subjects")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -68712,11 +68650,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -68759,7 +68692,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return classSubs;
     }
   },
-  mounted: function mounted() {},
+  created: function created() {
+    this.$root.pageHead = "Class Subjects";
+  },
 
   methods: {
     createTable: function createTable(data) {
@@ -68781,13 +68716,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _vm._m(0, false, false),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-12" },
         [
           _c("crudtable", {
             attrs: {
@@ -68969,18 +68902,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Class Subjects")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -69088,12 +69010,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -69103,6 +69019,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       educators: [],
       columns: [{ title: 'First Name', field: 'firstName' }, { title: 'Last Name', field: 'lastName' }, { title: 'Email', field: 'email' }, { title: 'Gender', field: 'gender' }, { title: 'Title', field: 'title' }, { title: 'Initials', field: 'initial' }, { title: 'Class', field: 'formName' }]
     };
+  },
+  created: function created() {
+    this.$root.pageHead = "Educators";
   },
   mounted: function mounted() {
     var self = this;
@@ -69135,8 +69054,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0, false, false),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
@@ -69275,18 +69192,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Educators")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -69439,12 +69345,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -69479,9 +69379,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       self.classes = result.data.classes;
       self.classes.push({ id: 0, formName: 'None' });
     });
-    console.log('Mounted');
+    this.$root.pageHead = "New Educators";
     if (this.educator) {
-      this.header = 'Edit Educator';
+      this.$root.pageHead = 'Edit Educator';
       this.action = 'patch';
       this.url = '/educators/' + this.educator.id;
       this.form.edit(this.educator);
@@ -69719,17 +69619,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
-      ])
-    ]),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-8 col-md-offset-2" },
         [
           _c("notifications"),
           _vm._v(" "),
@@ -70733,12 +70627,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -70750,6 +70638,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       learners: [],
       columns: [{ title: 'First Name', field: 'firstName' }, { title: 'Last Name', field: 'lastName' }, { title: 'Email', field: 'email' }, { title: 'Gender', field: 'gender' }, { title: 'Learner Number', field: 'learnerNumber' }, { title: 'Years in Phase', field: 'yearsInPhase' }, { title: 'Class', field: 'formName' }]
     };
+  },
+  created: function created() {
+    this.$root.pageHead = "Learners";
   },
   mounted: function mounted() {
     var self = this;
@@ -71117,8 +71008,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0, false, false),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
@@ -71258,18 +71147,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v("Learners")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -71412,12 +71290,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -71449,9 +71321,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     axios.get('classes').then(function (result) {
       self.classes = result.data.classes;
     });
+    this.$root.pageHead = "New Learner";
     console.log('Mounted');
     if (this.learner) {
-      this.header = 'Edit Learner';
+      this.$root.pageHead = "Edit Learner";
       this.action = 'patch';
       this.url = '/learners/' + this.learner.id;
       this.form.edit(this.learner);
@@ -71482,13 +71355,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-12" }, [
-        _c("h4", { staticClass: "page-header" }, [_vm._v(_vm._s(_vm.header))])
-      ])
-    ]),
-    _vm._v(" "),
+  return _c("div", [
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
@@ -72087,12 +71954,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -72124,6 +71985,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }),
       columns: [{ title: 'Name', field: 'assessName' }, { title: 'Term', field: 'assessTerm' }, { title: 'Mark', field: 'assessMark' }, { title: 'Term %', field: 'assessTermPercentage' }, { title: 'Final %', field: 'assessFinalPercentage' }]
     };
+  },
+  created: function created() {
+    this.$root.pageHead = "Assessmets";
   },
   mounted: function mounted() {
     var self = this;
@@ -72319,19 +72183,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-12" },
-        [
-          _c("h4", { staticClass: "page-header" }, [_vm._v("Assessments")]),
-          _vm._v(" "),
-          _c("notifications")
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
@@ -72918,13 +72769,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -72942,6 +72786,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formsubject_id: 0,
             assessment_id: 0
         };
+    },
+    created: function created() {
+        this.$root.pageHead = "Learner Assessmets";
     },
     mounted: function mounted() {},
 
@@ -73518,21 +73365,6 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-12" },
-        [
-          _c("h4", { staticClass: "page-header" }, [
-            _vm._v("Learner Assessments")
-          ]),
-          _vm._v(" "),
-          _c("notifications")
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
         { staticClass: "col-md-4" },
         [
           _c("subjectslist", {
@@ -73653,12 +73485,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -73675,6 +73501,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showLearners: false,
             formsubject_id: 0
         };
+    },
+    created: function created() {
+        this.$root.pageHead = "Learner Assessmet Marks";
     },
     mounted: function mounted() {},
 
@@ -74007,21 +73836,6 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-12" },
-        [
-          _c("h4", { staticClass: "page-header" }, [
-            _vm._v("Learner Assessments")
-          ]),
-          _vm._v(" "),
-          _c("notifications")
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
         { staticClass: "col-md-4" },
         [_c("subjectslist", { on: { announce: _vm.getLearners } })],
         1
@@ -74126,13 +73940,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -74146,6 +73953,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             showLearners: false,
             formsubject_id: 0
         };
+    },
+    created: function created() {
+        this.$root.pageHead = "Learner Marks";
     },
     mounted: function mounted() {},
 
@@ -74532,19 +74342,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-12" },
-        [
-          _c("h4", { staticClass: "page-header" }, [_vm._v("Learner Marks")]),
-          _vm._v(" "),
-          _c("notifications")
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
         "div",

@@ -27,7 +27,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
 
-        <li class="active treeview">
+        <li class="treeview">
           <a href="#">
             <i class="fa fa-sitemap fa-fw"></i> <span>Command Center</span>
             <span class="pull-right-container">

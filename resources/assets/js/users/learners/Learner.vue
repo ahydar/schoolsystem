@@ -1,11 +1,5 @@
 <template>
-  <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <h4 class="page-header">{{header}}</h4>
-
-        </div>
-    </div>
+  <div>
       <div class="row">
           <div class="col-md-8">
             <notifications />
@@ -113,9 +107,10 @@
         axios.get('classes').then(function(result){
             self.classes = result.data.classes;
         });
+        this.$root.pageHead = "New Learner";
         console.log('Mounted');
         if(this.learner){
-          this.header = 'Edit Learner';
+          this.$root.pageHead = "Edit Learner";
           this.action = 'patch';
           this.url = '/learners/'+this.learner.id;
           this.form.edit(this.learner);

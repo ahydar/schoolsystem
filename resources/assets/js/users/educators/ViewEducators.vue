@@ -1,11 +1,5 @@
 <template>
   <div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h4 class="page-header">Educators</h4>
-
-        </div>
-    </div>
       <div class="row">
           <div class="col-md-12">
             <notifications />
@@ -64,6 +58,9 @@
           {title:'Class',field:'formName'},
         ]
       }
+    },
+    created() {
+          this.$root.pageHead = "Educators";
     },
     mounted(){
         var self = this;

@@ -35,5 +35,8 @@ Vue.component('accounts', require('./entrance/Accounts.vue'));
 
 const app = new Vue({
     el: '#app',
-    router:router
+    router:router,
+    data:{
+        pageHead:'App'
+    }
 });

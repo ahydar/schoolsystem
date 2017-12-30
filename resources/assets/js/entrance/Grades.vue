@@ -1,12 +1,7 @@
 <template>
-    <div class="container">
-      <div class="row">
-          <div class="col-lg-12">
-              <h4 class="page-header">Grades</h4>
-          </div>
-      </div>
+    <div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <crudtable
                 :columns="columns" :items="items" newBtn="New Grade" :table="table"
                 @add = "formAction" @edit = "formAction" @remove="removeCheck"
@@ -58,8 +53,8 @@
             ]
           }
         },
-        mounted() {
-
+        created() {
+            this.$root.pageHead = "Grades";
         },
         methods:{
           createTable:function(data){
