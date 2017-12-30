@@ -1,0 +1,33 @@
+<template>
+    <div>
+        <div class="row">
+            <div class="col-md-4">
+
+            </div>
+         </div>
+          <div class="row">
+            <div class="col-md-12">
+
+            </div>
+         </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+
+        }
+    },
+    created() {
+          this.$root.pageHead = "Learner Daily Attendance";
+    },
+    mounted(){
+
+    },
+    methods:{
+    }
+}
+</script>
+

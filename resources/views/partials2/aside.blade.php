@@ -117,6 +117,22 @@
         
         <li class="treeview">
           <a href="#">
+            <i class="fa fa-sitemap fa-fw"></i> <span>Attendance</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+                <router-link tag="a" to="/learnerattendance">
+                    <i class="fa fa-circle-o"></i> Learner Attendance
+                </router-link>
+            </li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
