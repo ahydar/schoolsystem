@@ -74345,14 +74345,14 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c(
         "div",
-        { staticClass: "col-md-4" },
+        { staticClass: "col-md-2" },
         [_c("subjectslist", { on: { announce: _vm.getLearnerMarks } })],
         1
       ),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-md-10" },
         [
           _vm.showLearners
             ? _c("learnermarkview", {

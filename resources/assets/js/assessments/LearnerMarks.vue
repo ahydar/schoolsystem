@@ -1,10 +1,10 @@
 <template>
     <div>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <subjectslist @announce="getLearnerMarks"></subjectslist>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <learnermarkview v-if="showLearners" :formsubject_id="formsubject_id">
                 </learnermarkview>
             </div>
