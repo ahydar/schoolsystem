@@ -65,7 +65,7 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-sitemap fa-fw"></i> <span>People</span>
+            <i class="fa fa-users fa-fw"></i> <span>People</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -86,7 +86,7 @@
 
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-sitemap fa-fw"></i> <span>Assessments</span>
+            <i class="fa fa-bar-chart fa-fw"></i> <span>Assessments</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -117,7 +117,7 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-sitemap fa-fw"></i> <span>Attendance</span>
+            <i class="fa fa-calendar fa-fw"></i> <span>Attendance</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

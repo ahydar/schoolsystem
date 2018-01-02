@@ -21,6 +21,8 @@ window.metisMenu = require( 'metismenu' );
 
 window.bootstrapselector = require( 'bootstrap-select' );
 
+window.pace = require( 'admin-lte/plugins/pace/pace' );
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

@@ -8,6 +8,7 @@
 require('./bootstrap');
 require('./custom2');
 
+pace.start();
 window.Vue = require('vue');
 
 import Notifications from 'vue-notification';
