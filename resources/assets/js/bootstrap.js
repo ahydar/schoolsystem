@@ -21,6 +21,8 @@ window.metisMenu = require( 'metismenu' );
 
 window.bootstrapselector = require( 'bootstrap-select' );
 
+window.bootstrapdatepicker = require('bootstrap-datepicker');
+
 window.pace = require( 'admin-lte/plugins/pace/pace' );
 
 /**

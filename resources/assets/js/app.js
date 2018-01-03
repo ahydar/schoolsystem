@@ -8,7 +8,14 @@
 require('./bootstrap');
 require('./custom2');
 
-pace.start();
+pace = {
+    ajax: true, // disabled
+    document: false, // disabled
+    eventLag: false, // disabled
+    elements: {
+      selectors: ['.my-page']
+    }
+};
 window.Vue = require('vue');
 
 import Notifications from 'vue-notification';
