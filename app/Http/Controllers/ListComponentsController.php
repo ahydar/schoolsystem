@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\SubjectsRepository;
 use App\Repositories\AssessmentsRepository;
+use App\Repositories\FormsRepository;
 
 class ListComponentsController extends Controller
 {
@@ -24,5 +25,9 @@ class ListComponentsController extends Controller
 
     public function GetAssessment($formsubject_id){
         
+    }
+
+    public function GetAllClasses(FormsRepository $formRepo){
+        return $formRepo -> GetAllClasses();
     }
 }

@@ -74888,6 +74888,14 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ListComponents_ClassList__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ListComponents_ClassList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ListComponents_ClassList__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -74909,16 +74917,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+    components: {
+        'classlist': __WEBPACK_IMPORTED_MODULE_0__ListComponents_ClassList___default.a
+    },
     data: function data() {
-        return {};
+        return {
+            date: '',
+            form_id: ''
+        };
     },
     created: function created() {
         this.$root.pageHead = "Learner Daily Attendance";
     },
-    mounted: function mounted() {},
+    mounted: function mounted() {
+        console.log(this.date);
+        var container = $("#picker");
+        $('.input-group.date').datepicker({
+            format: 'dd-mm-yyyy',
+            daysOfWeekDisabled: '06',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            disableTouchKeyboard: true,
+            endDate: '0d'
+        }).datepicker("setDate", 'now');
+    },
 
-    methods: {}
+    methods: {
+        print: function print() {
+            if (this.form_id) {
+                console.log($("#input").val());
+                console.log(this.form_id);
+            } else {
+                alert("Select a class please");
+            }
+        },
+        setClass: function setClass(form_id) {
+            this.form_id = form_id;
+        }
+    }
 });
 
 /***/ }),
@@ -74929,39 +74968,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0, false, false)
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _vm._m(0, false, false),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-4" },
+        [_c("classlist", { on: { announce: _vm.setClass } })],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                _vm.print()
+              }
+            }
+          },
+          [_vm._v("Get Data")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(1, false, false)
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-4" }, [
-          _c(
-            "div",
-            {
-              staticClass: "input-group date",
-              attrs: { "data-provide": "datepicker" }
-            },
-            [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { type: "text" }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group-addon" }, [
-                _c("span", { staticClass: "glyphicon glyphicon-th" })
-              ])
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" })
-      ])
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c(
+        "div",
+        {
+          staticClass: "input-group date",
+          attrs: { id: "picker", "data-provide": "datepicker" }
+        },
+        [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "input",
+              "data-date-format": "dd/mm/yyyy"
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group-addon" }, [
+            _c("span", { staticClass: "glyphicon glyphicon-th" })
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" })
     ])
   }
 ]
@@ -83959,6 +84030,165 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 }));
 
+
+/***/ }),
+/* 198 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(199)
+/* template */
+var __vue_template__ = __webpack_require__(200)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\ListComponents\\ClassList.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-51e035a6", Component.options)
+  } else {
+    hotAPI.reload("data-v-51e035a6", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 199 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    educator: {
+      type: Boolean,
+      required: false // User can accept a userData object on params, or not. It's totally optional.
+    }
+  },
+  data: function data() {
+    return {
+      form_id: 0,
+      link: '',
+      forms: []
+    };
+  },
+  mounted: function mounted() {
+    if (this.educator) {
+      this.link = '/listcomponents/forms/educator';
+    } else {
+      this.link = '/listcomponents/forms';
+    }
+    var self = this;
+    axios.get(this.link).then(function (result) {
+      self.forms = result.data;
+    });
+  },
+
+  methods: {
+    announce: function announce() {
+      console.log("Announce : " + this.form_id);
+      this.$emit('announce', this.form_id);
+    }
+  }
+});
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.form_id,
+            expression: "form_id"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { name: "grade_id" },
+        on: {
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.form_id = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            function($event) {
+              _vm.announce()
+            }
+          ]
+        }
+      },
+      _vm._l(_vm.forms, function(form) {
+        return _c("option", { domProps: { value: form.id } }, [
+          _vm._v("\n            " + _vm._s(form.formName) + "\n        ")
+        ])
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-51e035a6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
