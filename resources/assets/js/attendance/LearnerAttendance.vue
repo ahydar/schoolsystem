@@ -18,7 +18,7 @@
          </div>
           <div class="row">
             <div class="col-md-12">
-
+                <fileupload></fileupload>
             </div>
          </div>
     </div>
@@ -26,14 +26,16 @@
 
 <script>
 import ClassList from '../ListComponents/ClassList';
+import UploadFile from '../components/UploadFile';
 export default {
     components:{
         'classlist':ClassList,
+        'fileupload':UploadFile
     },
     data(){
         return{
             date:'',
-            form_id:''
+            form_id:'',
         }
     },
     created() {

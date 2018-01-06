@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+// TEMPORARY CORS FIX
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'); // allow certain headers
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,4 +19,8 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/data', function (){
+    return "Got Data";
 });

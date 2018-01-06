@@ -103,7 +103,7 @@ Route::get('/fileupload', function () {
     return view('fileupload');
 });
 
-Route::post('/upload', 'AssessmentController@store');
+Route::post('/upload', 'AttendanceController@store');
 
 Route::get('/', function () {
     return view('welcome');

@@ -41,6 +41,8 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         //
+        $request->file('marksheet')->store('marksheets');
+        return "Done";
     }
 
     /**
@@ -63,6 +65,7 @@ class AttendanceController extends Controller
     public function edit(Attendance $attendance)
     {
         //
+        
     }
 
     /**
