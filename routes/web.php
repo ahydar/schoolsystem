@@ -97,13 +97,13 @@ Route::middleware(['auth'])->group(function () {
       Route::patch('/attendance/{id}','AttendanceController@update');
       Route::delete('/attendance/{id}','AttendanceController@destroy');
 
+      Route::post('/upload', 'ExcelReaderController@read');
+
 });
 
 Route::get('/fileupload', function () {
     return view('fileupload');
 });
-
-Route::post('/upload', 'AttendanceController@store');
 
 Route::get('/', function () {
     return view('welcome');
