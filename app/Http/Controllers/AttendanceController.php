@@ -14,24 +14,37 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request,$form_id)
     {
         //
-        $user = User::with('attendance')->where('usertype_id','=',2)->get();
+        $account_id = Auth::user() -> account_id;
+        $week = request('week');
+        $user = User::with(['attendance'=>function($query){
+                $query->whereIn('date',request('week'));
+        }])->join('learners','learners.user_id','=','users.id')->where([
+            ['usertype_id','=',2],
+            ['form_id','=',$form_id],
+            ['users.account_id','=',$account_id]
+        ])->select('users.id','firstName','lastName')->get();
 
-        return $user;
+        $keyByDate = $user -> map(function($item){
+                $item -> daily_attendance = $item -> attendance -> keyBy('date');
+                return $item;
+        });
+
+        foreach ($keyByDate as $key => $value) {
+            foreach ($week as $index => $day) {
+                if(!($value -> daily_attendance -> has($day))){
+                    $value['daily_attendance'][$day] = [
+                        "status" => "Present",
+                        "reason" => "",
+                        "date" => $day
+                    ];
+                }
+            }
+        }
+        return $keyByDate;
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -40,7 +53,28 @@ class AttendanceController extends Controller
      */
     public function store(Request $request)
     {
+        $account_id = Auth::user() -> account_id;
+        if(request('id') != null){
+            $attendance = Attendance::find(request('id'));
+        }else{
+            $attendance = new Attendance;
+        }
+
+        if(request('status') == "Present" and request('id') != null){
+            $attendance -> delete();
+        }else if(request('status') != "Present" and request('id') == null){
+            $attendance -> status = request('status');
+            $attendance -> reason = request('reason');
+            $attendance -> account_id = $account_id;
+            $attendance -> user_id = request('user_id');
+            $attendance -> date = request('date');
+            $attendance -> day = substr(request('date'),0,2);
+            $attendance -> month = substr(request('date'),3,2);
+            $attendance -> year = substr(request('date'),6,4);
+            $attendance -> save();
+        }
         
+        return $attendance;
     }
 
     /**

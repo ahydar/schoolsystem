@@ -41,11 +41,11 @@ class LearnerassessmentmarkController extends Controller
         
         $groupedAndKeyed = $learners -> groupBy('learnerNumber',true) 
                 ->map(function($item){
-                    return $item -> keyBy(function($key){
-                        if(isset($key['assessMark'])){
-                            return $key['assessName']." (".$key['assessMark'].")";
+                    return $item -> keyBy(function($value){
+                        if(isset($value['assessMark'])){
+                            return $value['assessName']." (".$value['assessMark'].")";
                         }else{
-                            return $key['assessName'];
+                            return $value['assessName'];
                         }
                         
                     });

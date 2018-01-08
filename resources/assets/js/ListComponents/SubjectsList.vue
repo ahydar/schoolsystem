@@ -11,8 +11,8 @@
   export default {
     props:{
        educator: {
-         type: Boolean,
-         required: false // User can accept a userData object on params, or not. It's totally optional.
+         type: String,
+         required: false
        }
     },
     data(){

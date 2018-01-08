@@ -92,10 +92,10 @@ Route::middleware(['auth'])->group(function () {
       
       Route::get('listcomponents/forms','ListComponentsController@GetAllClasses');
 
-      Route::get('/attendance','AttendanceController@index');
+      Route::post('/attendance/{form_id}','AttendanceController@index');
       Route::post('/attendance','AttendanceController@store');
-      Route::patch('/attendance/{id}','AttendanceController@update');
-      Route::delete('/attendance/{id}','AttendanceController@destroy');
+      /*Route::patch('/attendance/{id}','AttendanceController@update');
+      Route::delete('/attendance/{id}','AttendanceController@destroy');*/
 
       Route::post('/upload', 'ExcelReaderController@read');
 

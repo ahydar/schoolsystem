@@ -101,6 +101,13 @@ let routes = [
   },
 
   {
+    path:'/uploadmarksheet',
+    name:'uploadmarksheet',
+    component:require('./assessments/UploadMarksheet'),
+    props:true
+  },
+
+  {
     path:'/learnerattendance',
     name:'learnerattendance',
     component:require('./attendance/LearnerAttendance'),

@@ -89,6 +89,11 @@
                        Learner Marks
                   </router-link>
                 </li>
+                <li>
+                  <router-link tag="a" to="/uploadmarksheet">
+                       Upload Marksheet
+                  </router-link>
+                </li>
               </ul>
           </li>
             <li>
