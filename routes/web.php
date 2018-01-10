@@ -96,6 +96,11 @@ Route::middleware(['auth'])->group(function () {
       Route::post('/attendance','AttendanceController@store');
       /*Route::patch('/attendance/{id}','AttendanceController@update');
       Route::delete('/attendance/{id}','AttendanceController@destroy');*/
+      
+      Route::get('/finance','FinanceController@index');
+      Route::post('/finance/{user_id}','FinanceController@store');
+      Route::patch('/finance','FinanceController@update');
+      Route::delete('/finance/{id}','FinanceController@destroy');
 
       Route::post('/upload', 'ExcelReaderController@read');
 

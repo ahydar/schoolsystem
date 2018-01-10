@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function attendance(){
       return $this -> hasMany('App\Attendance');
     }
+
+    public function finance(){
+      return $this -> hasMany('App\Finance');
+    }
 }

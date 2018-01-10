@@ -112,6 +112,13 @@ let routes = [
     name:'learnerattendance',
     component:require('./attendance/LearnerAttendance'),
     props:true
+  },
+
+  {
+    path:'/finance',
+    name:'finance',
+    component:require('./finance/Finance'),
+    props:true
   }
 
 ];
