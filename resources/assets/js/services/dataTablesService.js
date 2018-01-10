@@ -4,7 +4,13 @@
 export var dataTableLoad = function(tableID){
     $(document).ready(function(){
         var table = $('#'+tableID).DataTable({
-            responsive: true
+            'responsive': true,
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true
         });
     });
 };

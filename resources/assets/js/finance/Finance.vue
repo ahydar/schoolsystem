@@ -48,7 +48,7 @@
                         </div>
                       </div>
 
-                      <button type="submit"  class="btn btn-primary">Submit</button>
+                      <button type="submit"  class="btn btn-primary">Save</button>
                   </form>
                 </div>
               </modal>
@@ -66,7 +66,7 @@
                             <tbody>
                                 <tr v-for="learner in learners">
                                     <td>
-                                        <button class="btn btn-primary btn-xs" @click="add(learner)">
+                                        <button class="btn btn-primary btn-xs" @click="add(learner.id,learner.firstName,learner.lastName)">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Add
                                         </button>
                                     </td>
@@ -74,11 +74,13 @@
                                         {{learner.lastName}}, {{learner.firstName}}
                                     </td>
                                     <td v-for="fin in learner.finance">
-                                            <button class="btn btn-success btn-xs" @click="edit(learner)">
+                                            <button class="btn btn-success btn-xs" 
+                                            @click="edit(learner.firstName,learner.lastName,fin)">
                                                 {{fin.amount}}
                                             </button>
                                     </td>
-                                    <td v-if="learner.finance.length < maxPayments" v-for="p in maxPayments -learner.finance.length">
+                                    <td v-if="learner.finance.length < maxPayments" 
+                                    v-for="p in maxPayments -learner.finance.length">
 
                                     </td>
                                 </tr>
@@ -96,10 +98,12 @@ import {Form} from '../services/form';
 export default {
     data(){
         return{
-            tableID:'',
+            id:'',
+            tableID:'financeTable',
             learners:[],
             maxPayments:0,
             modalHeading:'',
+            editting:false,
             form: new Form({
                 user_id:0,
                 amount:'',
@@ -115,16 +119,57 @@ export default {
                 console.log(result.data);
                 this.learners = result.data.learners;
                 this.maxPayments = result.data.maxPayments;
+                dataTableLoad(this.tableID);
             },this);
     },
     methods:{
-            add:function(learner){
-                this.modalHeading = "Add Payment for: "+learner.firstName +" "+learner.lastName;
+            add:function(user_id,firstName,lastName){
+                this.modalHeading = "Add Payment for: "+firstName +" "+lastName;
+                this.form.reset();
+                this.form.user_id = user_id;
+                this.editting = false;
                 $("#myModal").modal('show');
             },
-            edit:function(learner){
-                this.modalHeading = "Edit Payment for: "+learner.firstName +" "+learner.lastName;
+            edit:function(firstName,lastName,payment){
+                this.modalHeading = "Edit Payment for: "+firstName +" "+lastName;
+                this.form.reset();
+                this.form.edit(payment);
+                this.editting = true;
+                this.id = payment.id;
                 $("#myModal").modal('show');
+            },
+            save:function(){
+                if(!this.editting){
+                    this.form.submit('post','finance').then(result =>{
+                        this.learners.forEach(element => {
+                            if(element.id == result.user_id){
+                                element.finance.push(result);
+                                if(element.finance.length > this.maxPayments){
+                                    this.maxPayments = this.maxPayments + 1;
+                                }
+                            }
+                        });
+                        destroyDataTable(this.tableID);
+                        dataTableLoad(this.tableID);
+                        $("#myModal").modal('hide');
+                    },this);
+                }else{
+                    this.form.submit('patch','finance/'+this.id).then(result =>{
+                        var outerIndex = 0;
+                        var innerIndex = 0;
+                        var outerIndex = this.learners.findIndex(element => {
+                                return element.id == result.user_id
+                        });
+
+                        var innerIndex = this.learners[outerIndex].finance.findIndex(element => {
+                                return element.id == result.id;
+                        });
+                        this.learners[outerIndex].finance.splice(innerIndex,1,result);
+                        destroyDataTable(this.tableID);
+                        dataTableLoad(this.tableID);
+                        $("#myModal").modal('hide');
+                    }),this;
+                }
             }
     }
 }

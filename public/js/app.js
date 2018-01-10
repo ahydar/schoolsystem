@@ -5037,7 +5037,13 @@ module.exports = {
 var dataTableLoad = function dataTableLoad(tableID) {
     $(document).ready(function () {
         var table = $('#' + tableID).DataTable({
-            responsive: true
+            'responsive': true,
+            'paging': true,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': true,
+            'autoWidth': true
         });
     });
 };
@@ -101437,16 +101443,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            tableID: '',
+            id: '',
+            tableID: 'financeTable',
             learners: [],
             maxPayments: 0,
             modalHeading: '',
+            editting: false,
             form: new __WEBPACK_IMPORTED_MODULE_1__services_form__["a" /* Form */]({
                 user_id: 0,
                 amount: '',
@@ -101464,17 +101474,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(result.data);
             _this.learners = result.data.learners;
             _this.maxPayments = result.data.maxPayments;
+            Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(_this.tableID);
         }, this);
     },
 
     methods: {
-        add: function add(learner) {
-            this.modalHeading = "Add Payment for: " + learner.firstName + " " + learner.lastName;
+        add: function add(user_id, firstName, lastName) {
+            this.modalHeading = "Add Payment for: " + firstName + " " + lastName;
+            this.form.reset();
+            this.form.user_id = user_id;
+            this.editting = false;
             $("#myModal").modal('show');
         },
-        edit: function edit(learner) {
-            this.modalHeading = "Edit Payment for: " + learner.firstName + " " + learner.lastName;
+        edit: function edit(firstName, lastName, payment) {
+            this.modalHeading = "Edit Payment for: " + firstName + " " + lastName;
+            this.form.reset();
+            this.form.edit(payment);
+            this.editting = true;
+            this.id = payment.id;
             $("#myModal").modal('show');
+        },
+        save: function save() {
+            var _this2 = this;
+
+            if (!this.editting) {
+                this.form.submit('post', 'finance').then(function (result) {
+                    _this2.learners.forEach(function (element) {
+                        if (element.id == result.user_id) {
+                            element.finance.push(result);
+                            if (element.finance.length > _this2.maxPayments) {
+                                _this2.maxPayments = _this2.maxPayments + 1;
+                            }
+                        }
+                    });
+                    Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["b" /* destroyDataTable */])(_this2.tableID);
+                    Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(_this2.tableID);
+                    $("#myModal").modal('hide');
+                }, this);
+            } else {
+                this.form.submit('patch', 'finance/' + this.id).then(function (result) {
+                    var outerIndex = 0;
+                    var innerIndex = 0;
+                    var outerIndex = _this2.learners.findIndex(function (element) {
+                        return element.id == result.user_id;
+                    });
+
+                    var innerIndex = _this2.learners[outerIndex].finance.findIndex(function (element) {
+                        return element.id == result.id;
+                    });
+                    _this2.learners[outerIndex].finance.splice(innerIndex, 1, result);
+                    Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["b" /* destroyDataTable */])(_this2.tableID);
+                    Object(__WEBPACK_IMPORTED_MODULE_0__services_dataTablesService__["a" /* dataTableLoad */])(_this2.tableID);
+                    $("#myModal").modal('hide');
+                }), this;
+            }
         }
     }
 });
@@ -101722,7 +101775,7 @@ var render = function() {
                       staticClass: "btn btn-primary",
                       attrs: { type: "submit" }
                     },
-                    [_vm._v("Submit")]
+                    [_vm._v("Save")]
                   )
                 ]
               )
@@ -101769,7 +101822,11 @@ var render = function() {
                                 staticClass: "btn btn-primary btn-xs",
                                 on: {
                                   click: function($event) {
-                                    _vm.add(learner)
+                                    _vm.add(
+                                      learner.id,
+                                      learner.firstName,
+                                      learner.lastName
+                                    )
                                   }
                                 }
                               },
@@ -101803,7 +101860,11 @@ var render = function() {
                                   staticClass: "btn btn-success btn-xs",
                                   on: {
                                     click: function($event) {
-                                      _vm.edit(learner)
+                                      _vm.edit(
+                                        learner.firstName,
+                                        learner.lastName,
+                                        fin
+                                      )
                                     }
                                   }
                                 },

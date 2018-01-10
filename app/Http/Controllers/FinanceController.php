@@ -32,16 +32,27 @@ class FinanceController extends Controller
         return ['learners' => $learners,'maxPayments' => $maxPayments];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function setup($finance)
     {
-        //
-    }
+        $account_id = Auth::user()->account_id;
 
+        $this -> validate(request(),[
+            'amount' => 'required|numeric',
+            'description' => 'required',
+            'receiptNumber' => 'required',
+            'paymentDate' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $finance -> amount = request('amount');
+        $finance -> description = request('description');
+        $finance -> receiptNumber = request('receiptNumber');
+        $finance -> paymentDate = request('paymentDate');
+        $finance -> user_id = request('user_id');
+        $finance -> account_id = $account_id;
+
+        $finance -> save();
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -51,28 +62,12 @@ class FinanceController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        
+        $finance = new Finance;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Finance  $finance
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Finance $finance)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Finance  $finance
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Finance $finance)
-    {
-        //
+        $this -> setup($finance);
+        
+        return $finance;
     }
 
     /**
@@ -82,9 +77,12 @@ class FinanceController extends Controller
      * @param  \App\Finance  $finance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Finance $finance)
+    public function update(Request $request, $id)
     {
         //
+        $finance = Finance::find($id);
+        $this -> setup($finance);
+        return $finance;
     }
 
     /**

@@ -98,8 +98,8 @@ Route::middleware(['auth'])->group(function () {
       Route::delete('/attendance/{id}','AttendanceController@destroy');*/
       
       Route::get('/finance','FinanceController@index');
-      Route::post('/finance/{user_id}','FinanceController@store');
-      Route::patch('/finance','FinanceController@update');
+      Route::post('/finance','FinanceController@store');
+      Route::patch('/finance/{id}','FinanceController@update');
       Route::delete('/finance/{id}','FinanceController@destroy');
 
       Route::post('/upload', 'ExcelReaderController@read');
