@@ -5,6 +5,7 @@
               <modal modalID="myModal">
                 <div slot="header">
                   <h4>{{modalHeading}}</h4>
+                  <button class="btn btn-danger btn-xs pull-right" v-if="editting">Delete Payment</button>
                 </div>
                 <div slot="body">
                   <form class="form-horizontal" @submit.prevent="save" @keydown="form.errors.clear($event.target.name)">

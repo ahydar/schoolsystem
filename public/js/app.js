@@ -101445,6 +101445,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -101548,7 +101549,15 @@ var render = function() {
         [
           _c("modal", { attrs: { modalID: "myModal" } }, [
             _c("div", { attrs: { slot: "header" }, slot: "header" }, [
-              _c("h4", [_vm._v(_vm._s(_vm.modalHeading))])
+              _c("h4", [_vm._v(_vm._s(_vm.modalHeading))]),
+              _vm._v(" "),
+              _vm.editting
+                ? _c(
+                    "button",
+                    { staticClass: "btn btn-danger btn-xs pull-right" },
+                    [_vm._v("Delete Payment")]
+                  )
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { attrs: { slot: "body" }, slot: "body" }, [
