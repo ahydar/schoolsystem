@@ -57,10 +57,10 @@ desired effect
         @{{pageHead}}
         <!--<small>Optional description</small>-->
       </h1>
-      <ol class="breadcrumb">
+      <!--<ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
         <li class="active">Here</li>
-      </ol>
+      </ol>-->
     </section>
 
     <!-- Main content -->
@@ -79,10 +79,10 @@ desired effect
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      Created by Abdullah Haydar
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2018 <a href="#">Our School Admin</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
