@@ -35,11 +35,13 @@
             </span>
           </a>
           <ul class="treeview-menu">
+          @if(Auth::user() -> id == 1)
             <li>
                 <router-link tag="a" to="/accounts">
                     <i class="fa fa-circle-o"></i> Accounts
                 </router-link>
             </li>
+          @endif
             <li>
                 <router-link tag="a" to="/grades">
                     <i class="fa fa-circle-o"></i> Grades
