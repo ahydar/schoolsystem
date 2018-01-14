@@ -54,4 +54,12 @@ class User extends Authenticatable
     public function finance(){
       return $this -> hasMany('App\Finance');
     }
+
+    public function gaurdian(){
+      return $this -> hasOne('App\Gaurdian');
+    }
+
+    public function userextra(){
+      return $this -> hasOne('App\Userextra');
+    }
 }

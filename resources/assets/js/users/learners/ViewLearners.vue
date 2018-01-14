@@ -2,10 +2,9 @@
   <div>
       <div class="row">
           <div class="col-md-12">
-            <notifications />
             <div class="panel panel-default">
               <div class="panel-heading">
-                <router-link tag="button" class="btn btn-primary" to="/learner">
+                <router-link tag="button" class="btn btn-primary" to="/learnerinfo">
                      New Learners
                 </router-link>
               </div>
@@ -28,11 +27,11 @@
                             </router-link>
                           </td>
                           <td>
-                            <router-link :to="{ name: 'learner', params:{learner:learner}}" class="btn btn-warning btn-xs">
+                            <router-link :to="{ name: 'learnerinfo', params:{learner:learner}}" class="btn btn-warning btn-xs">
                               Edit
                             </router-link>
                           </td>
-                          <td><button v-on:click="remove(learner.id)" class="btn btn-danger btn-xs">Delete</button></td>
+                          <td><button v-on:click="remove(learner.id)" class="btn btn-danger btn-xs" disabled>Delete</button></td>
                         </tr>
                       </tbody>
                   </table>

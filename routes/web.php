@@ -11,10 +11,12 @@
 |
 */
 //Accounts
-Route::get('/app', function () {
-    return view('entrance.app');
-});
 
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect()->intended('login');
+});
 
 
 Route::get('/testform',function(){
@@ -22,6 +24,11 @@ Route::get('/testform',function(){
 });
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/app', function () {
+        return view('entrance.app');
+    });
+    
       Route::get('/accounts','AccountController@index');
       Route::post('/accounts','AccountController@store');
       Route::patch('/accounts/{id}','AccountController@update');
@@ -63,6 +70,13 @@ Route::middleware(['auth'])->group(function () {
       Route::post('/learners','LearnerController@store');
       Route::patch('/learners/{id}','LearnerController@update');
       Route::delete('/learners/{id}','LearnerController@destroy');
+
+      Route::post('/learnerinfo','LearnerController@storeTemp');
+      Route::patch('/learnerinfo/{user_id}','LearnerController@updateTemp');
+
+      Route::get('/gaurdians/{learner_user_id}','GaurdianController@indexTemp'); //Temp means temporary
+      Route::post('/gaurdians/{learner_user_id}','GaurdianController@storeTemp');
+      Route::patch('/gaurdians/{user_id}','GaurdianController@updateTemp');
 
       Route::get('/learnersubjects/{user_id}/{form_id}','LearnersubjectController@index');
       Route::post('/learnersubjects','LearnersubjectController@store');
