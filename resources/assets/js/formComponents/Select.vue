@@ -1,7 +1,7 @@
 <template>
     <div class="form-group">
         <label>{{title}} <span v-if="required" style="color:red;">*</span></label>
-         <select class="form-control" :id="field" :name='field' v-model="form[field]" :title="title">
+         <select class="form-control" :id="field" :name='field' v-model="form[field]">
         <option v-for="item in items" v-bind:value="item[names.value]">
             {{ item[names.display] }}
         </option>
