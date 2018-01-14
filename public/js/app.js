@@ -90684,44 +90684,22 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__About__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__About___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__About__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Confirm__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Confirm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Confirm__);
 //
 //
 //
 //
 //
 //
-//
-//
-//
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { 'about': __WEBPACK_IMPORTED_MODULE_0__About___default.a, 'confirm': __WEBPACK_IMPORTED_MODULE_1__components_Confirm___default.a },
-  data: function data() {
-    return {
-      name: "Abdullah"
-    };
-  },
-  mounted: function mounted() {},
+    data: function data() {
+        return {
+            name: "Abdullah"
+        };
+    },
+    mounted: function mounted() {},
 
-  methods: {
-    say: function say(name) {
-      alert("About announced " + name.name);
-    },
-    change: function change(input) {
-      this.name = input;
-      $("#delete").modal("show");
-    },
-    process: function process() {
-      console.log("thank you for confirming");
-      $("#delete").modal("hide");
-    }
-  }
+    methods: {}
 });
 
 /***/ }),
@@ -90919,52 +90897,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("h1", { staticStyle: { color: "green" } }, [
-        _vm._v("THis is the home page")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.name,
-            expression: "name"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.name = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("about", {
-        attrs: { send: _vm.name },
-        on: { made: _vm.say, change: _vm.change }
-      }),
-      _vm._v(" "),
-      _c("confirm", {
-        attrs: {
-          message: "Hello there",
-          btnClass: "primary",
-          modalID: "delete"
-        },
-        on: { confirmed: _vm.process }
-      })
-    ],
-    1
-  )
+  return _vm._m(0, false, false)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("Welcome")])])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
