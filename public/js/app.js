@@ -96735,7 +96735,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Learner Details")])
+      _c("h3", { staticClass: "box-title" }, [
+        _vm._v("Responsible for payment of fees.")
+      ])
     ])
   },
   function() {

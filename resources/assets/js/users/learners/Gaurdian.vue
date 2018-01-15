@@ -2,7 +2,7 @@
 
         <div class="box box-info">
             <div class="box-header with-border">
-            <h3 class="box-title">Learner Details</h3>
+            <h3 class="box-title">Responsible for payment of fees.</h3>
             </div>
             <!-- /.box-header -->
            <div class="box-body">

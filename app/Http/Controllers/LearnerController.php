@@ -94,12 +94,12 @@ class LearnerController extends Controller
                                     ->select('gender','form_id','learnerNumber')
                                     ->orderBy('learnerNumber','desc')
                                     ->first();
-
+        $subform = $form_id - 2;
         if($lastStudentNumber == null){
             if($gender == "Male"){
-                return "M18-".$form_id."-001";
+                return "M18-".$subform ."-001";
             }else{
-                return "F18-".$form_id."-001";
+                return "F18-".$subform ."-001";
             }
         }
         $number = $lastStudentNumber -> learnerNumber;
