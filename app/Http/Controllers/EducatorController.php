@@ -45,7 +45,10 @@ class EducatorController extends Controller
 
       $account_id = Auth::user() -> account_id;
 
-      $user_exist = User::where('email','=',request('email'))->get();
+      $user_exist = User::where([
+          ['email','=',request('email')],
+          ['account_id','=',$account_id]
+      ])->get();
 
       if(count($user_exist) > 0){
           return ["exists" => "User with the provided email exist already"];
