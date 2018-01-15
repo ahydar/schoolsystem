@@ -178,8 +178,6 @@ export default {
                 this.details = learner;
                 this.details['daily_attendance'][this.day]['user_id'] = learner.id;
                 $("#myModal").modal("show");
-                
-                $('.selectpicker').selectpicker('val',this.status);
         },
         save:function(){
                 this.details['daily_attendance'][this.day]['status'] = this.status;
@@ -187,6 +185,7 @@ export default {
                 console.log(this.details['daily_attendance'][this.day]);
                 axios.post('/attendance',this.details['daily_attendance'][this.day]).then(response =>{
                         console.log(response.data);
+                        $("#myModal").modal('hide');
                 });
         }
     }

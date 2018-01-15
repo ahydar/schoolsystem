@@ -100055,8 +100055,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.details = learner;
             this.details['daily_attendance'][this.day]['user_id'] = learner.id;
             $("#myModal").modal("show");
-
-            $('.selectpicker').selectpicker('val', this.status);
         },
         save: function save() {
             this.details['daily_attendance'][this.day]['status'] = this.status;
@@ -100064,6 +100062,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.details['daily_attendance'][this.day]);
             axios.post('/attendance', this.details['daily_attendance'][this.day]).then(function (response) {
                 console.log(response.data);
+                $("#myModal").modal('hide');
             });
         }
     }
