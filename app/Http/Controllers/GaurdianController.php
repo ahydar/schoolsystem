@@ -51,12 +51,7 @@ class GaurdianController extends Controller
           ]);
   
           $account_id = Auth::user() -> account_id;
-  
-          $user_exist = User::where('email','=',request('email'))->get();
-  
-          if(count($user_exist) > 0){
-              return ["exists" => "User with the provided email exist already"];
-          }
+          
           $user = new User;
           $user -> firstName = request('firstName');
           $user -> lastName = request('lastName');
