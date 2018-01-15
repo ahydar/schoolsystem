@@ -107,7 +107,7 @@ class LearnerController extends Controller
         $num = intval($split[2]) + 1;
         
         $subform = $split[1] - 2;
-        $newNumber = $split[0]."-".$subform."-";
+        $newNumber = $split[0].$subform."-";
         if($num < 10){
             $newNumber = $newNumber."00".$num;
         }else if($num < 100){
