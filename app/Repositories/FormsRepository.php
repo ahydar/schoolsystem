@@ -11,7 +11,7 @@ class FormsRepository
     //
     public function GetAllClasses(){
         $account_id = Auth::user() -> account_id;
-        $forms = Form::where('account_id','=',$account_id);
+        $forms = Form::where('account_id','=',$account_id) -> get();
 
         $firstItem = ["id" => 0,"formName" => "Select a class"];
         return $forms -> prepend($firstItem);
