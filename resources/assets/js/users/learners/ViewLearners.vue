@@ -31,7 +31,7 @@
                               Edit
                             </router-link>
                           </td>
-                          <td><button v-on:click="remove(learner.id)" class="btn btn-danger btn-xs" disabled>Delete</button></td>
+                          <td><button v-on:click="remove(learner.id)" class="btn btn-danger btn-xs">Delete</button></td>
                         </tr>
                       </tbody>
                   </table>

@@ -296,9 +296,15 @@ class LearnerController extends Controller
 
         $learner = $user -> learner;
 
+        $userextras = $user -> userextra;
+
         if($learner != null){
           $learner -> delete();
         }
+
+        if($userextras != null){
+            $userextras -> delete();
+          }
 
         $user -> delete();
 

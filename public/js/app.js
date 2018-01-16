@@ -94856,7 +94856,6 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn btn-danger btn-xs",
-                              attrs: { disabled: "" },
                               on: {
                                 click: function($event) {
                                   _vm.remove(learner.id)
