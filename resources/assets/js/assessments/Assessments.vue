@@ -2,7 +2,7 @@
   <div>
     <div class="row">
         <div class="col-md-3">
-            <subjectslist></subjectslist>
+            <!--<subjectslist></subjectslist>-->
             <div class="panel panel-default">
               <div class="panel-heading">Subjects</div>
               <div class="panel-body">
