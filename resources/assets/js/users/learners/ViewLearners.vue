@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <router-link tag="button" class="btn btn-primary" to="/learnerinfo">
+                <router-link tag="button" class="btn btn-primary" to="/learner">
                      New Learners
                 </router-link>
               </div>
@@ -27,7 +27,7 @@
                             </router-link>
                           </td>
                           <td>
-                            <router-link :to="{ name: 'learnerinfo', params:{learner:learner}}" class="btn btn-warning btn-xs">
+                            <router-link :to="{ name: 'learner', params:{learner:learner}}" class="btn btn-warning btn-xs">
                               Edit
                             </router-link>
                           </td>
