@@ -82,7 +82,7 @@ desired effect
       Created by Abdullah Haydar
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2018 <a href="#">Our School Admin</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2018 <a href="#/"><b>Edu</b>System</a>.</strong> All rights reserved.
   </footer>
 
   <!-- Control Sidebar -->
