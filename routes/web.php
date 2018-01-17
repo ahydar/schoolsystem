@@ -18,6 +18,11 @@ Route::get('/logout', function () {
     return redirect()->intended('login');
 });
 
+Route::domain('{account}.edusystem.co.za')->group(function () {
+    Route::get('', function ($account) {
+        return view('auth.login');
+    });
+});
 
 Route::get('/testform',function(){
   return view('testform');
